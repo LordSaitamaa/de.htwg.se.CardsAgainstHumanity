@@ -1,5 +1,5 @@
 package model
 
-case class Cards() {
+case class Cards(beschreibung:String) {
 
 }
