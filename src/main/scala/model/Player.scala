@@ -1,5 +1,5 @@
 package model
 
-case class Player(card:List[Cards], isActive:Boolean, numberToThrow:Int) {
+case class Player(isActive:Boolean, numberToThrow:Int) {
 
 }
