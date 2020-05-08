@@ -1,15 +1,12 @@
-import model.Cards
+import jdk.internal.joptsimple.internal.Strings
 
-case class Player(isActive:Boolean, throwNum:Int){
+case class Player(cards:List[String],isActive:Boolean, throwNum:Int){
   def numberToThrow = throwNum
   def activeTurn = isActive
+  def cardsList = cards.toString()
 }
-val test = Player(true,1)
+val list: List[String] = List("A","B","c")
+val test = Player(list,true,1)
+test.cardsList
 test.isActive
 test.numberToThrow
-
-val karte1 = new Cards("test1")
-val karte2 = new Cards("test2")
-val karte3 = new Cards("test3")
-
-val cards = List(karte1, karte2, karte3)
