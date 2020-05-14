@@ -8,13 +8,13 @@ trait Card {
   def getAllAddedCards: ListBuffer[Card]
 }
 
-class KompositumCard extends Card {
+class KompositumCard() extends Card {
   private var userAddedCards = ListBuffer[Card]()
   override def printCard = {
     userAddedCards.foreach((c:Card)=>{
       c.printCard
     })
-    print(")")
+    print(")\n")
   }
 
   override def addNewCard(card: Card): Unit ={

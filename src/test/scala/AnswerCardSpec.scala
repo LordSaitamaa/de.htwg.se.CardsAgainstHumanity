@@ -12,10 +12,17 @@ class AnswerCardSpec extends AnyWordSpec  with Matchers {
       kompositumCard.addNewCard(userAnswerOne)
       kompositumCard.addNewCard(userQuestion)
       "Have 2 Cards" in {
-        assert(kompositumCard.getAllAddedCards().length == 2)
+        println(assert(kompositumCard.getAllAddedCards().length == 2))
       }
       "print its text" in {
         kompositumCard.printCard
+      }
+      "Have a list of both Card Types" in {
+       println(kompositumCard.getAllAddedCards())
+      }
+      "Should have 1 left after remove" in {
+        kompositumCard.removeCard(userAnswerOne)
+        println(assert(kompositumCard.getAllAddedCards().length == 1))
       }
     }
   }
