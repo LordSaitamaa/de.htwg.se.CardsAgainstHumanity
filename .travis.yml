@@ -1,12 +1,12 @@
-language : scala
+language: scala
 
-scala:
-- 2.13.2
+   scala:
+    - 2.13.2
 
-script:
-- sbt clean coverage test coverageReport
-- sbt -jvm-opts travis/jvmopts.compile ... compile
- - sbt -jvm-opts travis/jvmopts.test ... test
+   script:
+    - sbt clean coverage test coverageReport
+    - sbt -jvm-opts travis/jvmopts.compile ... compile
+     - sbt -jvm-opts travis/jvmopts.test ... test
 
-after_success:
-- sbt coverageReport coveralls
+   after_success:
+    - sbt coverageReport coveralls
