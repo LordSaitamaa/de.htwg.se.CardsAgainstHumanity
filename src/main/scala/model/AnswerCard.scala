@@ -9,5 +9,4 @@ case class AnswerCard(antwort:String,isActive:Boolean) extends Card {
 
   override def removeCard(card: Card): KompositumCard = {throw new UnsupportedOperationException}
 
-  override def getAllAddedCards: List[Card] = {throw new UnsupportedOperationException}
 }

@@ -9,21 +9,19 @@ class UserCardSpec extends AnyWordSpec  with Matchers {
       val userAnswerOne =  AnswerCard("a",true)
       val userQuestion =  QuestionCard("a?", true)
       val list = List[KompositumCard]()
-      val kompCard =  KompositumCard(list)
-      kompCard.addNewCard(userAnswerOne)
-      kompCard.addNewCard(userQuestion)
+      var kompCard =  KompositumCard(list)
+      kompCard = kompCard.addNewCard(userAnswerOne)
+      kompCard = kompCard.addNewCard(userQuestion)
+
       "Have 2 Cards" in {
-        kompCard.getAllAddedCards().length shouldBe(2)
+        kompCard.userAddedCard.length shouldBe(2)
       }
       "print its text" in {
         kompCard.printCard
       }
-      "Have a list of both Card Types" in {
-        kompCard.getAllAddedCards()
-      }
       "Should have 1 left after remove" in {
-        kompCard.removeCard(userAnswerOne)
-        kompCard.getAllAddedCards().length shouldBe(1)
+       kompCard = kompCard.removeCard(userAnswerOne)
+        kompCard.userAddedCard.length shouldBe(1)
       }
     }
   }
