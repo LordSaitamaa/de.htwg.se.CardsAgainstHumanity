@@ -5,8 +5,6 @@ language: scala
 
    script:
     - sbt clean coverage test coverageReport
-    - sbt -jvm-opts travis/jvmopts.compile ... compile
-     - sbt -jvm-opts travis/jvmopts.test ... test
 
    after_success:
     - sbt coverageReport coveralls
