@@ -10,8 +10,8 @@ import org.scalatest.matchers.should.Matchers
         val playerTwo = new Player("Heinz", true)
 
         "return their status" in {
-          println(assert(playerOne.getStatus == false))
-          println(assert(playerTwo.getStatus == true))
+          println(assert(!playerOne.getStatus))
+          println(assert(playerTwo.getStatus))
         }
         "print their names" in {
 
