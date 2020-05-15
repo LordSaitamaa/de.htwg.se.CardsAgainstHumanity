@@ -1,25 +1,24 @@
 package model
-import scala.collection.mutable.ListBuffer
+
 
 trait Card {
   def printCard
-  def addNewCard(card:Card)
-  def removeCard(card:Card)
-  def getAllAddedCards: ListBuffer[Card]
+  def addNewCard(card:Card) : KompositumCard
+  def removeCard(card:Card) : KompositumCard
+  def getAllAddedCards: List[Card]
 }
 
-class KompositumCard() extends Card {
-  private var userAddedCards = ListBuffer[Card]()
+case class KompositumCard(userAddedCard:List[Card]) extends Card {
   override def printCard = {
-    userAddedCards.foreach((c:Card)=>{
+    userAddedCard.foreach((c:Card)=>{
       c.printCard
     })
     print(")\n")
   }
-  override def addNewCard(card: Card): Unit ={userAddedCards.addOne(card)}
+  override def addNewCard(card: Card): KompositumCard = {copy(userAddedCard.appended(card))}
 
-  override def removeCard(card:Card): Unit ={userAddedCards -= card}
+  override def removeCard(card:Card): KompositumCard = {copy(userAddedCard.filterNot(_ == card))}
 
-  override def getAllAddedCards(): ListBuffer[Card] ={userAddedCards}
+  override def getAllAddedCards(): List[Card] ={userAddedCard}
 }
 

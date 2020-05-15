@@ -1,28 +1,29 @@
+import javax.smartcardio.Card
 import model._
-
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 
 class UserCardSpec extends AnyWordSpec  with Matchers {
   "A Kompositum" when {
     "set a new Card" should{
-      val userAnswerOne = new AnswerCard("a",true)
-      val userQuestion = new QuestionCard("a?", true)
-      val kompositumCard = new KompositumCard()
-      kompositumCard.addNewCard(userAnswerOne)
-      kompositumCard.addNewCard(userQuestion)
+      val userAnswerOne =  AnswerCard("a",true)
+      val userQuestion =  QuestionCard("a?", true)
+      val list = List[KompositumCard]()
+      val kompCard =  KompositumCard(list)
+      kompCard.addNewCard(userAnswerOne)
+      kompCard.addNewCard(userQuestion)
       "Have 2 Cards" in {
-        println(assert(kompositumCard.getAllAddedCards().length == 2))
+        kompCard.getAllAddedCards().length shouldBe(2)
       }
       "print its text" in {
-        kompositumCard.printCard
+        kompCard.printCard
       }
       "Have a list of both Card Types" in {
-       println(kompositumCard.getAllAddedCards())
+        kompCard.getAllAddedCards()
       }
       "Should have 1 left after remove" in {
-        kompositumCard.removeCard(userAnswerOne)
-        println(assert(kompositumCard.getAllAddedCards().length == 1))
+        kompCard.removeCard(userAnswerOne)
+        kompCard.getAllAddedCards().length shouldBe(1)
       }
     }
   }

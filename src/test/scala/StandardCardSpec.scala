@@ -7,9 +7,11 @@ class StandardCardSpec extends AnyWordSpec with Matchers with GivenWhenThen{
 
   "Standard Card" should {
     "never have lists without elements" in{
-      val a = new StandardCards
-      assert(a.getStandardAnswer.length > 0)
-      assert(a.getQuestionCards.length > 0)
+      val l1 =  List("Ich bin _ toll", "Du bist _ toll")
+      val l2 = List("nicht", "auf gar keinen fall")
+      val a = new StandardCards(l1,l2)
+      a.getStandardAnswer.length shouldBe(2)
+      a.getQuestionCards.length shouldBe (2)
 
       Given ("The two final Lists")
       a.printStandardAnswer
@@ -19,7 +21,7 @@ class StandardCardSpec extends AnyWordSpec with Matchers with GivenWhenThen{
       val  b = a.getQuestionCards
 
       Then("b should have same Size like QuestionCards")
-      assert(b.length == a.getQuestionCards.length)
+      b.length shouldBe(a.getQuestionCards.length)
 
     }
   }
