@@ -16,14 +16,9 @@ class KompositumCard() extends Card {
     })
     print(")\n")
   }
+  override def addNewCard(card: Card): Unit ={userAddedCards.addOne(card)}
 
-  override def addNewCard(card: Card): Unit ={
-    userAddedCards.addOne(card)
-  }
-
-  override def removeCard(card:Card): Unit ={
-    userAddedCards -= card
-  }
+  override def removeCard(card:Card): Unit ={userAddedCards -= card}
 
   override def getAllAddedCards(): ListBuffer[Card] ={userAddedCards}
 }

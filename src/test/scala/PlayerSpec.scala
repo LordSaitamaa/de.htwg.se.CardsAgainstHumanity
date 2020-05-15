@@ -1,8 +1,6 @@
-class PlayerSpec {
-
-  import model._
-  import org.scalatest.wordspec.AnyWordSpec
-  import org.scalatest.matchers.should.Matchers
+import model._
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
   class PlayerSpec  extends AnyWordSpec  with Matchers {
 
@@ -30,4 +28,3 @@ class PlayerSpec {
   }
 
 
-}
