@@ -9,15 +9,21 @@ import org.scalatest.matchers.should.Matchers
       val playerTwo =  Player("Heinz", true)
       "A player" should{
 
-        "return their status" in {
-          playerOne.getStatus shouldBe(false)
-          playerTwo.getStatus shouldBe(true)
+
+      "a player" should{
+
+        "return their state" in {
+          playerOne.getStatus shouldBe false
+          playerTwo.getStatus shouldBe true
+        }
+        "is able to change his state" in {
+          playerOne = playerOne.changeState
+          playerOne.getStatus shouldBe true
         }
 
-        "print their names" in {
-          playerOne.getName shouldBe("Hugo")
-          playerTwo.getName shouldBe("Heinz")
-
+        "have a name" in {
+          playerOne.getName shouldBe "Hugo"
+          playerTwo.getName shouldBe "Heinz"
         }
         "show their text" in {
           playerOne.toString
