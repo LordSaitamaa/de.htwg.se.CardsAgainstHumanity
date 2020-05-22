@@ -5,22 +5,26 @@ import org.scalatest.matchers.should.Matchers
 
 class StandardCardSpec extends AnyWordSpec with Matchers with GivenWhenThen{
 
-  "Standard Card" should {
-    "never have lists without elements" in{
-      val a = new StandardCards
-      assert(a.getStandardAnswer.length > 0)
-      assert(a.getQuestionCards.length > 0)
+  "A standard Card List" when {
+    "Standard Card" should {
+      "never have lists without elements" in {
+        val l1 = List("Ich bin _ toll", "Du bist _ toll")
+        val l2 = List("nicht", "auf gar keinen fall")
+        val a = StandardCards(l1, l2)
+        a.getStandardAnswer.length shouldBe (2)
+        a.getQuestionCards.length shouldBe (2)
 
-      Given ("The two final Lists")
-      a.printStandardAnswer
-      a.printStandardQuestion
+        Given("The two final Lists")
+        a.printStandardAnswer
+        a.printStandardQuestion
 
-      When("we want the list")
-      val  b = a.getQuestionCards
+        When("we want the list")
+        val b = a.getQuestionCards
 
-      Then("b should have same Size like QuestionCards")
-      assert(b.length == a.getQuestionCards.length)
+        Then("b should have same Size like QuestionCards")
+        b.length shouldBe (a.getQuestionCards.length)
 
+      }
     }
   }
 

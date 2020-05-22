@@ -5,23 +5,23 @@ import org.scalatest.matchers.should.Matchers
   class PlayerSpec  extends AnyWordSpec  with Matchers {
 
     "It´s a player" when {
-      "Set new Players" should{
-        val playerOne = new Player("Hugo", false)
-        val playerTwo = new Player("Heinz", true)
+      val playerOne = new Player("Hugo", false)
+      val playerTwo = new Player("Heinz", true)
+      "A player" should{
 
         "return their status" in {
-          println(assert(!playerOne.getStatus))
-          println(assert(playerTwo.getStatus))
+          playerOne.getStatus shouldBe(false)
+          playerTwo.getStatus shouldBe(true)
         }
-        "print their names" in {
 
-          println(playerOne.getName)
-          println(playerTwo.getName)
+        "print their names" in {
+          playerOne.getName shouldBe("Hugo")
+          playerTwo.getName shouldBe("Heinz")
 
         }
         "show their text" in {
-          println(playerOne.toString)
-          println(playerTwo.toString)
+          playerOne.toString
+          playerTwo.toString
         }
       }
     }
