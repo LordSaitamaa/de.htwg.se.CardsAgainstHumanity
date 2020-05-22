@@ -1,8 +1,8 @@
 package control
-import model.{InitCardDecks, Player}
+import model.{SetupGame, Player}
 import utils.Observable
 
-class Controller(var gameCards:InitCardDecks) extends Observable{
+class Controller(var gameCards:SetupGame) extends Observable{
   val players = Vector(
      Player("Horst",false),
      Player("Hans",false)
