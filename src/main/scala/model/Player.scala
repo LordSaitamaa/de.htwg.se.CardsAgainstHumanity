@@ -8,7 +8,4 @@ case class Player(name:String,isAnswering:Boolean, var playerCards:List[AnswerCa
 
     copy(this.name, !this.isAnswering)
   }
-
-  // Controller fertig machen
-  //
 }
