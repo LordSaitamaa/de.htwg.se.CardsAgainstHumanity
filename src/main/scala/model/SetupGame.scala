@@ -19,16 +19,16 @@ case class SetupGame(standardCards: StandardCards,var kompositumCard: Kompositum
     copy(standardCards,kompositumCard,player)
   }
 
-  def handOutCards(): SetupGame ={
+  def handOutCards(): SetupGame = {
     var count = 0
     var cardcount = 0
     val maxCardOnHand = 7
-
-    while(count < maxCardOnHand) {
-      for(x <- player){
-        if(cardcount >= answerList.length){
+    while (count < maxCardOnHand) {
+      for (x <- player) {
+        if (cardcount >= answerList.length) {
           break
         }
+        x.playerCards = x.playerCards :+ answerList(cardcount).asInstanceOf[AnswerCard]
         x.playerCards = x.playerCards :+ answerList(cardcount)
         cardcount = cardcount + 1
       }
@@ -38,18 +38,17 @@ case class SetupGame(standardCards: StandardCards,var kompositumCard: Kompositum
     copy(standardCards,kompositumCard,player)
   }
 
-  def placeQuestionCard(): String = {
-    val max = questionList.length
-    val min = 0
-    val rnd = scala.util.Random
-    val quest = questionList(rnd.nextInt(max - min))
-    val returnQuest = quest.question
-    returnQuest
-  }
+      def placeQuestionCard(): String = {
+        val max = questionList.length
+        val min = 0
+        val rnd = scala.util.Random
+        val quest = questionList(rnd.nextInt(max - min))
+        val returnQuest = quest.question
+        returnQuest
+      }
 
-  def placeCard(card:AnswerCard): String = {
-    kompositumCard.removeCard(card)
-    card.getCard()
-  }
-
+      def placeCard(card: AnswerCard): String = {
+        kompositumCard.removeCard(card)
+        card.getCard()
+      }
 }

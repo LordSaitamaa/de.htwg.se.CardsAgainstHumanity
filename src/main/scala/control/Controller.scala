@@ -7,6 +7,8 @@ class Controller(var setupGame:SetupGame) extends Observable{
   var activePlayer = 0
   var first = List[AnswerCard]()
   var second = List[AnswerCard]()
+  var round = 0;
+  // var roundlimit = 4;
 
 
   // Init Card Deck with all Standard Cards and User Added Cards
@@ -18,35 +20,31 @@ class Controller(var setupGame:SetupGame) extends Observable{
     notifyObservers
   }
 
-  def handOutCards():Unit ={
-    setupGame = setupGame.handOutCards()
-    //println("Player 1 Cards" + setupGame.player(0).playerCards)
-    //println("Player 2 Cards" + setupGame.player(1).playerCards)
-    notifyObservers
+    def handOutCards():Unit ={
+      setupGame = setupGame.handOutCards()
+      //println("Player 1 Cards" + setupGame.player(0).playerCards)
+      //println("Player 2 Cards" + setupGame.player(1).playerCards)
+      notifyObservers
+      var s = "Player 1 Cards" + setupGame.player(0).playerCards + "\n" + "Player 2 Cards " +
+        setupGame.player(1).playerCards + "\n"
+    }
 
-    var s = "Player 1 Cards" + setupGame.player(0).playerCards + "\n" + "Player 2 Cards " +
-      setupGame.player(1).playerCards + "\n"
-    s
-  }
+      def question():Unit = {
+        val quest = setupGame.placeQuestionCard()
+        setupGame = setupGame.copy(setupGame.standardCards, setupGame.kompositumCard, setupGame.player, setupGame.answerList, setupGame.questionList, setupGame.roundAnswerCards, quest)
+        notifyObservers
+      }
 
-  def question():Unit = {
-    val quest = setupGame.placeQuestionCard()
-    setupGame = setupGame.copy(setupGame.standardCards, setupGame.kompositumCard, setupGame.player, setupGame.answerList, setupGame.questionList, setupGame.roundAnswerCards, quest)
-    notifyObservers
-    quest
-  }
+        def put(cardIndex: Int):Unit = {
 
-  def put(cardIndex: Int):Unit = {
+          val answerCard = setupGame.player(activePlayer).playerCards(cardIndex)
+          val ret = setupGame.placeCard(answerCard)
+          //setupGame.roundQuestion.replace("_", ret)
+          var s = setupGame.player(activePlayer).getName + " hat folgende Karte gelegt: " + ret + "\n" + "Spieler " + (((activePlayer + 1)% setupGame.player.length)+1) + " ist am Zug."
 
-    val answerCard = setupGame.player(activePlayer).playerCards(cardIndex)
-    val ret = setupGame.placeCard(answerCard)
-    //setupGame.roundQuestion.replace("_", ret)
-    var s = setupGame.player(activePlayer).getName + " hat folgende Karte gelegt: " + ret + "\n" + "Spieler " + (((activePlayer + 1)% setupGame.player.length)+1) + " ist am Zug."
-    s
-  }
+        }
 
-  def showAnswers():Unit = {
+        def showAnswers():Unit = {
 
-  }
-
-}
+        }
+      }
