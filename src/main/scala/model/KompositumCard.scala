@@ -1,15 +1,12 @@
 package model
 
-import scala.collection.mutable.ListBuffer
-
-
 trait  Card {
   def printCard
   def addNewCard(card:Card) : KompositumCard
   def removeCard(card:Card) : KompositumCard
 }
 
-case class KompositumCard(cardList:List[Card]) extends Card {
+case class KompositumCard(var cardList:List[Card]) extends Card {
   override def printCard = {
     cardList.foreach((c:Card)=>{
       c.printCard
@@ -18,11 +15,8 @@ case class KompositumCard(cardList:List[Card]) extends Card {
   }
 
   override def addNewCard(card: Card): KompositumCard = {
-    val mutableList = ListBuffer[Card]()
-    mutableList.addAll(cardList)
-    mutableList += card
-    val immutableList = List.empty ++ mutableList
-    copy(immutableList)
+   cardList = cardList :+ card
+    copy(cardList)
   }
 
   override def removeCard(card:Card): KompositumCard = {copy(cardList.filterNot(_ == card))}
