@@ -9,22 +9,25 @@ trait  Card {
   def removeCard(card:Card) : KompositumCard
 }
 
-case class KompositumCard(userAddedCard:List[Card]) extends Card {
+case class KompositumCard(cardList:List[Card]) extends Card {
   override def printCard = {
-    userAddedCard.foreach((c:Card)=>{
+    cardList.foreach((c:Card)=>{
       c.printCard
     })
     print(")\n")
   }
+
   override def addNewCard(card: Card): KompositumCard = {
     val mutableList = ListBuffer[Card]()
-    mutableList.addAll(userAddedCard)
+    mutableList.addAll(cardList)
     mutableList += card
     val immutableList = List.empty ++ mutableList
     copy(immutableList)
   }
 
-  override def removeCard(card:Card): KompositumCard = {copy(userAddedCard.filterNot(_ == card))}
+  override def removeCard(card:Card): KompositumCard = {copy(cardList.filterNot(_ == card))}
+
+
 
 }
 
