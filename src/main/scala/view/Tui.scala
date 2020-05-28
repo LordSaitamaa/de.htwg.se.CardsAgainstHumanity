@@ -16,9 +16,9 @@ class Tui(controller:Controller) extends Observer{
     ,"super","Bombenanschläge","Wasser zu verschwenden","hugo","fawe","adsads"
     ,"adfs","gfdagads","fasfsa","fsafsa","fasfasfas","afsfsaafs")
   val standardCards = StandardCards(standardQ,standardA)
-  var userCards = List[Card]()
+  var userCards = List[Card](AnswerCard("Ich bin der aller beste"))
   var kompositumCard = KompositumCard(userCards)
-  controller.notifyObservers
+  kompositumCard = kompositumCard.addNewCard(AnswerCard("i bin so geil"))
 
   def processInputLine(input:String):Unit = {
     input match{
@@ -26,22 +26,18 @@ class Tui(controller:Controller) extends Observer{
       case "new" => controller.initCardDeck(standardCards,kompositumCard,player)
       case "handout" => println(controller.handOutCards());
       case "throw" => println(controller.question())
-      case _ =>
-        try{
-          input.toList.filter(c => c!= ' ').map(c => c.toString.toInt)match{
-            case x :: Nil =>
-              if(x > 6 || x < 0)
-                println("Kein Gütlige Karte")
-              else{
-                println(controller.put(x))
-              }
+      case _ => input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match{
+            case x :: Nil => if(x > 6 || x < 0) println("Kein Gütlige Karte") else println(controller.put(x))
+            case _ =>
           }
-        }catch {
-          case _: NumberFormatException =>
-        }
     }
   }
 
 
-  override def update(): Unit = println("hello")
+  override def update(): Unit = {
+    println("Aktueller Spiel Status")
+    println(controller.setupGame.toString)
+  }
+
+
 }
