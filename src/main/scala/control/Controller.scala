@@ -1,18 +1,37 @@
 package control
-import model.{SetupGame, Player}
+import model.{AnswerCard, KompositumCard, Player, SetupGame, StandardCards}
 import utils.Observable
 
-class Controller(var gameCards:SetupGame) extends Observable{
-  val players = Vector(
-     Player("Horst",false),
-     Player("Hans",false)
-  )
-  val activePlayer = 0
+class Controller(var setupGame:SetupGame) extends Observable{
 
-  def getCurrentPlayer: Player = players(activePlayer)
+  var activePlayer = 0
+  var first = List[AnswerCard]()
+  var second = List[AnswerCard]()
 
-  def initCardDeck(): Unit ={
 
+  // Init Card Deck with all Standard Cards and User Added Cards
+  def initCardDeck(standardCards: StandardCards, kompositumCard: KompositumCard,player:Vector[Player]): Unit ={
+    setupGame = SetupGame(standardCards, kompositumCard, player)
+    setupGame = setupGame.createCardDeck()
+    notifyObservers
   }
 
+  def handOutCards(): Unit ={
+    setupGame = setupGame.handOutCards()
+    println("Player 1 Cards" + setupGame.player(0).playerCards)
+    println("Player 2 Cards" + setupGame.player(1).playerCards)
+    notifyObservers
+  }
+
+  def question(): String = {
+    val quest = setupGame.placeQuestionCard()
+    notifyObservers
+    quest
+  }
+
+  def put(cardIndex: Int):String = {
+    val answerCard = setupGame.player(activePlayer).playerCards(cardIndex)
+    val ret = setupGame.placeCard(answerCard)
+    ret
+  }
 }
