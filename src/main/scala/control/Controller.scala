@@ -17,15 +17,11 @@ class Controller(var setupGame:SetupGame) extends Observable{
     val questionList = List[QuestionCard]()
     setupGame = SetupGame(standardCards, player, answerList, questionList, null, null) // Alle Antwortkarten nicht bekannt, die aktuelle Frage auch nicht
     setupGame = setupGame.createCardDeck(kompositumCard)
-   // println("Answer Cards " + setupGame.answerList)
-  //  println("Question Cards " + setupGame.questionList)
     notifyObservers
   }
 
     def handOutCards():Unit ={
       setupGame = setupGame.handOutCards()
-      println("Player 1 Cards" + setupGame.player(0).playerCards)
-      println("Player 2 Cards" + setupGame.player(1).playerCards)
       notifyObservers
     }
 
@@ -37,13 +33,9 @@ class Controller(var setupGame:SetupGame) extends Observable{
 
         def put(cardIndex: Int):Unit = {
            val answerCard = setupGame.player(activePlayer).playerCards(cardIndex)
-           //setupGame = setupGame.placeCard(activePlayer,cardIndex)
           setupGame = setupGame.placeCard(activePlayer,answerCard)
-
           activePlayer = (activePlayer + 1) % setupGame.player.length
            notifyObservers
-          //setupGame.roundQuestion.replace("_", ret)
-        //  var s = setupGame.player(activePlayer).getName + " hat folgende Karte gelegt: " + ret + "\n" + "Spieler " + (((activePlayer + 1)% setupGame.player.length)+1) + " ist am Zug."
         }
 
 }

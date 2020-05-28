@@ -25,17 +25,6 @@ case class SetupGame(standardCards: StandardCards, player:Vector[Player]
   def handOutCards(): SetupGame = {
     var cardcount = 0
     val maxCardOnHand = 7
-    /*while (count < maxCardOnHand) {
-      for (x <- player) {
-        if (cardcount >= answerList.length) {
-          break
-        }
-        x.playerCards = x.playerCards :+ answerList(cardcount)
-        answerList.filterNot(_ == answerList(cardcount))
-        cardcount = cardcount + 1
-      }
-      count = count + 1
-    }*/
     var immutable = List[AnswerCard]()
     immutable = immutable ++ answerList
     var tmpPlayerVecList = Vector[Player]()
@@ -82,7 +71,6 @@ case class SetupGame(standardCards: StandardCards, player:Vector[Player]
         var tmpPlayerVecList: Vector[Player] = Vector()
         tmpPlayerVecList = tmpPlayerVecList ++ player
         tmpPlayerVecList = tmpPlayerVecList.updated(activePlayer,Player(player(activePlayer).name, true, newPlayerHand))
-        println("Tmp Player Vec List "+ tmpPlayerVecList(activePlayer).playerCards)
         copy(standardCards,tmpPlayerVecList,answerList,questionList,tmpPlacedCardMap,roundQuestion)
       }
 
@@ -100,7 +88,6 @@ case class SetupGame(standardCards: StandardCards, player:Vector[Player]
     }else {
       sb ++= "nix"
     }
-
     sb.toString()
   }
 }

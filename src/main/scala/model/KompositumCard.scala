@@ -1,6 +1,5 @@
 package model
 
-
 trait  Card {
   def printCard
   def addNewCard(card:Card) : KompositumCard
@@ -21,8 +20,6 @@ case class KompositumCard(cardList:List[Card]) extends Card {
   }
 
   override def removeCard(card:Card): KompositumCard = {copy(cardList.filterNot(_ == card))}
-
-
 
 }
 
