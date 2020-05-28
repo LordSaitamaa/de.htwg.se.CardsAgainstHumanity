@@ -1,7 +1,17 @@
+import control.Controller
+import model.{SetupGame}
+import view.Tui
+import scala.io.StdIn.readLine
+
 object CaHMain {
+  val controller = new Controller(SetupGame(null,null,null))
+  val tui = new Tui(controller)
   def main(args: Array[String]): Unit = {
-    var a = 5.6.toInt
-    println("Welcome to Cards against Humanity")
-    print(a)
+    var input: String = ""
+    do{
+      input = readLine()
+      tui.processInputLine(input)
+    }while(input != "q")
+
   }
 }
