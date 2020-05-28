@@ -1,11 +1,21 @@
 package model
 import scala.util.control.Breaks._
 
-case class SetupGame(standardCards: StandardCards,var kompositumCard: KompositumCard,var player:Vector[Player]) {
+case class SetupGame(standardCards: StandardCards,var kompositumCard: KompositumCard,var player:Vector[Player]
+                     , var answerList:List[AnswerCard], var questionList:List[QuestionCard]
+                     , var roundAnswerCards: Map[Player, String], var roundQuestion: String) {
 
   def createCardDeck(): SetupGame ={
     for(answer <- standardCards.standardAnswer){ kompositumCard = kompositumCard.addNewCard(AnswerCard(answer))}
     for(questions <- standardCards.standardQuestions){ kompositumCard = kompositumCard.addNewCard(QuestionCard(questions))}
+
+    for(x <- kompositumCard.cardList ){
+      x match {
+        case card: AnswerCard => answerList = answerList :+ card
+        case card: QuestionCard => questionList = questionList :+ card
+        case _ => println("Keine Zulässige Karte")
+      }
+    }
     copy(standardCards,kompositumCard,player)
   }
 
@@ -13,20 +23,13 @@ case class SetupGame(standardCards: StandardCards,var kompositumCard: Kompositum
     var count = 0
     var cardcount = 0
     val maxCardOnHand = 7
-    var answerList = List[Card]()
-    for(answer <- kompositumCard.cardList) {
-      answer match {
-        case _: AnswerCard =>
-          answerList = answerList :+ answer
-        case _ =>
-      }
-    }
+
     while(count < maxCardOnHand) {
       for(x <- player){
         if(cardcount >= answerList.length){
           break
         }
-        x.playerCards = x.playerCards :+ answerList(cardcount).asInstanceOf[AnswerCard]
+        x.playerCards = x.playerCards :+ answerList(cardcount)
         cardcount = cardcount + 1
       }
       count = count + 1
@@ -36,17 +39,8 @@ case class SetupGame(standardCards: StandardCards,var kompositumCard: Kompositum
   }
 
   def placeQuestionCard(): String = {
-    var questionList = List[QuestionCard]()
-    for(question <- kompositumCard.cardList) {
-      question match {
-        case _: QuestionCard =>
-          questionList = questionList :+ question.asInstanceOf[QuestionCard]
-          kompositumCard = kompositumCard.removeCard(question)
-        case _ =>
-      }
-    }
     val max = questionList.length
-    val min = 0;
+    val min = 0
     val rnd = scala.util.Random
     val quest = questionList(rnd.nextInt(max - min))
     val returnQuest = quest.question
