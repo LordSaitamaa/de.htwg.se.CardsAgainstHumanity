@@ -1,5 +1,5 @@
 package control
-import model.{AnswerCard, KompositumCard, Player, SetupGame, StandardCards}
+import model.{AnswerCard, KompositumCard, Player, QuestionCard, SetupGame, StandardCards}
 import utils.Observable
 
 class Controller(var setupGame:SetupGame) extends Observable{
@@ -7,31 +7,35 @@ class Controller(var setupGame:SetupGame) extends Observable{
   var activePlayer = 0
   var first = List[AnswerCard]()
   var second = List[AnswerCard]()
+  var round = 0;
+  // var roundlimit = 4;
 
 
   // Init Card Deck with all Standard Cards and User Added Cards
   def initCardDeck(standardCards: StandardCards, kompositumCard: KompositumCard,player:Vector[Player]): Unit ={
-    setupGame = SetupGame(standardCards, kompositumCard, player)
-    setupGame = setupGame.createCardDeck()
+    val answerList = List[AnswerCard]()
+    val questionList = List[QuestionCard]()
+    setupGame = SetupGame(standardCards, player, answerList, questionList, null, null) // Alle Antwortkarten nicht bekannt, die aktuelle Frage auch nicht
+    setupGame = setupGame.createCardDeck(kompositumCard)
     notifyObservers
   }
 
-  def handOutCards(): Unit ={
-    setupGame = setupGame.handOutCards()
-    println("Player 1 Cards" + setupGame.player(0).playerCards)
-    println("Player 2 Cards" + setupGame.player(1).playerCards)
-    notifyObservers
-  }
+    def handOutCards():Unit ={
+      setupGame = setupGame.handOutCards()
+      notifyObservers
+    }
 
-  def question(): String = {
-    val quest = setupGame.placeQuestionCard()
-    notifyObservers
-    quest
-  }
+      def question():Unit = {
+        setupGame = setupGame.placeQuestionCard()
+        println(setupGame.roundQuestion)
+        notifyObservers
+      }
 
-  def put(cardIndex: Int):String = {
-    val answerCard = setupGame.player(activePlayer).playerCards(cardIndex)
-    val ret = setupGame.placeCard(answerCard)
-    ret
-  }
+        def put(cardIndex: Int):Unit = {
+           val answerCard = setupGame.player(activePlayer).playerCards(cardIndex)
+          setupGame = setupGame.placeCard(activePlayer,answerCard)
+          activePlayer = (activePlayer + 1) % setupGame.player.length
+           notifyObservers
+        }
+
 }
