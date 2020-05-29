@@ -7,6 +7,7 @@ trait  Card {
 }
 
 case class KompositumCard(cardList:List[Card]) extends Card {
+
   override def printCard = {
     cardList.foreach((c:Card)=>{
       c.printCard
