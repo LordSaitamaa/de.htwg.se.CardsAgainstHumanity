@@ -13,4 +13,5 @@ case class Player(name:String, isAnswering:Boolean, playerCards:List[AnswerCard]
   def changeState: Player = {
     copy(this.name, !this.isAnswering)
   }
+  def getCards: List[AnswerCard] = {playerCards}
 }
