@@ -24,8 +24,8 @@ class Tui(controller:Controller) extends Observer{
     input match{
       case "quit" =>
       case "new" => controller.initCardDeck(standardCards,kompositumCard,player)
-      case "handout" => println(controller.handOutCards());
-      case "throw" => println(controller.question())
+      case "handout" => controller.handOutCards();
+      case "throw" => controller.question()
       case _ => input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match{
             case x :: Nil => if(x > 6 || x < 0) println("Kein Gütlige Karte") else println(controller.put(x))
             case _ =>

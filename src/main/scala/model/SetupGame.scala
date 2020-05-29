@@ -24,20 +24,25 @@ case class SetupGame(standardCards: StandardCards, player: Vector[Player]
   }
 
   def handOutCards(): SetupGame = {
-    var cardcount = 0
     val maxCardOnHand = 7
     var immutable = List[AnswerCard]()
     immutable = immutable ++ answerList
     var tmpPlayerVecList = Vector[Player]()
+    //var cardcount = immutable.length -1
+    var cardcount = 0
+    var index = immutable.length - 1
 
     for (x <- player) {
       var tmpList = List[AnswerCard]()
-      while (cardcount < maxCardOnHand) {
-        tmpList = tmpList :+ immutable(cardcount)
-        immutable = immutable.filterNot(_ == immutable(cardcount))
+      while (cardcount < maxCardOnHand && immutable.nonEmpty) {
+        tmpList = tmpList :+ immutable(index)
+        immutable = immutable.filterNot(_ == immutable(index))
+        index = immutable.length - 1
         cardcount = cardcount + 1
+        //cardcount = immutable.length -1
       }
       tmpPlayerVecList = tmpPlayerVecList :+ Player(x.name, true, tmpList)
+      //cardcount = immutable.length -1
       cardcount = 0
     }
     copy(standardCards, tmpPlayerVecList, immutable, questionList, roundAnswerCards, roundQuestion)

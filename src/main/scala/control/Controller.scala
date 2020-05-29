@@ -9,7 +9,6 @@ class Controller(var setupGame: SetupGame) extends Observable {
   var first = List[AnswerCard]()
   var second = List[AnswerCard]()
   var round = 0;
-
   // var roundlimit = 4;
 
 
