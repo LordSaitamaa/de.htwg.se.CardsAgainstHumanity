@@ -12,6 +12,27 @@ class UserCardSpec extends AnyWordSpec  with Matchers {
       kompCard = kompCard.addNewCard(userAnswerOne)
       kompCard = kompCard.addNewCard(userQuestion)
 
+      "Answer cards print" in {
+        userAnswerOne.toString
+      }
+
+      "Question cards print" in {
+        userQuestion.toString
+      }
+
+      "Answer Card add should be null" in {
+        userAnswerOne.addNewCard(AnswerCard("a")) shouldBe(null)
+      }
+      "QuestionCard add should be null" in {
+        userQuestion.addNewCard(QuestionCard("a")) shouldBe(null)
+      }
+      "Answer Card remove should be null" in {
+        userAnswerOne.removeCard(AnswerCard("a")) shouldBe(null)
+      }
+      "QuestionCard remove should be null" in {
+        userQuestion.removeCard(QuestionCard("a")) shouldBe(null)
+      }
+
       "Have 2 Cards" in {
         kompCard.cardList.length shouldBe(2)
       }
