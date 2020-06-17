@@ -4,22 +4,24 @@ import scala.collection.mutable.ListBuffer
 
 case class SetupGame(standardCards: StandardCards, player: Vector[Player]
                      , answerList: List[AnswerCard], questionList: List[QuestionCard]
-                     , roundAnswerCards: Map[Player, String], var roundQuestion: String) {
-
+                     , roundAnswerCards: Map[Player, String], roundQuestion: String) {
+3
   def createCardDeck(kompositumCard: KompositumCard): SetupGame = {
-    val tmpAList = ListBuffer[AnswerCard]()
-    val tmpQList = ListBuffer[QuestionCard]()
-    for (answer <- standardCards.standardAnswer) tmpAList.addOne(AnswerCard(answer))
-    for (questions <- standardCards.standardQuestions) tmpQList.addOne(QuestionCard(questions))
+    val tmpAnswerList = ListBuffer[AnswerCard]()
+    val tmpQuestionList = ListBuffer[QuestionCard]()
+    standardCards.standardAnswer.foreach(answer => tmpAnswerList += (AnswerCard(answer)))
+    standardCards.standardQuestions.foreach(question => tmpQuestionList += (QuestionCard(question)))
     for (x <- kompositumCard.cardList) {
       x match {
-        case _: AnswerCard => tmpAList.addOne(x.asInstanceOf[AnswerCard])
-        case _: QuestionCard => tmpQList.addOne(x.asInstanceOf[QuestionCard])
+        case _: AnswerCard => tmpAnswerList.addOne(x.asInstanceOf[AnswerCard])
+        case _: QuestionCard => tmpQuestionList.addOne(x.asInstanceOf[QuestionCard])
         case _ => println("Keine Zulässige Karte")
       }
     }
-    val tmpImutA = List.empty ++ tmpAList
-    val tmpImutB = List.empty ++ tmpQList
+    val tmpImutA = List.empty ++ tmpAnswerList
+    println(tmpImutA)
+    val tmpImutB = List.empty ++ tmpQuestionList
+    println(tmpImutB)
     copy(standardCards, player, tmpImutA, tmpImutB)
   }
 
@@ -41,6 +43,7 @@ case class SetupGame(standardCards: StandardCards, player: Vector[Player]
         cardcount = cardcount + 1
         //cardcount = immutable.length -1
       }
+      println(tmpList)
       tmpPlayerVecList = tmpPlayerVecList :+ Player(x.name, true, tmpList)
       //cardcount = immutable.length -1
       cardcount = 0
