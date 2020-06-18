@@ -2,36 +2,37 @@ import model._
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 
-  class PlayerSpec  extends AnyWordSpec  with Matchers {
+class PlayerSpec extends AnyWordSpec with Matchers {
 
-    "It´s a player" when {
-      val a = List[AnswerCard]()
-      var playerOne = Player("Hugo", false,a)
-      val playerTwo = Player("Heinz", true,a )
+  "It´s a player" should {
 
-      "A player" should {
+    var a = List[AnswerCard]()
+    var p1 = Player("Hugo", false, a)
+    val p2 = Player("Heinz", true, a)
 
-        "a player" should {
+    "have a name" in {
+      p1.getName shouldBe "Hugo"
+      p2.getName shouldBe "Heinz"
+    }
+    "are able to get a string-representation" in {
+      p1.toString shouldBe "Player: Hugo // State: false"
+    }
+    "get a card added to hand" in {
 
-          "return their state" in {
-            playerOne.getStatus shouldBe false
-            playerTwo.getStatus shouldBe true
-          }
-          "is able to change his state" in {
-            playerOne = playerOne.changeState
-            playerOne.getStatus shouldBe true
-          }
+      p1.getCards.length shouldBe 0
+      p1 = p1.addCard(AnswerCard("niemals"))
+      p1.getCards.length shouldBe 1
+    }
+    "change and return their status" in {
 
-          "have a name" in {
-            playerOne.getName shouldBe "Hugo"
-            playerTwo.getName shouldBe "Heinz"
-          }
-          "show their text" in {
-            playerOne.toString
-            playerTwo.toString
-          }
-        }
-      }
+      p1.getStatus shouldBe true
+      p2.getStatus shouldBe true
+
+      p1 = p1.changeState
+
+      p1.getStatus shouldBe false
+
     }
   }
+}
 

@@ -4,47 +4,74 @@ import org.scalatest.matchers.should.Matchers
 
 class GameManagerSpec extends AnyWordSpec  with Matchers{
 
-  var answerCards = List[AnswerCard]()
-  var questionCards = List[QuestionCard]()
-  var answerList = List[String]("nein", "doch", "ohhh")
-  var questionList = List[String]("a?", "b?", "c?")
-  var cardList = List[Card](AnswerCard("nein"), AnswerCard("nö"), QuestionCard("Wie?"), QuestionCard("Was?"))
-  val standardCards  = StandardCards(questionList, answerList)
-  var kompositumCard = KompositumCard(cardList)
-  var playerOne = Player("Hugo", true, answerCards);
-  var playerTwo = Player("Heinz", true, answerCards);
-  var playerVec = Vector(playerOne, playerTwo)
+  var gm = GameManager()
 
-  var setupGame =  GameManager()
+  "A Gamemanager" should {
 
-  "A SetupGame should" should {
-    "be filled and created by createCardDeck" in {
-
-      setupGame = setupGame.createCardDeck()
-
-      //setupGame.standardCards shouldNot be(null)
-      setupGame.player shouldNot be(null)
-      setupGame.answerList shouldNot be(null)
-      setupGame.questionList shouldNot be(null)
-      setupGame.roundAnswerCards should be(null)
-      setupGame.roundQuestion should be(null)
+    "contain following values after creation" in {
+      gm.numberOfPlayers shouldBe 0
+      gm.numberOfRounds shouldBe 0
+      gm.kompositumCard shouldNot be(null)
+      gm.player shouldNot be(null)
+      gm.answerList shouldBe Nil
+      gm.questionList shouldBe Nil
+      gm.roundAnswerCards shouldNot be(null)
+      gm.roundQuestion shouldBe ""
     }
-  }
-  "handout cards for players" in {
+    "have players" in {
+      gm = gm.setPlayersAndRounds(2)
+      gm = gm.addPlayer("Hugo")
+      gm = gm.addPlayer("Heinz")
 
-    setupGame.player.apply(0).playerCards should be(empty)
-    setupGame = setupGame.handOutCards()
+      gm.numberOfPlayers shouldBe 2
+      gm.player(0).toString shouldBe "Player: Hugo // State: true"
+      gm.player(1).toString shouldBe "Player: Heinz // State: true"
+    }
+    "create a Carddeck" in {
+      gm = gm.createCardDeck()
 
-    setupGame.player.apply(0).getCards shouldNot be(empty)
-  }
-  "place a question card" in {
+      gm.answerList shouldNot be(Nil)
+      gm.questionList shouldNot be(Nil)
+    }
+    "handout cards to players" in {
+      gm = gm.handOutCards()
 
-    setupGame = setupGame.placeQuestionCard()
-    setupGame.roundQuestion shouldNot be(null)
-  }
-  "answer a question card" in {
+      //gm.player(0).getCards.toString.contains("Bombenanschläge") shouldBe true
+      gm.player(0).getCards shouldNot be(empty)
+      gm.player(1).getCards shouldNot be(empty)
+    }
+    "should place a question card" in {
+      gm = gm.placeQuestionCard()
 
-    setupGame = setupGame.placeCard(0, AnswerCard(""))
-    setupGame.roundAnswerCards shouldNot be(null)
+      gm.roundQuestion shouldNot be("")
+    }
+    "should place a answer card" in {
+      gm = gm.placeCard(1, new AnswerCard("blah"))
+      gm.roundAnswerCards shouldNot be(null)
+
+      gm = gm.placeCard(1, new AnswerCard("hihihi"))
+      gm.roundAnswerCards shouldNot be(null)
+    }
+    "should return the active player" in {
+      gm.getActivePlayer() shouldBe 0
+    }
+    "should pick the next player" in {
+      gm = gm.pickNextPlayer()
+      gm.activePlayer shouldBe 1
+    }
+    "should give string-representation" in {
+      var gx = GameManager()
+      gx.toString shouldBe  ""
+      gm.toString shouldNot be("")
+    }
+
+    "should refill cards" in {
+
+      var x = gm.player(0).getCards
+      gm = gm.placeCard(0, x(2))
+      gm.player(0).getCards.length shouldBe 6
+      gm = gm.drawCard()
+      gm.player(0).getCards.length shouldBe 7
+    }
   }
 }
