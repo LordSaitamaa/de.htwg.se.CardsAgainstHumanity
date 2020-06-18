@@ -53,6 +53,23 @@ class Controller(var gameManager: GameManager) extends Observable {
     }
 
     override def getCurrentStateAsString: String = "Willkommen bei Cards Against Humanity \n Bitte eine Spielerzahl zwischen 2 und 4 eingeben"
+    override def nextState: ControllerState = AddCardsQuest(controller)
+  }
+
+  case class AddCardsQuest(controller: Controller) extends ControllerState {
+    override def evaluate(input: String): Unit = {
+
+      if(input.equals("Weiter") ||input.equals("weiter")) {
+        controller.nextState()
+      } else {
+        controller.gameManager = controller.gameManager.addCardToStack(input)
+        AddCardsQuest(controller)
+      }
+    }
+
+    override def getCurrentStateAsString: String = "Wollen Sie Karten hinzufügen? \n" +
+      "Wenn Sie fertig sind, tippen Sie [Weiter]"
+
     override def nextState: ControllerState = SetupState(controller)
   }
 
@@ -82,7 +99,7 @@ class Controller(var gameManager: GameManager) extends Observable {
       }
 
     }
-    override def getCurrentStateAsString: String = "Willkommen bei Cards Against Humanity \n Bitte eine Spielerzahl zwischen 2 und 4 eingeben"
+    override def getCurrentStateAsString: String = "InGame!"
 
 
 

@@ -24,8 +24,8 @@ case class GameManager(numberOfPlayers: Int = 0,
   }
 
   def createCardDeck(): GameManager = {
-    var tmpAnswerList = List[AnswerCard]()
-    var tmpQuestionList = List[QuestionCard]()
+    var tmpAnswerList = answerList
+    var tmpQuestionList = questionList
     for (x <- kompositumCard.cardList) {
       x match {
         case _: AnswerCard => tmpAnswerList = tmpAnswerList :+ (x.asInstanceOf[AnswerCard])
@@ -107,6 +107,21 @@ case class GameManager(numberOfPlayers: Int = 0,
   def getActivePlayer():Int ={ activePlayer}
 
   def pickNextPlayer(activePlayer:Int): Int = (activePlayer + 1) % player.length
+
+  def addCardToStack(cardText : String) : GameManager = {
+    if(cardText.contains("_")) {
+
+      var tempList = questionList
+      tempList = tempList :+ QuestionCard(cardText)
+      copy(questionList = tempList)
+
+    } else {
+      var tempList = answerList;
+      tempList = tempList :+ AnswerCard(cardText)
+      copy(answerList = tempList)
+    }
+
+  }
 
   override def toString: String = {
     var sb = new StringBuilder
