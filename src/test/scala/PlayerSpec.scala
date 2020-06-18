@@ -23,9 +23,15 @@ class PlayerSpec extends AnyWordSpec with Matchers {
       p1 = p1.addCard(AnswerCard("niemals"))
       p1.getCards.length shouldBe 1
     }
-    "return their status" in {
-      p1.getStatus shouldBe false
+    "change and return their status" in {
+
+      p1.getStatus shouldBe true
       p2.getStatus shouldBe true
+
+      p1 = p1.changeState
+
+      p1.getStatus shouldBe false
+
     }
   }
 }

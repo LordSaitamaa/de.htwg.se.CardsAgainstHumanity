@@ -120,7 +120,7 @@ case class GameManager(numberOfPlayers: Int = 0,
   override def toString: String = {
     var sb = new StringBuilder
     if (answerList != null && questionList != null && roundQuestion != null && roundAnswerCards != null && player.nonEmpty) {
-      sb ++= "Aktive Antwort Kartem: " + answerList.toString() + "\n"
+      sb ++= "Aktive Antwort Karten: " + answerList.toString() + "\n"
       sb ++= "Aktive Frage Karten: " + questionList.toString() + "\n"
       sb ++= "Aktuelle Frage Karte: " + roundQuestion + "\n"
       sb ++= "Gelegten Antwort Karten: " + roundAnswerCards.toString() + "\n"
