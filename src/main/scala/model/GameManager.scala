@@ -76,7 +76,7 @@ case class GameManager(numberOfPlayers: Int = 0,
     var removedQuestList= questionList
     removedQuestList = Random.shuffle(removedQuestList)
     val quest = removedQuestList.head
-    copy(questionList = removedQuestList.filterNot(_ == quest), roundQuestion = quest.question)
+    copy(questionList = removedQuestList.filterNot(_ == quest), roundQuestion = quest.question, numberOfRounds = numberOfRounds + 1)
   }
 
   def placeCard(activePlayer: Int, card: AnswerCard ): GameManager = {
@@ -91,7 +91,7 @@ case class GameManager(numberOfPlayers: Int = 0,
 
     var tmpPlayerVecList = player
     tmpPlayerVecList = tmpPlayerVecList.updated(activePlayer, Player(player(activePlayer).name, true, newPlayerHand))
-    copy(player = tmpPlayerVecList,roundAnswerCards = tmpPlacedCardMap,numberOfRounds = numberOfRounds + 1)
+    copy(player = tmpPlayerVecList,roundAnswerCards = tmpPlacedCardMap)
   }
 
   def getActivePlayer():Int = activePlayer
@@ -106,11 +106,13 @@ case class GameManager(numberOfPlayers: Int = 0,
     for(x <- player) {
       val r = Random.nextInt(answerTmp.length)
       val result = answerTmp(r)
+      answerTmp = answerTmp.filterNot(_ == result)
       var playerHand = x.playerCards
       playerHand = playerHand :+ result
       tmpPlayerVec = tmpPlayerVec :+ Player(x.name,x.isAnswering,playerHand )
+
     }
-    copy(player = tmpPlayerVec)
+    copy(answerList=answerTmp,player = tmpPlayerVec)
   }
 
   def clearRoundAnswers(): GameManager = copy(roundAnswerCards = Map[Player,String]())
