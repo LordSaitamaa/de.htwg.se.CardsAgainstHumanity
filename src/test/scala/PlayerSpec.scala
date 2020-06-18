@@ -8,8 +8,8 @@ import org.scalatest.matchers.should.Matchers
       val a = List[AnswerCard]()
       var playerOne = Player("Hugo", false,a)
       val playerTwo = Player("Heinz", true,a )
-      "A player" should {
 
+      "A player" should {
 
         "a player" should {
 
