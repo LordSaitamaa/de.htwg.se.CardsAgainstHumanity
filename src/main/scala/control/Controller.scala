@@ -1,11 +1,12 @@
 package control
 
-import model.{GameManager}
-import utils.Observable
+import model.GameManager
+import utils.{Observable, UndoManager}
 
 class Controller(var gameManager: GameManager) extends Observable {
 
   var state: ControllerState = PreSetupState(this)
+  val undoManager = new UndoManager
 
   def nextState(): Unit = state = state.nextState
 
@@ -26,8 +27,11 @@ class Controller(var gameManager: GameManager) extends Observable {
 
   def getCurrentStateAsString(): String = state.getCurrentStateAsString
 
-}
 
+  def undo: Unit = undoManager.undoStep
+
+  def redo: Unit = undoManager.redoStep
+}
   trait ControllerState {
     def evaluate(input: String): Unit
 
@@ -45,6 +49,23 @@ class Controller(var gameManager: GameManager) extends Observable {
       }
     }
     override def getCurrentStateAsString: String = "Willkommen bei Cards Against Humanity \n Bitte eine Spielerzahl zwischen 2 und 4 eingeben"
+    override def nextState: ControllerState = AddCardsQuest(controller)
+  }
+
+  case class AddCardsQuest(controller: Controller) extends ControllerState {
+    override def evaluate(input: String): Unit = {
+
+      if(input.equals("Weiter") ||input.equals("weiter")) {
+        controller.nextState()
+      } else {
+        controller.undoManager.doStep(new AddCardsCommand(input, this.controller))
+        AddCardsQuest(controller)
+      }
+    }
+
+    override def getCurrentStateAsString: String = "Wollen Sie Karten hinzufügen? \n" +
+      "Wenn Sie fertig sind, tippen Sie [Weiter]"
+
     override def nextState: ControllerState = SetupState(controller)
   }
 
@@ -63,6 +84,7 @@ class Controller(var gameManager: GameManager) extends Observable {
 
     override def nextState: ControllerState = QuestionState(controller)
   }
+
   case class QuestionState(controller: Controller) extends ControllerState {
     override def evaluate(input: String): Unit = {
       if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds)
@@ -83,7 +105,9 @@ class Controller(var gameManager: GameManager) extends Observable {
     }
   }
 
-  case class AnswerState(controller: Controller) extends ControllerState {
+
+
+    case class AnswerState(controller: Controller) extends ControllerState {
 
     override def evaluate(input: String): Unit = {
       val activePlayer = controller.gameManager.getActivePlayer()
@@ -109,3 +133,4 @@ class Controller(var gameManager: GameManager) extends Observable {
 
     override def nextState: ControllerState = this
   }
+

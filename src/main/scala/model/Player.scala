@@ -5,7 +5,6 @@ case class Player(name:String, isAnswering:Boolean, playerCards:List[AnswerCard]
   def getName : String = {name}
 
   def addCard(answerCard: AnswerCard) : Player = {
-    //playerCards = playerCards :+ answerCard
     val immutableAnswerList = playerCards :+ answerCard
     copy(name,true,immutableAnswerList)
   }
