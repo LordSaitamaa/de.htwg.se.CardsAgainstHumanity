@@ -1,5 +1,3 @@
-import java.lang.String
-
 import control.{AnswerState, Controller, FinishState, PreSetupState, QuestionState, SetupState}
 import model.GameManager
 import org.scalatest._
@@ -18,9 +16,20 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       override def update: Unit = updated = true
     }
     controller.add(observer)
+      "test Strategy"in{
+        controller.gameManager = controller.gameManager.setPlayersAndRounds(2)
+        controller.gameManager.numberOfPlayers.shouldBe(2)
+        controller.gameManager.numberOfPlayableRounds.shouldBe(8)
+      }
 
     "notify the observer after evaluation" in {
-    controller.eval("2")
+      controller.eval("3" )
+      observer.updated shouldBe true
+      controller.state = PreSetupState(controller)
+      controller.eval("4")
+      observer.updated shouldBe true
+      controller.state = PreSetupState(controller)
+      controller.eval("2")
       observer.updated shouldBe true
     }
 
@@ -39,7 +48,6 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
 
       controller.state = FinishState(controller)
       controller.getCurrentStateAsString() shouldBe "Please press q to quit"
-
     }
 
     "switches the states correctly" in {
@@ -82,6 +90,7 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.state = FinishState(controller)
       controller.stateAsString() shouldBe "FinishState"
     }
+
     "handout cards correctly "in{
       controller.state = SetupState(controller)
       controller.eval("Hans")
@@ -96,6 +105,7 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
 
       controller.state shouldBe QuestionState(controller)
     }
+
     "place a question card "in {
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 0)
       controller.state = QuestionState(controller)
