@@ -7,10 +7,10 @@ case class GameManager(numberOfPlayers: Int = 0,
                        numberOfRounds: Int = 0,
                        activePlayer: Int = 0,
                        kompositumCard: KompositumCard = CardStack.initialize,
-                       player: Vector[Player] = null,
-                       answerList: List[AnswerCard] = Nil,
-                       questionList: List[QuestionCard] = Nil,
-                       roundAnswerCards: Map[Player, String] = null,
+                       player: Vector[Player] = Vector[Player](),
+                       answerList: List[AnswerCard] = List[AnswerCard](),
+                       questionList: List[QuestionCard] = List[QuestionCard](),
+                       roundAnswerCards: Map[Player, String] = Map[Player,String](),
                        roundQuestion: String = "") {
 
 
