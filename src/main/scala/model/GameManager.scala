@@ -91,12 +91,13 @@ case class GameManager(numberOfPlayers: Int = 0,
 
     var tmpPlayerVecList = player
     tmpPlayerVecList = tmpPlayerVecList.updated(activePlayer, Player(player(activePlayer).name, true, newPlayerHand))
-    copy(player = tmpPlayerVecList,roundAnswerCards = tmpPlacedCardMap)
+    copy(player = tmpPlayerVecList,roundAnswerCards = tmpPlacedCardMap,numberOfRounds = numberOfRounds + 1)
   }
 
   def getActivePlayer():Int = activePlayer
 
-  def pickNextPlayer(): GameManager = if(activePlayer < player.length -1) copy(activePlayer = activePlayer + 1) else copy(activePlayer = 0, numberOfRounds = numberOfRounds + 1)
+  def pickNextPlayer(): GameManager = copy(activePlayer = (activePlayer + 1) % player.length)
+
   def drawCard(): GameManager = {
     var answerTmp = answerList
     answerTmp = Random.shuffle(answerTmp)

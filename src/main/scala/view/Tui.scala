@@ -1,7 +1,7 @@
 package view
 import utils.{Observer}
 import control.Controller
-import model.{AnswerCard, Card, KompositumCard, Player, StandardCards}
+import model.{AnswerCard, Card, KompositumCard, Player}
 
 
 class Tui(controller:Controller) extends Observer{
