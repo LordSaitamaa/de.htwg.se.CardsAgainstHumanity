@@ -2,7 +2,7 @@ import model._
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 
-class SetupGameSpec extends AnyWordSpec  with Matchers{
+class GameManagerSpec extends AnyWordSpec  with Matchers{
 
   var answerCards = List[AnswerCard]()
   var questionCards = List[QuestionCard]()
@@ -15,14 +15,14 @@ class SetupGameSpec extends AnyWordSpec  with Matchers{
   var playerTwo = Player("Heinz", true, answerCards);
   var playerVec = Vector(playerOne, playerTwo)
 
-  var setupGame =  SetupGame(standardCards, playerVec, answerCards, questionCards, null, null)
+  var setupGame =  GameManager()
 
   "A SetupGame should" should {
     "be filled and created by createCardDeck" in {
 
-      setupGame = setupGame.createCardDeck(kompositumCard)
+      setupGame = setupGame.createCardDeck()
 
-      setupGame.standardCards shouldNot be(null)
+      //setupGame.standardCards shouldNot be(null)
       setupGame.player shouldNot be(null)
       setupGame.answerList shouldNot be(null)
       setupGame.questionList shouldNot be(null)
