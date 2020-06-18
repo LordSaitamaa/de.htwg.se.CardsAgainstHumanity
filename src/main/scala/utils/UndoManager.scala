@@ -1,6 +1,6 @@
 package utils
 
-class Undomanager {
+class UndoManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
 

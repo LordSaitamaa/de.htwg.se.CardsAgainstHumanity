@@ -1,11 +1,12 @@
 package control
 
-import model.{GameManager}
-import utils.Observable
+import model.GameManager
+import utils.{Observable, UndoManager}
 
 class Controller(var gameManager: GameManager) extends Observable {
 
   var state: ControllerState = PreSetupState(this)
+  private val undoManager = new UndoManager
 
   def setUpPlayer(playerCount: String): Unit = state.evaluate(playerCount)
   def nextState(): Unit = state = state.nextState
@@ -62,7 +63,7 @@ class Controller(var gameManager: GameManager) extends Observable {
       if(input.equals("Weiter") ||input.equals("weiter")) {
         controller.nextState()
       } else {
-        controller.gameManager = controller.gameManager.addCardToStack(input)
+        undoManager.doStep(new AddCardsCommand(input, this.controller))
         AddCardsQuest(controller)
       }
     }
@@ -89,6 +90,10 @@ class Controller(var gameManager: GameManager) extends Observable {
 
     override def nextState: ControllerState = InGameState(controller)
   }
+
+  def undo: Unit = undoManager.undoStep
+
+  def redo: Unit = undoManager.redoStep
 
   case class InGameState(controller: Controller) extends ControllerState {
 

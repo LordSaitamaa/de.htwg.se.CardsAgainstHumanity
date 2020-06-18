@@ -15,6 +15,8 @@ class Tui(controller:Controller) extends Observer{
   def processInputLine(input:String):Unit = {
     input match{
       case "quit" =>
+      case "undo" => controller.undo
+      case "redo" => controller.redo
       case _ => controller.eval(input)
     }
   }

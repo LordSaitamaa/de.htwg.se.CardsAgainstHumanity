@@ -7,19 +7,18 @@ case class GameManager(numberOfPlayers: Int = 0,
                        activePlayer: Int = 0,
                        kompositumCard: KompositumCard = CardStack.initialize,
                        player: Vector[Player] = null,
-                       answerList: List[AnswerCard] = Nil,
-                       questionList: List[QuestionCard] = Nil,
+                       var answerList: List[AnswerCard] = Nil,
+                       var questionList: List[QuestionCard] = Nil,
                        roundAnswerCards: Map[Player, String] = null,
                        roundQuestion: String = "") {
 
 
   def setPlayersAndRounds(numberPlayer : Int): GameManager = RoundStrategy.execute(numberPlayer)
 
-  def addPlayer(name:String): GameManager ={
+  def addPlayer(name:String): GameManager = {
     var playerTmp = Vector[Player]()
     if(player != null) playerTmp = player
     playerTmp = playerTmp :+ Player(name, true,List[AnswerCard]())
-    print(playerTmp)
     copy(player = playerTmp)
   }
 
@@ -30,23 +29,10 @@ case class GameManager(numberOfPlayers: Int = 0,
       x match {
         case _: AnswerCard => tmpAnswerList = tmpAnswerList :+ (x.asInstanceOf[AnswerCard])
         case _: QuestionCard => tmpQuestionList = tmpQuestionList :+ (x.asInstanceOf[QuestionCard])
-        case _ => println("Keine Zulässige Karte")
       }
     }
     copy(answerList = tmpAnswerList, questionList = tmpQuestionList)
   }
-
-//   def fillAnswerList(answerCards: List[AnswerCard],standardCards: StandardCards): List[AnswerCard] = {
-//     var tmp = answerCards
-//     standardCards.standardAnswer.foreach(answer => tmp = tmp :+ AnswerCard(answer))
-//     tmp
-//   }
-
-//  def fillQuestionList(questionCards: List[QuestionCard],standardCards: StandardCards): List[QuestionCard] = {
-//    var tmp = questionCards
-//    standardCards.standardQuestions.foreach(question => tmp = tmp :+ QuestionCard(question))
-//    tmp
-//  }
 
   def handOutCards(): GameManager = {
     val playerCard = choosePlayerStartCards(numberOfPlayers)
@@ -107,21 +93,6 @@ case class GameManager(numberOfPlayers: Int = 0,
   def getActivePlayer():Int ={ activePlayer}
 
   def pickNextPlayer(activePlayer:Int): Int = (activePlayer + 1) % player.length
-
-  def addCardToStack(cardText : String) : GameManager = {
-    if(cardText.contains("_")) {
-
-      var tempList = questionList
-      tempList = tempList :+ QuestionCard(cardText)
-      copy(questionList = tempList)
-
-    } else {
-      var tempList = answerList;
-      tempList = tempList :+ AnswerCard(cardText)
-      copy(answerList = tempList)
-    }
-
-  }
 
   override def toString: String = {
     var sb = new StringBuilder
