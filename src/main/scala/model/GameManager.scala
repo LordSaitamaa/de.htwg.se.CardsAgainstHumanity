@@ -8,8 +8,8 @@ case class GameManager(numberOfPlayers: Int = 0,
                        activePlayer: Int = 0,
                        kompositumCard: KompositumCard = CardStack.initialize,
                        player: Vector[Player] = Vector[Player](),
-                       answerList: List[AnswerCard] = List[AnswerCard](),
-                       questionList: List[QuestionCard] = List[QuestionCard](),
+                       var answerList: List[AnswerCard] = List[AnswerCard](),
+                       var questionList: List[QuestionCard] = List[QuestionCard](),
                        roundAnswerCards: Map[Player, String] = Map[Player,String](),
                        roundQuestion: String = "") {
 

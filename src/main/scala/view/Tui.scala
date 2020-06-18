@@ -7,7 +7,6 @@ import model.{AnswerCard, Card, KompositumCard, Player}
 class Tui(controller:Controller) extends Observer{
   controller.add(this)
 
-
   def processInputLine(input:String):Unit = {
     input match{
       case "quit" =>
@@ -16,7 +15,6 @@ class Tui(controller:Controller) extends Observer{
       case _ => controller.eval(input)
     }
   }
-
 
   override def update(): Unit = {
     println(controller.getCurrentStateAsString)

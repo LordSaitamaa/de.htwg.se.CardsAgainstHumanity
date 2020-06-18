@@ -12,10 +12,10 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
       gm.numberOfPlayers shouldBe 0
       gm.numberOfRounds shouldBe 0
       gm.kompositumCard shouldNot be(null)
-      gm.player shouldBe null
+      gm.player shouldNot be(null)
       gm.answerList shouldBe Nil
       gm.questionList shouldBe Nil
-      gm.roundAnswerCards shouldBe null
+      gm.roundAnswerCards shouldNot be(null)
       gm.roundQuestion shouldBe ""
     }
     "have players" in {

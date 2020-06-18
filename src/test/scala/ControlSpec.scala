@@ -1,4 +1,4 @@
-import control.{AnswerState, Controller, FinishState, PreSetupState, QuestionState, SetupState}
+import control.{AddCardsQuest, AnswerState, Controller, FinishState, PreSetupState, QuestionState, SetupState}
 import model.GameManager
 import org.scalatest._
 import org.scalatest.wordspec.AnyWordSpec
@@ -52,6 +52,10 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
 
     "switches the states correctly" in {
       controller.state = PreSetupState(controller)
+      controller.nextState()
+      controller.state shouldBe AddCardsQuest(controller)
+
+      controller.state = AddCardsQuest(controller)
       controller.nextState()
       controller.state shouldBe SetupState(controller)
 
