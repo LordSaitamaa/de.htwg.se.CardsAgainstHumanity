@@ -6,10 +6,6 @@ import model.{AnswerCard, Card, KompositumCard, Player, StandardCards}
 
 class Tui(controller:Controller) extends Observer{
   controller.add(this)
-  val player = Vector(
-    Player("Spieler 1",true, List[AnswerCard]()),
-    Player("Spieler 2",true, List[AnswerCard]())
-  )
 
 
   def processInputLine(input:String):Unit = {
@@ -21,7 +17,6 @@ class Tui(controller:Controller) extends Observer{
 
 
   override def update(): Unit = {
-    println("Aktueller Spiel Status")
     println(controller.getCurrentStateAsString)
     println(controller.gameManager.toString)
   }

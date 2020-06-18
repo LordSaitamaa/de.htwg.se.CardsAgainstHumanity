@@ -7,12 +7,11 @@ object CardStack {
     val standardA = List[String]("Kartoffeln", "Schwarze Einhörner","Hitler töten","Menschen zu töten","Baum","unheimlich sinnlos","garnichts"
       ,"super","Bombenanschläge","Wasser zu verschwenden","hugo","fawe","adsads"
       ,"adfs","gfdagads","fasfsa","fsafsa","fasfasfas","afsfsaafs")
-    val standardCards = StandardCards(standardQ,standardA)
 
     val userCards = List[Card](AnswerCard("Ich bin der aller beste"))
     var kompositumCard = KompositumCard(userCards)
     for(x <- standardQ)
-      kompositumCard = kompositumCard.addNewCard(AnswerCard(x))
+      kompositumCard = kompositumCard.addNewCard(QuestionCard(x))
     for(x <- standardA)
       kompositumCard = kompositumCard.addNewCard(AnswerCard(x))
     kompositumCard = kompositumCard.addNewCard(AnswerCard("i bin so geil"))

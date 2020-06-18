@@ -18,7 +18,8 @@ class Controller(var gameManager: GameManager) extends Observable {
     state match{
       case _: PreSetupState => "PreSetupGame"
       case _: SetupState => "SetupGame"
-      case _: InGameState => "InGame"
+      case _: AnswerState => "AnswerState"
+      case _: QuestionState => "QuestionState"
     }
   }
   def getCurrentStateAsString(): String = state.getCurrentStateAsString
@@ -45,7 +46,7 @@ class Controller(var gameManager: GameManager) extends Observable {
 
   case class PreSetupState(controller: Controller) extends ControllerState {
     override def evaluate(input: String): Unit = {
-      if(input.toInt == 0 || input.toInt > 4 || input.toInt < 2) getCurrentStateAsString
+      if(input.toInt > 4 || input.toInt < 2) getCurrentStateAsString
       else{
         controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
         controller.nextState()
@@ -59,7 +60,6 @@ class Controller(var gameManager: GameManager) extends Observable {
   case class SetupState(controller: Controller) extends ControllerState {
     override def evaluate(input: String): Unit = {
       if(input.isEmpty) return
-
       controller.gameManager = controller.gameManager.addPlayer(input)
       if(controller.gameManager.player.length == controller.gameManager.numberOfPlayers){
           controller.gameManager = controller.gameManager.createCardDeck()
@@ -70,22 +70,49 @@ class Controller(var gameManager: GameManager) extends Observable {
 
     override def getCurrentStateAsString: String = "Spieleranzahl: " + gameManager.numberOfPlayers + "Übrige Karten: " +gameManager.answerList.toString()
 
-    override def nextState: ControllerState = InGameState(controller)
+    override def nextState: ControllerState = QuestionState(controller)
+  }
+  case class QuestionState(controller: Controller) extends ControllerState {
+    override def evaluate(input: String): Unit = {
+      println("Question: "  + controller.gameManager.questionList.toString())
+      controller.gameManager = controller.gameManager.placeQuestionCard()
+      controller.nextState()
+    }
+    override def getCurrentStateAsString: String = "Die Frage: " + controller.gameManager.roundQuestion + " In Runde: " +controller.gameManager.numberOfRounds
+
+    override def nextState: ControllerState = AnswerState(controller)
   }
 
-  case class InGameState(controller: Controller) extends ControllerState {
+  case class AnswerState(controller: Controller) extends ControllerState {
 
     override def evaluate(input: String): Unit = {
-      if(input.toInt > 0 && input.toInt < 7) {
-        val activePlayer = controller.gameManager.activePlayer
+      val activePlayer = controller.gameManager.activePlayer
+      if(input.toInt > 0 && input.toInt < gameManager.player(activePlayer).playerCards.length) {
         controller.gameManager = controller.gameManager.placeCard(activePlayer,controller.gameManager.player(activePlayer).playerCards(input.toInt))
+        controller.gameManager = controller.gameManager.pickNextPlayer()
+      } else print("Index zwischen 0 und 6 auswählen")
+
+      if(controller.gameManager.roundAnswerCards.size == controller.gameManager.player.size){
+        controller.gameManager = controller.gameManager.pickNextPlayer()
+        controller.gameManager = controller.gameManager.drawCard()
+        println("Die gelegten Karten sind: " + controller.gameManager.roundAnswerCards.toString())
+        controller.gameManager = controller.gameManager.clearRoundAnswers()
+        controller.nextState()
       }
-
     }
-    override def getCurrentStateAsString: String = "Willkommen bei Cards Against Humanity \n Bitte eine Spielerzahl zwischen 2 und 4 eingeben"
+    override def getCurrentStateAsString: String = "Index zwischen 0 und 6 um eine Karte zu legen"
 
+    override def nextState: ControllerState = {
+      if(controller.gameManager.numberOfRounds <= controller.gameManager.numberOfPlayableRounds)
+        QuestionState(controller)
+      else
+        FinishState(controller)
+    }
+  }
+  case class FinishState(controller: Controller) extends ControllerState {
+    override def evaluate(input: String): Unit = {}
+    override def getCurrentStateAsString: String = "Please press q to quit"
 
-
-    override def nextState: ControllerState = SetupState(controller)
+    override def nextState: ControllerState = this
   }
 }
