@@ -7,12 +7,11 @@ case class GameManager(numberOfPlayers: Int = 0,
                        numberOfRounds: Int = 0,
                        activePlayer: Int = 0,
                        kompositumCard: KompositumCard = CardStack.initialize,
-                       player: Vector[Player] = Vector[Player](),
+                         player: Vector[Player] = Vector[Player](),
                        var answerList: List[AnswerCard] = List[AnswerCard](),
                        var questionList: List[QuestionCard] = List[QuestionCard](),
                        roundAnswerCards: Map[Player, String] = Map[Player,String](),
                        roundQuestion: String = "") {
-
 
   def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
 
@@ -119,15 +118,14 @@ case class GameManager(numberOfPlayers: Int = 0,
 
   override def toString: String = {
     var sb = new StringBuilder
-    if (answerList != null && questionList != null && roundQuestion != null && roundAnswerCards != null && player.nonEmpty) {
       sb ++= "Aktive Antwort Karten: " + answerList.toString() + "\n"
       sb ++= "Aktive Frage Karten: " + questionList.toString() + "\n"
       sb ++= "Aktuelle Frage Karte: " + roundQuestion + "\n"
       sb ++= "Gelegten Antwort Karten: " + roundAnswerCards.toString() + "\n"
       for (i <- player.indices) {
-        sb ++= "Die karten der Spieler: " + player(i).playerCards + "\n"
+        sb ++= "Die karten des Spielers: "+ player(i).name + "  Seine Karten:"+ player(i).playerCards + "\n"
       }
-    }
+
     sb.toString()
   }
 }
