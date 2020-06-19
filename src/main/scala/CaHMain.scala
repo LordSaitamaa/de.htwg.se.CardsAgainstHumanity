@@ -9,7 +9,8 @@ object CaHMain {
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
-    do{
+    if (args.length>0) input=args(0)
+    else do{
       input = readLine()
       tui.processInputLine(input)
     }while(input != "q")
