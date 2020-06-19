@@ -60,8 +60,6 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
       gm.activePlayer shouldBe 1
     }
     "should give string-representation" in {
-      var gx = GameManager()
-      gx.toString shouldBe  ""
       gm.toString shouldNot be("")
     }
 

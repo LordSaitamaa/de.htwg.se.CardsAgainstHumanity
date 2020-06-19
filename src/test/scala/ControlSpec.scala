@@ -38,16 +38,16 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.getCurrentStateAsString() shouldBe ("Willkommen bei Cards Against Humanity \n Bitte eine Spielerzahl zwischen 2 und 4 eingeben")
 
       controller.state = SetupState(controller)
-      controller.getCurrentStateAsString() shouldBe "Spieleranzahl: " + controller.gameManager.numberOfPlayers + "Übrige Karten: " + controller.gameManager.answerList.toString()
+      controller.getCurrentStateAsString() shouldBe "Spieleranzahl: " + controller.gameManager.numberOfPlayers + " Übrige Karten: " + controller.gameManager.answerList.toString()
 
       controller.state = QuestionState(controller)
-      controller.getCurrentStateAsString() shouldBe "Die Frage: " + controller.gameManager.roundQuestion + " In Runde: " +controller.gameManager.numberOfRounds
+      controller.getCurrentStateAsString() shouldBe "Frage wird gestellt"
 
       controller.state = AnswerState(controller)
-      controller.getCurrentStateAsString() shouldBe  "Index zwischen 0 und 6 um eine Karte zu legen"
+      controller.getCurrentStateAsString() shouldBe  "Antworten legen um weiter zu machen"
 
       controller.state = FinishState(controller)
-      controller.getCurrentStateAsString() shouldBe "Please press q to quit"
+      controller.getCurrentStateAsString() shouldBe "Please write quit to exit the game"
     }
 
     "switches the states correctly" in {
