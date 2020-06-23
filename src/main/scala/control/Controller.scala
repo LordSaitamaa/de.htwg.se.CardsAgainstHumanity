@@ -2,17 +2,27 @@ package control
 
 import model.GameManager
 import utils.{Observable, UndoManager}
+import control._
 
-class Controller(var gameManager: GameManager) extends Observable {
+import scala.swing.Publisher
+
+class Controller(var gameManager: GameManager) extends Publisher {
 
   var state: ControllerState = PreSetupState(this)
   val undoManager = new UndoManager
 
   def nextState(): Unit = state = state.nextState
 
+  def changePage(page: Int): Unit = {
+    page match{
+      case 1 => publish(new StartPageEvent)
+      case 2 => publish(new SecondPageEvent)
+      case 3 => publish(new ThirdPageEvent)
+    }
+  }
+
   def eval(input: String): Unit = {
     state.evaluate(input)
-    notifyObservers
   }
 
   def stateAsString(): String = {
@@ -46,6 +56,7 @@ case class PreSetupState(controller: Controller) extends ControllerState {
     if (input.toInt > 4 || input.toInt < 2) getCurrentStateAsString
     else {
       controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
+      controller.changePage(2)
       controller.nextState()
     }
   }
@@ -67,7 +78,7 @@ case class AddCardsQuest(controller: Controller) extends ControllerState {
   }
 
   override def getCurrentStateAsString: String = "Wollen Sie Karten hinzufügen? \n" +
-    "Wenn Sie fertig sind, tippen Sie [Weiter]"
+    "Wenn Sie fertig sind, klicken Sie auf [Weiter]"
 
   override def nextState: ControllerState = SetupState(controller)
 }
@@ -94,7 +105,7 @@ case class QuestionState(controller: Controller) extends ControllerState {
       nextState
 
     controller.gameManager = controller.gameManager.clearRoundAnswers()
-    println("Question: " + controller.gameManager.questionList.toString())
+    //println("Question: " + controller.gameManager.questionList.toString())
     controller.gameManager = controller.gameManager.placeQuestionCard()
     controller.nextState()
   }

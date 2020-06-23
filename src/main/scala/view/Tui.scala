@@ -5,7 +5,7 @@ import model.{AnswerCard, Card, KompositumCard, Player}
 
 
 class Tui(controller:Controller) extends Observer{
-  controller.add(this)
+  //controller.add(this)
 
   def processInputLine(input:String):Unit = {
     input match{

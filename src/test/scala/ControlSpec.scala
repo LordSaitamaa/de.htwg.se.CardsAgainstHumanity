@@ -15,7 +15,7 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       def isUpdated: Boolean = updated
       override def update: Unit = updated = true
     }
-    controller.add(observer)
+   // controller.add(observer)
       "test Strategy"in{
         controller.gameManager = controller.gameManager.setPlayersAndRounds(2)
         controller.gameManager.numberOfPlayers.shouldBe(2)
