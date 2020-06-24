@@ -43,9 +43,15 @@ class Controller(var gameManager: GameManager) extends Publisher {
   def getCurrentStateAsString(): String = state.getCurrentStateAsString
 
 
-  def undo: Unit = undoManager.undoStep
+  def undo: Unit = {
+    undoManager.undoStep
+    publish(new UndoEvent)
+  }
 
-  def redo: Unit = undoManager.redoStep
+  def redo: Unit = {
+    undoManager.redoStep
+    publish(new UndoEvent)
+  }
 }
 
 trait ControllerState {
@@ -104,7 +110,6 @@ case class SetupState(controller: Controller) extends ControllerState {
     if (controller.gameManager.player.length == controller.gameManager.numberOfPlayers) {
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
-      //controller.updateTui()
 
       controller.nextState()
     }

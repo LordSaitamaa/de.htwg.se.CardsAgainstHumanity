@@ -2,7 +2,7 @@ package view.GUI.Pages
 
 import java.awt.Color
 
-import control.Controller
+import control.{Controller, UndoEvent}
 import javax.naming.spi.DirectoryManager
 import view.GUI.InfoBar
 
@@ -35,6 +35,7 @@ class SecondPage(controller: Controller, infobar: InfoBar) extends BoxPanel(Orie
 
   preferredSize = new Dimension(790, 500)
 
+  listenTo(controller)
   listenTo(addKarteBtn)
   listenTo(weiterBtn)
 
@@ -53,5 +54,6 @@ class SecondPage(controller: Controller, infobar: InfoBar) extends BoxPanel(Orie
     case ButtonClicked(b) if b==weiterBtn=> {
       controller.eval("weiter")
     }
+    case event: UndoEvent => addedCardsTf.text= controller.gameManager.answerList.toString()
   }
 }
