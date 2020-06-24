@@ -24,14 +24,24 @@ class SecondPage(controller: Controller, infobar: InfoBar) extends FlowPanel {
 
   this.contents += kartenNameTf
   this.contents += addKarteBtn
+  this.contents += weiterBtn
 
   preferredSize = new Dimension(790, 500)
 
   listenTo(addKarteBtn)
+  listenTo(weiterBtn)
 
   reactions += {
-    case ButtonClicked(addKartenBtn) => {
-      print("Yes!")
+    case ButtonClicked(b) if b==addKarteBtn => {
+      if(kartenNameTf.text.equals("") || kartenNameTf.text.equals("Kartenname"))
+        infobar.text = "Bitte gib zuerst eine Karte ein."
+      else {
+        controller.eval(kartenNameTf.text)
+        kartenNameTf.text = ""
+      }
+    }
+    case ButtonClicked(b) if b==weiterBtn=> {
+      controller.eval("weiter")
     }
   }
 }

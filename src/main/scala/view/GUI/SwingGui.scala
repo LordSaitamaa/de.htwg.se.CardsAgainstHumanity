@@ -9,7 +9,7 @@ class SwingGui(controller: Controller) extends Frame {
   val infoBar = new InfoBar()
   val startPage = new StartPage(controller, infoBar)
   val secondPage = new SecondPage(controller, infoBar)
-  val thirdPage = new ThirdPage(controller, infoBar)
+
   var mainPanel = new BoxPanel(Orientation.Vertical) {
     contents += startPage
     contents += infoBar
@@ -28,11 +28,12 @@ class SwingGui(controller: Controller) extends Frame {
           this.validate()
         }
         case 2 => {
-          mainPanel.contents.update(0, secondPage)
+          mainPanel.contents.update(0, new SecondPage(controller, infoBar))
           this.validate()
         }
         case 3 => {
-          mainPanel.contents.update(0, thirdPage)
+          mainPanel.contents.update(0, new ThirdPage(controller, infoBar))
+          mainPanel.contents.head.requestFocus()
           this.validate()
         }
       }

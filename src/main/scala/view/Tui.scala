@@ -1,11 +1,12 @@
 package view
-import utils.{Observer}
-import control.Controller
+import utils.Observer
+import control.{Controller, SecondPageEvent, StartPageEvent, ThirdPageEvent, UpdateTuiEvent}
 import model.{AnswerCard, Card, KompositumCard, Player}
 
+import scala.swing.Publisher
 
-class Tui(controller:Controller) extends Observer{
-  //controller.add(this)
+
+class Tui(controller:Controller) extends Publisher{
 
   def processInputLine(input:String):Unit = {
     input match{
@@ -16,9 +17,15 @@ class Tui(controller:Controller) extends Observer{
     }
   }
 
-  override def update(): Unit = {
+  def update(): Unit = {
     println(controller.getCurrentStateAsString)
     println(controller.gameManager.toString)
+  }
+
+  listenTo(controller)
+  reactions += {
+    case event: UpdateTuiEvent => update()
+
   }
 
 }

@@ -11,7 +11,7 @@ import scala.swing.event.ButtonClicked
 class StartPage(controller: Controller, infobar: InfoBar) extends BorderPanel {
 
   val startBtn = new Button("Spiel starten")
-  val anzahlSpielerCb = new ComboBox(List(0, 1, 2, 3, 4, 5, 6))
+  val anzahlSpielerCb = new ComboBox(List(0, 2, 3, 4))
 
   listenTo(controller)
 
