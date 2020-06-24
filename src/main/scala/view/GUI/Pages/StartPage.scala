@@ -1,12 +1,13 @@
 package view.GUI.Pages
 
-import java.awt.{Color, Event}
+import java.awt.{Color}
+import scala.swing._
 
-import scala.swing.{BorderPanel, Button, ComboBox, Dimension, FlowPanel, Label, TextField}
+import scala.swing.{Action, BorderPanel, Button, ComboBox, Dimension, FlowPanel, Label, Menu, MenuItem, TextField}
 import control.{Controller, SecondPageEvent}
 import view.GUI.InfoBar
 
-import scala.swing.event.ButtonClicked
+import scala.swing.event.{ButtonClicked, Key}
 
 class StartPage(controller: Controller, infobar: InfoBar) extends BorderPanel {
 

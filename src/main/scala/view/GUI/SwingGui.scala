@@ -1,8 +1,11 @@
 package view.GUI
 
 import view.GUI.Pages._
-import scala.swing.{BoxPanel, Dimension, Frame, Orientation}
+
+import scala.swing.{Action, BoxPanel, Dimension, Frame, Menu, MenuBar, MenuItem, Orientation}
 import control._
+
+import scala.swing.event.Key
 
 class SwingGui(controller: Controller) extends Frame {
 
@@ -10,7 +13,7 @@ class SwingGui(controller: Controller) extends Frame {
   val startPage = new StartPage(controller, infoBar)
   val secondPage = new SecondPage(controller, infoBar)
 
-  var mainPanel = new BoxPanel(Orientation.Vertical) {
+  val mainPanel = new BoxPanel(Orientation.Vertical) {
     contents += startPage
     contents += infoBar
   }
@@ -43,5 +46,14 @@ class SwingGui(controller: Controller) extends Frame {
     case event: StartPageEvent => nextPage(1)
     case event: SecondPageEvent => nextPage(2)
     case event: ThirdPageEvent => nextPage(3)
+  }
+
+  menuBar = new MenuBar {
+    contents += new Menu("Spiel") {
+      mnemonic = Key.F
+      contents += new MenuItem(Action("Undo") {controller.undo})
+      contents += new MenuItem(Action("Redo") {controller.redo})
+      contents += new MenuItem(Action("Quit") {System.exit(0)})
+    }
   }
 }
