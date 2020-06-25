@@ -70,9 +70,6 @@ case class PreSetupState(controller: Controller) extends ControllerState {
     else {
       controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
       controller.changePage(2)
-      //controller.updateTui()
-
-
       controller.nextState()
     }
   }
@@ -90,7 +87,7 @@ case class AddCardsQuest(controller: Controller) extends ControllerState {
       controller.publish(new ThirdPageEvent)
     } else {
       controller.undoManager.doStep(new AddCardsCommand(input, this.controller))
-      AddCardsQuest(controller)
+      controller.publish(new UpdateGuiEvent)
     }
   }
 
@@ -103,23 +100,33 @@ case class AddCardsQuest(controller: Controller) extends ControllerState {
 case class SetupState(controller: Controller) extends ControllerState {
   override def evaluate(input: String): Unit = {
 
-    println("SetupState")
-
     if (input.isEmpty) return
-    controller.gameManager = controller.gameManager.addPlayer(input)
+
+    controller.undoManager.doStep(new AddPlayersCommand(input, controller))
+    controller.publish(new UpdateGuiEvent)
+
+    //controller.gameManager = controller.gameManager.addPlayer(input)
     if (controller.gameManager.player.length == controller.gameManager.numberOfPlayers) {
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
 
+      controller.publish(new NextStateEvent)
       controller.nextState()
     }
   }
 
   override def getCurrentStateAsString: String = "Spieleranzahl: " + controller.gameManager.numberOfPlayers + " Übrige Karten: " + controller.gameManager.answerList.toString()
 
-  override def nextState: ControllerState = QuestionState(controller)
+  override def nextState: ControllerState = IngameState(controller)
 }
 
+case class IngameState(controller: Controller) extends ControllerState {
+  override def evaluate(input: String): Unit = ???
+
+  override def getCurrentStateAsString: String = "Ingame State"
+
+  override def nextState: ControllerState = QuestionState(controller)
+}
 case class QuestionState(controller: Controller) extends ControllerState {
   override def evaluate(input: String): Unit = {
 
@@ -131,7 +138,6 @@ case class QuestionState(controller: Controller) extends ControllerState {
     controller.gameManager = controller.gameManager.clearRoundAnswers()
     //println("Question: " + controller.gameManager.questionList.toString())
     controller.gameManager = controller.gameManager.placeQuestionCard()
-    //controller.updateTui()
     controller.nextState()
   }
 

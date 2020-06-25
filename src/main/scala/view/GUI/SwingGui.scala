@@ -11,7 +11,11 @@ class SwingGui(controller: Controller) extends Frame {
 
   val infoBar = new InfoBar()
   val startPage = new StartPage(controller, infoBar)
-  val secondPage = new SecondPage(controller, infoBar)
+  val secondPage = new cardsDialog(controller, infoBar)
+  val spielfeld = new Spielfeld(controller, infoBar)
+
+  val cardsDialog = new cardsDialog(controller, infoBar)
+  val playerDialog = new playerDialog(controller, infoBar)
 
   val mainPanel = new BoxPanel(Orientation.Vertical) {
     contents += startPage
@@ -31,12 +35,17 @@ class SwingGui(controller: Controller) extends Frame {
           this.validate()
         }
         case 2 => {
-          mainPanel.contents.update(0, new SecondPage(controller, infoBar))
-          this.validate()
+
+          cardsDialog.open()
+
         }
         case 3 => {
-          mainPanel.contents.update(0, new ThirdPage(controller, infoBar))
-          mainPanel.contents.head.requestFocus()
+
+          playerDialog.open()
+        }
+        case 4 => {
+          infoBar.text = controller.getCurrentStateAsString()
+          mainPanel.contents.update(0, spielfeld)
           this.validate()
         }
       }
@@ -46,13 +55,12 @@ class SwingGui(controller: Controller) extends Frame {
     case event: StartPageEvent => nextPage(1)
     case event: SecondPageEvent => nextPage(2)
     case event: ThirdPageEvent => nextPage(3)
+    case event: NextStateEvent => nextPage(4)
   }
 
   menuBar = new MenuBar {
     contents += new Menu("Spiel") {
-      mnemonic = Key.F
-      contents += new MenuItem(Action("Undo") {controller.undo})
-      contents += new MenuItem(Action("Redo") {controller.redo})
+      mnemonic = Key.S
       contents += new MenuItem(Action("Quit") {System.exit(0)})
     }
   }
