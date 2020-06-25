@@ -19,6 +19,7 @@ class cardsDialog(controller: Controller, infobar: InfoBar) extends Dialog {
   val addKarteBtn = new Button("Add")
   val weiterBtn = new Button("Weiter")
   val addedCardsTf =  new TextField()//new FlowPanel(new ScrollPane(new ListView(controller.gameManager.answerList){}))
+  val undoButton = new Button("undo")
 
   val flowPanel = new FlowPanel() {
     contents += addKarteBtn

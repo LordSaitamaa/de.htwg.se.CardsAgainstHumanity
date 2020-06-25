@@ -1,10 +1,11 @@
 package view.GUI.Pages
 
-import java.awt.{Color}
-import scala.swing._
+import java.awt.Color
 
+import scala.swing._
 import scala.swing.{Action, BorderPanel, Button, ComboBox, Dimension, FlowPanel, Label, Menu, MenuItem, TextField}
 import control.{Controller, SecondPageEvent}
+import javax.swing.WindowConstants.EXIT_ON_CLOSE
 import view.GUI.InfoBar
 
 import scala.swing.event.{ButtonClicked, Key}
@@ -13,7 +14,6 @@ class StartPage(controller: Controller, infobar: InfoBar) extends BorderPanel {
 
   val startBtn = new Button("Spiel starten")
   val anzahlSpielerCb = new ComboBox(List(0, 2, 3, 4))
-
   listenTo(controller)
 
   def mainPanel = new FlowPanel {

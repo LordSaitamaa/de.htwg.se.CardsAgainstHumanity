@@ -6,7 +6,7 @@ class PlayerSpec extends AnyWordSpec with Matchers {
 
   "It´s a player" should {
 
-    var a = List[AnswerCard]()
+    val a = List[AnswerCard]()
     var p1 = Player("Hugo", false, a)
     val p2 = Player("Heinz", true, a)
 

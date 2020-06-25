@@ -109,7 +109,6 @@ case class SetupState(controller: Controller) extends ControllerState {
     if (controller.gameManager.player.length == controller.gameManager.numberOfPlayers) {
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
-
       controller.publish(new NextStateEvent)
       controller.nextState()
     }
@@ -117,16 +116,10 @@ case class SetupState(controller: Controller) extends ControllerState {
 
   override def getCurrentStateAsString: String = "Spieleranzahl: " + controller.gameManager.numberOfPlayers + " Übrige Karten: " + controller.gameManager.answerList.toString()
 
-  override def nextState: ControllerState = IngameState(controller)
-}
-
-case class IngameState(controller: Controller) extends ControllerState {
-  override def evaluate(input: String): Unit = ???
-
-  override def getCurrentStateAsString: String = "Ingame State"
-
   override def nextState: ControllerState = QuestionState(controller)
 }
+
+
 case class QuestionState(controller: Controller) extends ControllerState {
   override def evaluate(input: String): Unit = {
 
