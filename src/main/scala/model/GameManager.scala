@@ -85,11 +85,14 @@ case class GameManager(numberOfPlayers: Int = 0,
       tmpPlacedCardMap = roundAnswerCards
 
     var newPlayerHand = player(activePlayer).playerCards
-    tmpPlacedCardMap += (player(activePlayer) -> card.antwort)
+
+    val questTmp = roundQuestion
+    tmpPlacedCardMap += (player(activePlayer) -> questTmp.replace("_",card.antwort))
     newPlayerHand = newPlayerHand.filterNot(_ == card)
 
     var tmpPlayerVecList = player
     tmpPlayerVecList = tmpPlayerVecList.updated(activePlayer, Player(player(activePlayer).name, true, newPlayerHand))
+
     copy(player = tmpPlayerVecList,roundAnswerCards = tmpPlacedCardMap)
   }
 

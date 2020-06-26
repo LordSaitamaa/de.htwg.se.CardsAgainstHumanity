@@ -131,6 +131,7 @@ case class QuestionState(controller: Controller) extends ControllerState {
     controller.gameManager = controller.gameManager.placeQuestionCard()
     controller.publish(new UpdateInfoBarEvent)
     controller.publish(new UpdateGuiEvent)
+    controller.nextState()
   }
 
   override def getCurrentStateAsString: String = controller.gameManager.roundQuestion
@@ -148,12 +149,16 @@ case class QuestionState(controller: Controller) extends ControllerState {
 }
 
 case class AnswerState(controller: Controller) extends ControllerState {
+
+  print("Hi")
+
   override def evaluate(input: String): Unit = {
 
     val activePlayer = controller.gameManager.getActivePlayer()
     if (input.toInt > 0 && input.toInt < controller.gameManager.player(activePlayer).playerCards.length) {
       controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.player(activePlayer).playerCards(input.toInt))
       controller.gameManager = controller.gameManager.pickNextPlayer()
+      controller.publish(new UpdateGuiEvent)
     } else {
       val failure = "Kein Gültiger Index"
       print(failure)
