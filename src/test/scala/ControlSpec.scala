@@ -1,4 +1,4 @@
-import control.{AddCardsQuest, AnswerState, Controller, FinishState, PreSetupState, QuestionState, SetupState}
+import control.{AddCardsQuest, AnswerState, Controller, FinishState, PreSetupState, SetupState}
 import model.GameManager
 import org.scalatest._
 import org.scalatest.wordspec.AnyWordSpec
@@ -40,7 +40,6 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.state = SetupState(controller)
       controller.getCurrentStateAsString() shouldBe "Spieleranzahl: " + controller.gameManager.numberOfPlayers + " Übrige Karten: " + controller.gameManager.answerList.toString()
 
-      controller.state = QuestionState(controller)
       controller.getCurrentStateAsString() shouldBe "Frage wird gestellt"
 
       controller.state = AnswerState(controller)
@@ -61,21 +60,17 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
 
       controller.state = SetupState(controller)
       controller.nextState()
-      controller.state shouldBe (QuestionState(controller))
 
-      controller.state = QuestionState(controller)
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 3)
       controller.nextState()
       controller.state shouldBe (AnswerState(controller))
 
-      controller.state = QuestionState(controller)
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 9)
       controller.nextState()
       controller.state shouldBe FinishState(controller)
 
       controller.state = AnswerState(controller)
       controller.nextState()
-      controller.state shouldBe QuestionState(controller)
     }
 
     "return the correct String for every State" in {
@@ -85,7 +80,6 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.state = SetupState(controller)
       controller.stateAsString() shouldBe "SetupGame"
 
-      controller.state = QuestionState(controller)
       controller.stateAsString() shouldBe "QuestionState"
 
       controller.state = AnswerState(controller)
@@ -107,13 +101,10 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.gameManager.player(0).getCards.length shouldBe(7)
       controller.gameManager.player(1).getCards.length shouldBe(7)
 
-      controller.state shouldBe QuestionState(controller)
     }
 
     "place a question card "in {
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 0)
-      controller.state = QuestionState(controller)
-      controller.state shouldBe QuestionState(controller)
       controller.eval("2")
       controller.gameManager.roundQuestion shouldBe a [String]
       controller.state shouldBe(AnswerState)(controller)
@@ -124,7 +115,6 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.eval("2")
       controller.state = AnswerState(controller)
       controller.eval("3")
-      controller.state = QuestionState(controller)
       controller.gameManager.roundAnswerCards.size shouldBe(2)
       controller.gameManager.activePlayer shouldBe(0)
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 10)

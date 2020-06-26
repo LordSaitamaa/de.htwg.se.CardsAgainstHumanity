@@ -1,9 +1,12 @@
 package view.GUI
 
+import java.awt.Color
+
 import view.GUI.Pages._
 
 import scala.swing.{Action, BoxPanel, Dimension, Frame, Menu, MenuBar, MenuItem, Orientation}
 import control._
+import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
 
 import scala.swing.event.Key
 
@@ -23,6 +26,9 @@ class SwingGui(controller: Controller) extends Frame {
 
   title = "HTWG - Cards against Humanity"
   preferredSize = new Dimension(800, 600)
+  resizable = false
+  background = Color.BLACK
+  peer.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE)
 
   this.contents = mainPanel
 
@@ -43,7 +49,7 @@ class SwingGui(controller: Controller) extends Frame {
           playerDialog.open()
         }
         case 4 => {
-          val spielfeld = new SpielfeldSimon(controller, infoBar)
+          val spielfeld = new Spielfeld(controller, infoBar)
           mainPanel.contents.update(0, spielfeld)
           this.validate()
         }

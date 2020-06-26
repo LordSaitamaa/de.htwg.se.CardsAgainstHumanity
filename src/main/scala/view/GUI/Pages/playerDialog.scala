@@ -51,7 +51,7 @@ class playerDialog(controller: Controller, infobar: InfoBar) extends Dialog {
         controller.eval(playerTf.text)
         playerTf.background = Color.WHITE
         infoTf.text = controller.gameManager.player.toString()
-        playerTf.text = ""
+        playerTf.text = "Spieler"
       }
     }
     case event: NextStateEvent => {

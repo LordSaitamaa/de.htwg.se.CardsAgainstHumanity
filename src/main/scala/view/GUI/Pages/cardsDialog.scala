@@ -13,6 +13,7 @@ class cardsDialog(controller: Controller, infobar: InfoBar) extends Dialog {
   preferredSize = new Dimension(350, 150)
   title = "Wollen Sie Karten hinzufügen?"
   peer.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE)
+  resizable = false
 
 
   val kartenNameTf = new TextField("Kartenname")
