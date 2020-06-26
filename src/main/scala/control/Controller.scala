@@ -87,7 +87,7 @@ case class AddCardsQuest(controller: Controller) extends ControllerState {
       controller.publish(new ThirdPageEvent)
     } else {
       controller.undoManager.doStep(new AddCardsCommand(input, this.controller))
-      controller.publish(new UpdateGuiEvent)
+      controller.publish(new UpdateInfoBarEvent)
     }
   }
 
@@ -109,8 +109,9 @@ case class SetupState(controller: Controller) extends ControllerState {
     if (controller.gameManager.player.length == controller.gameManager.numberOfPlayers) {
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
-      controller.publish(new NextStateEvent)
       controller.nextState()
+      controller.publish(new NextStateEvent)
+
     }
   }
 
@@ -123,18 +124,16 @@ case class SetupState(controller: Controller) extends ControllerState {
 case class QuestionState(controller: Controller) extends ControllerState {
   override def evaluate(input: String): Unit = {
 
-    println("QuestionState")
-
     if (controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds)
       nextState
 
     controller.gameManager = controller.gameManager.clearRoundAnswers()
-    //println("Question: " + controller.gameManager.questionList.toString())
     controller.gameManager = controller.gameManager.placeQuestionCard()
-    controller.nextState()
+    controller.publish(new UpdateInfoBarEvent)
+    controller.publish(new UpdateGuiEvent)
   }
 
-  override def getCurrentStateAsString: String = "Frage wird gestellt"
+  override def getCurrentStateAsString: String = controller.gameManager.roundQuestion
 
   override def nextState: ControllerState = {
     if (controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds) {
@@ -151,8 +150,6 @@ case class QuestionState(controller: Controller) extends ControllerState {
 case class AnswerState(controller: Controller) extends ControllerState {
   override def evaluate(input: String): Unit = {
 
-    println("AnswerState")
-
     val activePlayer = controller.gameManager.getActivePlayer()
     if (input.toInt > 0 && input.toInt < controller.gameManager.player(activePlayer).playerCards.length) {
       controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.player(activePlayer).playerCards(input.toInt))
@@ -164,6 +161,7 @@ case class AnswerState(controller: Controller) extends ControllerState {
 
     if (controller.gameManager.roundAnswerCards.size == controller.gameManager.player.size) {
       controller.gameManager = controller.gameManager.drawCard()
+      controller.publish(new UpdateGuiEvent)
       controller.nextState()
     }
   }

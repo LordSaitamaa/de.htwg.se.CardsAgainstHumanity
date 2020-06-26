@@ -2,12 +2,8 @@ package view.GUI.Pages
 
 import java.awt.{Button, Color, FlowLayout}
 
-import control.{Controller, UpdateGuiEvent}
-import javax.swing.ImageIcon
-import model.Player
+import control._
 import view.GUI.InfoBar
-
-import scala.collection.immutable
 import scala.swing.event.MouseClicked
 import scala.swing.{BoxPanel, Dimension, GridPanel, Label, ListView, Orientation, Swing}
 
@@ -16,15 +12,16 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BoxPanel(Orien
   preferredSize = new Dimension(790, 500)
   background = Color.BLACK
 
+  val submitBtn = new Button("Submit")
+
   var listString = List[String]()
+
+
+  listenTo(controller)
 
   for (x <- controller.gameManager.player(controller.gameManager.activePlayer).playerCards) {
     listString = listString :+ x.antwort
   }
-
-  //val roundLbl = new Label("Frage der Runde" + controller.gameManager.numberOfRounds + " : " + controller.gameManager.roundQuestion)
-
-  infoBar.text = controller.gameManager.roundQuestion
 
   var playedCard = 0
 
@@ -33,7 +30,6 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BoxPanel(Orien
     contents += new Label("Player: " + controller.gameManager.activePlayer + 1)
     contents += Swing.HGlue
     contents += new Label("Round " + controller.gameManager.numberOfRounds)
-    //contents += roundLbl
   }
 
   contents += Swing.HGlue
@@ -44,7 +40,8 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BoxPanel(Orien
     reactions += {
       case b: MouseClicked if b.clicks == 2 =>
         playedCard = selection.anchorIndex
-        controller.eval(playedCard.toString)
+        controller.eval(playedCard.toString)           // Hier verstehe ich nicht genau, wie der AnswerState funktioniert
+        // infoBar.text =        an dieser Stelle muss die beantwortete Frage mit dem jeweiligen Spieler in die infoBar unten kommen.
     }
   }
 
@@ -54,13 +51,20 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BoxPanel(Orien
 
     background = Color.BLUE
 
-    for (i <- controller.gameManager.roundAnswerCards) {
+
+    /*for (i <- controller.gameManager.roundAnswerCards) {
       contents += new Label("Spieler " + i._1.name + " hat " + i._2 + " gespielt")
     }
 
+     */
   }
 
   contents += Swing.HGlue
+
+  reactions += {
+    case event: UpdateInfoBarEvent => infoBar.text = controller.getCurrentStateAsString()
+  }
+
   /*val panelCenter = new BoxPanel(Orientation.Vertical) {
     background = Color.PINK
     contents += Swing.HStrut(150)

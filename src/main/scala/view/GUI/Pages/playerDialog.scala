@@ -1,9 +1,11 @@
 package view.GUI.Pages
 
-import java.awt.{Color}
-import control.{Controller, NextStateEvent, StartPageEvent, UpdateGuiEvent}
+import java.awt.Color
+
+import control.{Controller, NextStateEvent, StartPageEvent, UpdateGuiEvent, UpdateInfoBarEvent}
 import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
 import view.GUI.InfoBar
+
 import scala.swing.event.ButtonClicked
 import scala.swing.{BoxPanel, Button, Dialog, Dimension, FlowPanel, Orientation, TextField}
 
@@ -52,7 +54,12 @@ class playerDialog(controller: Controller, infobar: InfoBar) extends Dialog {
         playerTf.text = ""
       }
     }
-    case event: NextStateEvent => this.close()
-    case event : UpdateGuiEvent => infoTf.text = controller.gameManager.player.toString()
+    case event: NextStateEvent => {
+      controller.eval("")
+      this.close()
+    }
+    case event : UpdateInfoBarEvent => {
+      infoTf.text = controller.gameManager.player.toString()
+    }
   }
 }

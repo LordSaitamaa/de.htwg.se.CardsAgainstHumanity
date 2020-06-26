@@ -43,8 +43,7 @@ class SwingGui(controller: Controller) extends Frame {
           playerDialog.open()
         }
         case 4 => {
-          val spielfeld = new Spielfeld(controller, infoBar)
-          infoBar.text = controller.getCurrentStateAsString()
+          val spielfeld = new SpielfeldSimon(controller, infoBar)
           mainPanel.contents.update(0, spielfeld)
           this.validate()
         }

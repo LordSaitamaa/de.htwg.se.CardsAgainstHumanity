@@ -9,4 +9,5 @@ class UpdateGuiEvent extends Event
 class UpdateTuiEvent extends Event
 class UndoEvent extends Event
 class NextStateEvent extends Event
+class UpdateInfoBarEvent extends Event
 
