@@ -40,18 +40,18 @@ class playerDialog(controller: Controller, infobar: InfoBar) extends Dialog {
   reactions += {
     case ButtonClicked(b) if b == undoButton => {
       controller.undo
-      infoTf.text = controller.gameManager.player.toString()
+      infoTf.text = controller.gameManager.playerG.toString()
     }
     case ButtonClicked(b) if b == weiterButton => {
       if(playerTf.text.equals("Spieler")) {
         playerTf.background = Color.RED
-        infoTf.text = controller.gameManager.player.toString()
-        infobar.text = controller.gameManager.player.toString()
+        infoTf.text = controller.gameManager.playerG.toString()
+        infobar.text = controller.gameManager.playerG.toString()
         playerTf.validate()
       } else {
         controller.eval(playerTf.text)
         playerTf.background = Color.WHITE
-        infoTf.text = controller.gameManager.player.toString()
+        infoTf.text = controller.gameManager.playerG.toString()
         playerTf.text = "Spieler"
       }
     }
@@ -60,7 +60,7 @@ class playerDialog(controller: Controller, infobar: InfoBar) extends Dialog {
       this.close()
     }
     case event : UpdateInfoBarEvent => {
-      infoTf.text = controller.gameManager.player.toString()
+      infoTf.text = controller.gameManager.playerG.toString()
     }
   }
 }

@@ -7,14 +7,14 @@ class AddPlayersCommand(name: String, controller: Controller) extends Command{
 
   override def doStep: Unit = {
 
-    var playerTmp = controller.gameManager.player
+    var playerTmp = controller.gameManager.playerG
     playerTmp = playerTmp :+ Player(name, true, List[AnswerCard]())
-    controller.gameManager.player = playerTmp
+    controller.gameManager.playerG = playerTmp
   }
 
   override def undoStep: Unit = {
 
-    var playerTmp = controller.gameManager.player;
+    var playerTmp = controller.gameManager.playerG;
     playerTmp = playerTmp.filterNot(_==playerTmp.last)
     controller.gameManager.player = playerTmp
   }

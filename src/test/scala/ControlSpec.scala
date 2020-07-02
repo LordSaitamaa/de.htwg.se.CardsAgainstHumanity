@@ -19,8 +19,8 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
    // controller.add(observer)
       "test Strategy"in{
         controller.gameManager = controller.gameManager.setPlayersAndRounds(2)
-        controller.gameManager.numberOfPlayers.shouldBe(2)
-        controller.gameManager.numberOfPlayableRounds.shouldBe(8)
+        controller.gameManager.numberOfPlayer.shouldBe(2)
+        controller.gameManager.numberOfPlayableRound.shouldBe(8)
       }
 
     "notify the observer after evaluation" in {
@@ -88,20 +88,20 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
     "handout cards correctly "in{
       controller.state = SetupState(controller)
       controller.eval("Hans")
-      controller.gameManager.player(0).name shouldBe "Hans"
+      controller.gameManager.playerG()(0).name shouldBe "Hans"
       controller.eval("Dirk")
-      controller.gameManager.player(1).name shouldBe "Dirk"
-      controller.gameManager.player.length shouldBe 2
+      controller.gameManager.playerG()(1).name shouldBe "Dirk"
+      controller.gameManager.playerG.length shouldBe 2
 
-      controller.gameManager.player(0).getCards.length shouldBe(7)
-      controller.gameManager.player(1).getCards.length shouldBe(7)
+      controller.gameManager.playerG()(0).getCards.length shouldBe(7)
+      controller.gameManager.playerG()(1).getCards.length shouldBe(7)
 
     }
 
     "place a question card "in {
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 0)
       controller.eval("2")
-      controller.gameManager.roundQuestion shouldBe a [String]
+      controller.gameManager.roundQuestionG shouldBe a [String]
       controller.state shouldBe(AnswerState)(controller)
     }
 
@@ -110,8 +110,8 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.nextState()
       controller.state shouldBe AnswerState(controller)
       controller.eval("2")
-      controller.gameManager.roundAnswerCards.size shouldBe(2)
-      controller.gameManager.activePlayer shouldBe(0)
+      controller.gameManager.roundAnswerCardG.size shouldBe(2)
+      controller.gameManager.activePlayerG shouldBe(0)
       controller.gameManager = controller.gameManager.copy(numberOfRounds = 10)
       controller.nextState()
       controller.state shouldBe FinishState(controller)

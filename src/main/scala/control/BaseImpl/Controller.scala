@@ -2,11 +2,12 @@ package control.BaseImpl
 
 import control._
 import model.BaseImpl.GameManager
+import model.ModellInterface
 import utils.UndoManager
 
 import scala.swing.Publisher
 
-class Controller(var gameManager: GameManager) extends Publisher {
+class Controller(var gameManager: ModellInterface) extends ControllerInterface with Publisher {
 
   var state: ControllerState = PreSetupState(this)
   val undoManager = new UndoManager
@@ -39,7 +40,7 @@ class Controller(var gameManager: GameManager) extends Publisher {
     }
   }
 
-  def getCurrentStateAsString(): String = state.getCurrentStateAsString
+  override def getCurrentStateAsString(): String = state.getCurrentStateAsString
 
 
   def undo: Unit = {
@@ -107,7 +108,7 @@ case class SetupState(controller: Controller) extends ControllerState {
     controller.publish(new UpdateTuiEvent)
 
     //controller.gameManager = controller.gameManager.addPlayer(input)
-    if (controller.gameManager.player.length == controller.gameManager.numberOfPlayers) {
+    if (controller.gameManager.playerG().length == controller.gameManager.numberOfPlayer()) {
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
       controller.nextState()
@@ -125,22 +126,22 @@ case class AnswerState(controller: Controller) extends ControllerState {
 
   override def evaluate(input: String): Unit = {
 
-    if(input== "" || controller.gameManager.roundAnswerCards.size == controller.gameManager.player.length) {
+    if(input== "" || controller.gameManager.roundAnswerCardG().size == controller.gameManager.playerG().length) {
       controller.gameManager = controller.gameManager.clearRoundAnswers()
       controller.gameManager = controller.gameManager.placeQuestionCard()
       controller.publish(new UpdateInfoBarEvent)
       controller.publish(new UpdateGuiEvent)
       controller.publish(new UpdateTuiEvent)
     } else {
-      if (controller.gameManager.roundAnswerCards.size == controller.gameManager.player.size) {
+      if (controller.gameManager.roundAnswerCardG().size == controller.gameManager.playerG().size) {
         controller.gameManager = controller.gameManager.drawCard()
         controller.publish(new UpdateGuiEvent)
         controller.publish(new UpdateTuiEvent)
         controller.nextState()
       }
       val activePlayer = controller.gameManager.getActivePlayer()
-      if (input.toInt >= 0 && input.toInt < controller.gameManager.player(activePlayer).playerCards.length) {
-        controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.player(activePlayer).playerCards(input.toInt))
+      if (input.toInt >= 0 && input.toInt < controller.gameManager.playerG()(activePlayer).playerCards.length) {
+        controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.playerG()(activePlayer).playerCards(input.toInt))
         controller.gameManager = controller.gameManager.pickNextPlayer()
         controller.publish(new UpdateGuiEvent)
         controller.publish(new UpdateTuiEvent)
@@ -148,14 +149,14 @@ case class AnswerState(controller: Controller) extends ControllerState {
 
     }
 
-    if(controller.gameManager.numberOfRounds >= controller.gameManager.numberOfPlayableRounds)
+    if(controller.gameManager.numberOfRound >= controller.gameManager.numberOfPlayableRound)
       controller.nextState()
   }
 
-  override def getCurrentStateAsString: String = controller.gameManager.roundQuestion
+  override def getCurrentStateAsString: String = controller.gameManager.roundQuestionG
 
   override def nextState: ControllerState = {
-    if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds) {
+    if(controller.gameManager.numberOfRound > controller.gameManager.numberOfPlayableRound) {
       FinishState(controller)
     } else this
   }

@@ -1,16 +1,19 @@
 package control.BaseImpl
 
 import model.BaseImpl.{AnswerCard, QuestionCard}
+import model.ModellInterface
 import utils.Command
 
 class AddCardsCommand(cardText: String, controller: Controller) extends Command{
+
+  var memento: (ModellInterface, ControllerState) = (controller.gameManager, controller.state)
 
   var undoListQ = List[QuestionCard]();
   var undoListA = List[AnswerCard]();
 
   override def doStep: Unit = {
     if(cardText.contains("_")) {
-      var tempList = controller.gameManager.questionList
+      var tempList = controller.gameManager.questionListG
       undoListQ = tempList
       tempList = tempList :+ QuestionCard(cardText)
       controller.gameManager.questionList = tempList

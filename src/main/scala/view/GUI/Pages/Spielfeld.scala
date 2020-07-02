@@ -65,23 +65,23 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
     case event: UpdateGuiEvent => {
 
       var tmpList = List[String]()
-      controller.gameManager.roundAnswerCards.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
+      controller.gameManager.roundAnswerCardG.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
       beantwortete = new ListView[String](tmpList)
       panelRechts.revalidate()
       panelRechts.repaint()
 
-      antworten = new ListView(controller.gameManager.player(controller.gameManager.activePlayer).playerCards.toSeq)
+      antworten = new ListView(controller.gameManager.playerG()(controller.gameManager.activePlayerG).playerCards.toSeq)
       panelLinks.contents.update(0, antworten)
       panelLinks.revalidate()
       panelLinks.repaint()
 
-      playerInfoLbl.text = "Aktiver Spieler: " + controller.gameManager.player(controller.gameManager.activePlayer).name
+      playerInfoLbl.text = "Aktiver Spieler: " + controller.gameManager.playerG()(controller.gameManager.activePlayerG).name
 
       panelRechts.contents.update(0, beantwortete)
 
     }
     case ButtonClicked(b) if b == submitBtn => {
-      if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds)
+      if(controller.gameManager.numberOfRound > controller.gameManager.numberOfPlayableRound)
         endString.visible = true
 
         val index = antworten.selection.anchorIndex
