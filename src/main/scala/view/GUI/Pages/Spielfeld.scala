@@ -18,6 +18,9 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
   val submitBtn = new Button("Submit / Next Question")
   val nextQuestBtn = new Button("Next Question")
   val playerInfoLbl = new Label("")
+  val endString = new Label("Spiel zu Ende")
+  endString.foreground = Color.WHITE
+  endString.visible = false
 
   var antworten = new ListView[AnswerCard]()
   var beantwortete = new ListView[String]()
@@ -37,10 +40,11 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
     contents += antworten
   }
   val panelRechts = new BoxPanel(Orientation.Vertical){
-    background = Color.GREEN
+    background = Color.BLACK
     contents += beantwortete
   }
   val panelKartenauswahl = new BoxPanel(Orientation.Vertical){
+      contents += endString
     background = Color.BLACK
   }
 
@@ -60,7 +64,7 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
     case event: UpdateGuiEvent => {
 
       var tmpList = List[String]()
-      controller.gameManager.roundAnswerCards.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2 + " gelegt")
+      controller.gameManager.roundAnswerCards.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
       beantwortete = new ListView[String](tmpList)
       panelRechts.revalidate()
       panelRechts.repaint()
@@ -76,8 +80,12 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
 
     }
     case ButtonClicked(b) if b == submitBtn => {
-      val index = antworten.selection.anchorIndex
-      controller.eval(index.toString)
+      if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds)
+        endString.visible = true
+
+        val index = antworten.selection.anchorIndex
+        controller.eval(index.toString)
+
     }
     case ButtonClicked(b) if b == nextQuestBtn => {
       controller.eval("")

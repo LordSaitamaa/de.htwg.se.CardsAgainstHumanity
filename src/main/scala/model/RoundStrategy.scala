@@ -20,7 +20,7 @@ object RoundStrategy {
   def strategy2Players(): GameManager = {
     GameManager.Builder()
       .withNumberOfPlayer(2)
-      .withNumberOfRounds(8)
+      .withNumberOfRounds(2)
       .build()
   }
 

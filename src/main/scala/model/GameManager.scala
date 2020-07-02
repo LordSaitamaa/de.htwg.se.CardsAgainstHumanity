@@ -29,7 +29,6 @@ case class GameManager(numberOfPlayers: Int = 0,
       x match {
         case _: QuestionCard => tmpQuestionList = tmpQuestionList :+ (x.asInstanceOf[QuestionCard])
         case _: AnswerCard => tmpAnswerList = tmpAnswerList :+ (x.asInstanceOf[AnswerCard])
-        case _ => println("Keine Zulässige Karte")
       }
 
     }
@@ -75,7 +74,9 @@ case class GameManager(numberOfPlayers: Int = 0,
     var removedQuestList = questionList
     removedQuestList = Random.shuffle(removedQuestList)
     val quest = removedQuestList.head
-    copy(questionList = removedQuestList.filterNot(_ == quest), roundQuestion = quest.question, numberOfRounds = numberOfRounds + 1)
+    var tmpRounds = numberOfRounds
+    tmpRounds = tmpRounds +1
+    copy(questionList = removedQuestList.filterNot(_ == quest), roundQuestion = quest.question, numberOfRounds = tmpRounds)
   }
 
   def placeCard(activePlayer: Int, card: AnswerCard): GameManager = {

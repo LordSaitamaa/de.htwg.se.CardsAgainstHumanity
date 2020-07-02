@@ -70,6 +70,7 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
       gm.player(0).getCards.length shouldBe 6
       gm = gm.drawCard()
       gm.player(0).getCards.length shouldBe 7
+      gm.toString shouldNot be (null)
     }
   }
 }

@@ -92,8 +92,7 @@ case class AddCardsQuest(controller: Controller) extends ControllerState {
     }
   }
 
-  override def getCurrentStateAsString: String = "Wollen Sie Karten hinzufügen? \n" +
-    "Wenn Sie fertig sind, klicken Sie auf [Weiter]"
+  override def getCurrentStateAsString: String = "AddCardState"
 
   override def nextState: ControllerState = SetupState(controller)
 }
@@ -117,7 +116,7 @@ case class SetupState(controller: Controller) extends ControllerState {
     }
   }
 
-  override def getCurrentStateAsString: String = "Spieleranzahl: " + controller.gameManager.numberOfPlayers + " Übrige Karten: " + controller.gameManager.answerList.toString()
+  override def getCurrentStateAsString: String = "SetupState"
 
   override def nextState: ControllerState = AnswerState(controller)
 }
@@ -133,42 +132,39 @@ case class AnswerState(controller: Controller) extends ControllerState {
       controller.publish(new UpdateGuiEvent)
       controller.publish(new UpdateTuiEvent)
     } else {
-      val activePlayer = controller.gameManager.getActivePlayer()
-      if (input.toInt >= 0 && input.toInt < controller.gameManager.player(activePlayer).playerCards.length) {
-        controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.player(activePlayer).playerCards(input.toInt))
-        controller.gameManager = controller.gameManager.pickNextPlayer()
-        controller.publish(new UpdateGuiEvent)
-        controller.publish(new UpdateTuiEvent)
-      } else {
-        val failure = "Kein Gültiger Index"
-        print(failure)
-      }
-
       if (controller.gameManager.roundAnswerCards.size == controller.gameManager.player.size) {
         controller.gameManager = controller.gameManager.drawCard()
         controller.publish(new UpdateGuiEvent)
         controller.publish(new UpdateTuiEvent)
         controller.nextState()
       }
+      val activePlayer = controller.gameManager.getActivePlayer()
+      if (input.toInt >= 0 && input.toInt < controller.gameManager.player(activePlayer).playerCards.length) {
+        controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.player(activePlayer).playerCards(input.toInt))
+        controller.gameManager = controller.gameManager.pickNextPlayer()
+        controller.publish(new UpdateGuiEvent)
+        controller.publish(new UpdateTuiEvent)
+      }
+
     }
 
-    if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds)
-      nextState
+    if(controller.gameManager.numberOfRounds >= controller.gameManager.numberOfPlayableRounds)
+      controller.nextState()
   }
 
   override def getCurrentStateAsString: String = controller.gameManager.roundQuestion
 
   override def nextState: ControllerState = {
-    if(controller.gameManager.numberOfPlayers > controller.gameManager.numberOfPlayableRounds) {
+    if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds) {
       FinishState(controller)
     } else this
   }
 }
 
 case class FinishState(controller: Controller) extends ControllerState {
-  override def evaluate(input: String): Unit = {"FinishState"}
+  override def evaluate(input: String): Unit = ()
 
-  override def getCurrentStateAsString: String = "Please write quit to exit the game"
+  override def getCurrentStateAsString: String = "Please write q to exit the game"
 
   override def nextState: ControllerState = this
 }
