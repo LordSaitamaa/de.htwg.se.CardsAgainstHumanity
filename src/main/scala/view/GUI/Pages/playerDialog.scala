@@ -2,7 +2,8 @@ package view.GUI.Pages
 
 import java.awt.Color
 
-import control.{Controller, NextStateEvent, StartPageEvent, UpdateGuiEvent, UpdateInfoBarEvent}
+import control.BaseImpl.Controller
+import control.{NextStateEvent, StartPageEvent, UpdateGuiEvent, UpdateInfoBarEvent}
 import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
 import view.GUI.InfoBar
 

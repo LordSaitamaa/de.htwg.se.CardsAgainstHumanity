@@ -1,4 +1,4 @@
-package model
+package model.BaseImpl
 
 case class QuestionCard(question:String) extends Card {
 

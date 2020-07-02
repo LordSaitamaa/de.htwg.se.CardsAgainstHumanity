@@ -1,4 +1,4 @@
-package model
+package model.BaseImpl
 
 object CardStack {
   val initialize: KompositumCard = {

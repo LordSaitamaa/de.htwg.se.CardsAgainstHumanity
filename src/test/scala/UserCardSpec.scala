@@ -1,3 +1,4 @@
+import model.BaseImpl.{AnswerCard, KompositumCard, QuestionCard}
 import model._
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers

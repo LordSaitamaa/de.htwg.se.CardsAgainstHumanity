@@ -1,9 +1,12 @@
 package view.GUI.Pages
 
 import java.awt.Color
+
+import control.BaseImpl.Controller
+
 import scala.swing._
 import scala.swing.{Action, BorderPanel, Button, ComboBox, Dimension, FlowPanel, Label, Menu, MenuItem, TextField}
-import control.{Controller, SecondPageEvent}
+import control.SecondPageEvent
 import javax.swing.WindowConstants.{DO_NOTHING_ON_CLOSE, EXIT_ON_CLOSE}
 import view.GUI.InfoBar
 

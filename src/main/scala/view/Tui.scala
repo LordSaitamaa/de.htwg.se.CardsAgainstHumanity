@@ -1,7 +1,8 @@
 package view
+import control.BaseImpl.Controller
 import utils.Observer
-import control.{Controller, SecondPageEvent, StartPageEvent, ThirdPageEvent, UpdateTuiEvent}
-import model.{AnswerCard, Card, KompositumCard, Player}
+import control.{SecondPageEvent, StartPageEvent, ThirdPageEvent, UpdateTuiEvent}
+import model.BaseImpl.Player
 
 import scala.swing.Publisher
 

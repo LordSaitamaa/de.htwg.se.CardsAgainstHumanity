@@ -1,4 +1,4 @@
-package model
+package model.BaseImpl
 
 trait  Card {
   def printCard

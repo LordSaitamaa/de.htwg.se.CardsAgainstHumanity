@@ -1,8 +1,8 @@
-package control
+package control.BaseImpl
 
-import model.GameManager
-import utils.{Observable, UndoManager}
 import control._
+import model.BaseImpl.GameManager
+import utils.UndoManager
 
 import scala.swing.Publisher
 

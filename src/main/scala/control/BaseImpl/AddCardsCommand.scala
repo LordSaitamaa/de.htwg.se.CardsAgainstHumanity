@@ -1,6 +1,6 @@
-package control
+package control.BaseImpl
 
-import model.{AnswerCard, QuestionCard}
+import model.BaseImpl.{AnswerCard, QuestionCard}
 import utils.Command
 
 class AddCardsCommand(cardText: String, controller: Controller) extends Command{

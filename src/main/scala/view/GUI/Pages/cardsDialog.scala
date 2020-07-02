@@ -1,6 +1,7 @@
 package view.GUI.Pages
 
-import control.{Controller, ThirdPageEvent, UndoEvent, UpdateGuiEvent, UpdateTuiEvent}
+import control.BaseImpl.Controller
+import control.{ThirdPageEvent, UndoEvent, UpdateGuiEvent, UpdateTuiEvent}
 import view.GUI.InfoBar
 import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
 

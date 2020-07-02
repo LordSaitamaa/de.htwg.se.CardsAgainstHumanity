@@ -1,5 +1,6 @@
-import control.{AddCardsQuest, AnswerState, Controller, FinishState, PreSetupState, SetupState}
-import model.GameManager
+import control.BaseImpl.{AddCardsQuest, AnswerState, Controller, FinishState, PreSetupState, SetupState}
+import model.BaseImpl
+import model.BaseImpl.GameManager
 import org.scalatest._
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
@@ -8,7 +9,7 @@ import utils.Observer
 
 class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
   "A Controller " when {
-    val gameManager = GameManager()
+    val gameManager = BaseImpl.GameManager()
     val controller = new Controller(gameManager)
     val observer = new Observer {
       var updated: Boolean = false

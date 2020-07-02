@@ -1,4 +1,6 @@
-package model
+package model.BaseImpl
+
+import model.BaseImpl
 
 import scala.util.Random
 
@@ -151,7 +153,7 @@ object GameManager{
     }
 
     def build(): GameManager = {
-      GameManager(numberOfPlayer,numberOfPlayableRounds)
+      BaseImpl.GameManager(numberOfPlayer,numberOfPlayableRounds)
     }
   }
 }

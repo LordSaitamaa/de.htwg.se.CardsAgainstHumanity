@@ -2,6 +2,7 @@ package view.GUI
 
 import java.awt.Color
 
+import control.BaseImpl.Controller
 import view.GUI.Pages._
 
 import scala.swing.{Action, BoxPanel, Dimension, Frame, Menu, MenuBar, MenuItem, Orientation}

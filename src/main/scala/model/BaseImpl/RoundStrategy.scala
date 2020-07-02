@@ -1,4 +1,4 @@
-package model
+package model.BaseImpl
 
 object RoundStrategy {
 

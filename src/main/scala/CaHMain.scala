@@ -1,12 +1,13 @@
-import control.Controller
-import model.GameManager
+import control.BaseImpl.Controller
+import model.BaseImpl
+import model.BaseImpl.GameManager
 import view.GUI.SwingGui
 import view.Tui
 
 import scala.io.StdIn.readLine
 
 object CaHMain {
-  val controller = new Controller(GameManager())
+  val controller = new Controller(BaseImpl.GameManager())
   val gui = new SwingGui(controller)
   val tui = new Tui(controller)
 
