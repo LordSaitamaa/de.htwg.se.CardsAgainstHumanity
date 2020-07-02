@@ -10,7 +10,7 @@ import view.GUI.InfoBar
 import scala.swing.event.{ButtonClicked, MouseClicked, SelectionChanged}
 import scala.swing.{BorderPanel, BoxPanel, Button, Dimension, Label, ListView, Orientation, TextField}
 
-class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
+class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends BorderPanel{
 
   preferredSize = new Dimension(790, 500)
   background = Color.GREEN
@@ -60,28 +60,32 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
   listenTo(nextQuestBtn)
 
   reactions += {
-    case event: UpdateInfoBarEvent => infoBar.text = controller.getCurrentStateAsString()
+    case event: UpdateInfoBarEvent => {
+      infoBar.text = controller.getCurrentStateAsString()
+      print("InfoBarEvent")
+    }
 
     case event: UpdateGuiEvent => {
+      print("UpdateGuiEvent")
 
       var tmpList = List[String]()
-      controller.gameManager.roundAnswerCards.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
+      controller.getGameManager().roundAnswerCards.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
       beantwortete = new ListView[String](tmpList)
       panelRechts.revalidate()
       panelRechts.repaint()
 
-      antworten = new ListView(controller.gameManager.player(controller.gameManager.activePlayer).playerCards.toSeq)
+      antworten = new ListView(controller.getGameManager.player(controller.getGameManager.activePlayer).playerCards.toSeq)
       panelLinks.contents.update(0, antworten)
       panelLinks.revalidate()
       panelLinks.repaint()
 
-      playerInfoLbl.text = "Aktiver Spieler: " + controller.gameManager.player(controller.gameManager.activePlayer).name
+      playerInfoLbl.text = "Aktiver Spieler: " + controller.getGameManager.player(controller.getGameManager.activePlayer).name
 
       panelRechts.contents.update(0, beantwortete)
 
     }
     case ButtonClicked(b) if b == submitBtn => {
-      if(controller.gameManager.numberOfRounds > controller.gameManager.numberOfPlayableRounds)
+      if(controller.getGameManager.numberOfRounds > controller.getGameManager.numberOfPlayableRounds)
         endString.visible = true
 
         val index = antworten.selection.anchorIndex

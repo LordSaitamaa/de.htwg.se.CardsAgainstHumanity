@@ -1,7 +1,7 @@
 package view.GUI.Pages
 
 import control.BaseImpl.Controller
-import control.{ThirdPageEvent, UndoEvent, UpdateGuiEvent, UpdateTuiEvent}
+import control.{ControllerInterface, ThirdPageEvent, UndoEvent, UpdateGuiEvent, UpdateTuiEvent}
 import view.GUI.InfoBar
 import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
 
@@ -9,7 +9,7 @@ import scala.swing.ListView.Renderer
 import scala.swing.{BoxPanel, Button, Dialog, Dimension, FlowPanel, ListView, Orientation, ScrollPane, TextField}
 import scala.swing.event.ButtonClicked
 
-class cardsDialog(controller: Controller, infobar: InfoBar) extends Dialog {
+class cardsDialog(controller: ControllerInterface, infobar: InfoBar) extends Dialog {
 
   preferredSize = new Dimension(350, 150)
   title = "Wollen Sie Karten hinzufügen?"
@@ -46,7 +46,7 @@ class cardsDialog(controller: Controller, infobar: InfoBar) extends Dialog {
       } else {
         controller.eval(kartenNameTf.text)
         kartenNameTf.text = ""
-        addedCardsTf.text = controller.gameManager.answerList.toString()
+        addedCardsTf.text = controller.getGameManager.answerList.toString()
 
       }
     }
@@ -54,10 +54,10 @@ class cardsDialog(controller: Controller, infobar: InfoBar) extends Dialog {
       controller.eval("weiter")
       this.close()
     }
-    case event: UndoEvent => addedCardsTf.text= controller.gameManager.answerList.toString()
+    case event: UndoEvent => addedCardsTf.text= controller.getGameManager.answerList.toString()
     case event: UpdateGuiEvent => {
       this.validate()
-      addedCardsTf.text = controller.gameManager.answerList.toString()
+      addedCardsTf.text = controller.getGameManager.answerList.toString()
     }
     case event: ThirdPageEvent => this.close()
   }

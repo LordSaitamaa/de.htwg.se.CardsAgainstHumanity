@@ -1,7 +1,6 @@
 package model.BaseImpl
 
-import model.BaseImpl
-
+import model.{BaseImpl, ModellInterface}
 import scala.util.Random
 
 case class GameManager(numberOfPlayers: Int = 0,
@@ -13,9 +12,9 @@ case class GameManager(numberOfPlayers: Int = 0,
                        var answerList: List[AnswerCard] = List[AnswerCard](),
                        var questionList: List[QuestionCard] = List[QuestionCard](),
                        roundAnswerCards: Map[Player, String] = Map[Player,String](),
-                       roundQuestion: String = "") {
+                       roundQuestion: String = "") extends ModellInterface{
 
-  def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
+  override def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
 
   def addPlayer(name: String): GameManager = {
     var playerTmp = Vector[Player]()

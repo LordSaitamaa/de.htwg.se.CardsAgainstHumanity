@@ -6,7 +6,7 @@ import utils.UndoManager
 
 import scala.swing.Publisher
 
-class Controller(var gameManager: GameManager) extends Publisher {
+class Controller(var gameManager: GameManager) extends ControllerInterface  with Publisher {
 
   var state: ControllerState = PreSetupState(this)
   val undoManager = new UndoManager
@@ -25,6 +25,8 @@ class Controller(var gameManager: GameManager) extends Publisher {
     publish(new UpdateTuiEvent)
   }
   */
+
+  def getGameManager() : GameManager = {gameManager}
 
   def eval(input: String): Unit = {
     state.evaluate(input)

@@ -1,5 +1,0 @@
-package model
-
-trait GameManagerInterface {
-
-}

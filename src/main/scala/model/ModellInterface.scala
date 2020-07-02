@@ -1,6 +1,6 @@
 package model
 
-import model.BaseImpl.{AnswerCard, GameManager, Player, RoundStrategy}
+import model.BaseImpl.{AnswerCard, GameManager, KompositumCard, Player, QuestionCard, RoundStrategy}
 
 
 trait ModellInterface {
@@ -32,5 +32,4 @@ trait ModellInterface {
   def clearRoundAnswers(): ModellInterface
 
   def toString: String
-
 }

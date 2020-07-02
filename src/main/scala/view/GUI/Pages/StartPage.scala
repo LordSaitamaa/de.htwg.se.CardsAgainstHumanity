@@ -6,13 +6,13 @@ import control.BaseImpl.Controller
 
 import scala.swing._
 import scala.swing.{Action, BorderPanel, Button, ComboBox, Dimension, FlowPanel, Label, Menu, MenuItem, TextField}
-import control.SecondPageEvent
+import control.{ControllerInterface, SecondPageEvent}
 import javax.swing.WindowConstants.{DO_NOTHING_ON_CLOSE, EXIT_ON_CLOSE}
 import view.GUI.InfoBar
 
 import scala.swing.event.{ButtonClicked, Key}
 
-class StartPage(controller: Controller, infobar: InfoBar) extends BorderPanel {
+class StartPage(controller: ControllerInterface, infobar: InfoBar) extends BorderPanel {
 
   val startBtn = new Button("Spiel starten")
   val titleLbl = new Label("CARDS AGAINST THE HUMANITY") {
