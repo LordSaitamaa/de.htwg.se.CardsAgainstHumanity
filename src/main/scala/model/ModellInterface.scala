@@ -2,7 +2,6 @@ package model
 
 import model.BaseImpl.{AnswerCard, GameManager, KompositumCard, Player, QuestionCard, RoundStrategy}
 
-
 trait ModellInterface {
 
   def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
