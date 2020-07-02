@@ -3,14 +3,17 @@ package view.GUI.Pages
 import java.awt.Color
 
 import control.BaseImpl.Controller
-import control._
+import control.{ControllerInterface, UpdateGuiEvent,UpdateInfoBarEvent}
 import model.BaseImpl.AnswerCard
 import view.GUI.InfoBar
+import scala.swing.event._
 
-import scala.swing.event.{ButtonClicked, MouseClicked, SelectionChanged}
 import scala.swing.{BorderPanel, BoxPanel, Button, Dimension, Label, ListView, Orientation, TextField}
 
-class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
+
+class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends BorderPanel{
+
+  listenTo(controller)
 
   preferredSize = new Dimension(790, 500)
   background = Color.GREEN
@@ -28,7 +31,6 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
 
   val panelRundenInfo = new BoxPanel(Orientation.Vertical){
     background = Color.LIGHT_GRAY
-
     contents += playerInfoLbl
   }
   val panelControllers = new BoxPanel(Orientation.Vertical){
@@ -55,33 +57,31 @@ class Spielfeld(controller: Controller, infoBar: InfoBar) extends BorderPanel{
   add(panelRechts, BorderPanel.Position.East)
   add(panelKartenauswahl, BorderPanel.Position.Center)
 
-  listenTo(controller)
   listenTo(submitBtn)
   listenTo(nextQuestBtn)
 
   reactions += {
-    case event: UpdateInfoBarEvent => infoBar.text = controller.getCurrentStateAsString()
+    case event: UpdateInfoBarEvent => infoBar.text = controller.getCurrentStateAsString
 
     case event: UpdateGuiEvent => {
-
       var tmpList = List[String]()
-      controller.gameManager.roundAnswerCardG.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
+      controller.gameManagerG().roundAnswerCardG().foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
       beantwortete = new ListView[String](tmpList)
       panelRechts.revalidate()
       panelRechts.repaint()
 
-      antworten = new ListView(controller.gameManager.playerG()(controller.gameManager.activePlayerG).playerCards.toSeq)
+      antworten = new ListView(controller.gameManagerG().playerG(controller.gameManagerG().activePlayerG()).playerCards.toSeq)
       panelLinks.contents.update(0, antworten)
       panelLinks.revalidate()
       panelLinks.repaint()
 
-      playerInfoLbl.text = "Aktiver Spieler: " + controller.gameManager.playerG()(controller.gameManager.activePlayerG).name
+      playerInfoLbl.text = "Aktiver Spieler: " + controller.gameManagerG().playerG(controller.gameManagerG().activePlayerG()).name
 
       panelRechts.contents.update(0, beantwortete)
 
     }
     case ButtonClicked(b) if b == submitBtn => {
-      if(controller.gameManager.numberOfRound > controller.gameManager.numberOfPlayableRound)
+      if(controller.gameManagerG().numberOfRound > controller.gameManagerG().numberOfPlayableRound)
         endString.visible = true
 
         val index = antworten.selection.anchorIndex

@@ -33,6 +33,7 @@ trait ModellInterface {
 
   def toString: String
 
+  def addCard(card: String): GameManager
 
   def numberOfPlayer() : Int
 
@@ -42,7 +43,9 @@ trait ModellInterface {
 
   def kompositumCardG() : KompositumCard
 
-  def playerG() : Vector[Player]
+  def playerG(currentPlayer: Int) : Player
+
+  def allPlayerG() : Vector[Player]
 
   def answerListG(): List[AnswerCard]
 
@@ -54,11 +57,4 @@ trait ModellInterface {
 
   def numberOfPlayableRound(): Int
 
-  def questionListS(ls : List[QuestionCard]) : Unit
-
-  def answerListS(ls : List[AnswerCard]) : Unit
-
-  def playerS(v : Vector[Player])
-
-  def numberOfRoundS(n : Int)
 }

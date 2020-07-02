@@ -9,7 +9,7 @@ class AddCardsCommandSpec extends AnyWordSpec with Matchers {
   "AddCardsCommandSpec works" when {
     var gm = new GameManager()
     var ctr = new Controller(gm)
-    var x = new AddCardsCommand("funktioniert_sicher", ctr)
+    var x = new AddCardsCommand(ctr)
 
 
 

@@ -12,7 +12,7 @@ class Controller(var gameManager: ModellInterface) extends ControllerInterface w
   var state: ControllerState = PreSetupState(this)
   val undoManager = new UndoManager
 
-  def nextState(): Unit = state = state.nextState
+   def nextState(): Unit = state = state.nextState
 
   def changePage(page: Int): Unit = {
     page match{
@@ -21,11 +21,6 @@ class Controller(var gameManager: ModellInterface) extends ControllerInterface w
       case 3 => publish(new ThirdPageEvent)
     }
   }
-  /*
-  def updateTui(): Unit = {
-    publish(new UpdateTuiEvent)
-  }
-  */
 
   def eval(input: String): Unit = {
     state.evaluate(input)
@@ -52,6 +47,8 @@ class Controller(var gameManager: ModellInterface) extends ControllerInterface w
     undoManager.redoStep
     publish(new UndoEvent)
   }
+
+  def gameManagerG(): GameManager = gameManager.asInstanceOf[GameManager]
 }
 
 trait ControllerState {
@@ -82,15 +79,17 @@ case class PreSetupState(controller: Controller) extends ControllerState {
 
 case class AddCardsQuest(controller: Controller) extends ControllerState {
   controller.publish(new UpdateTuiEvent)
+
   override def evaluate(input: String): Unit = {
     if (input.equals("Weiter") || input.equals("weiter")) {
       controller.nextState()
       controller.publish(new ThirdPageEvent)
-    } else {
-      controller.undoManager.doStep(new AddCardsCommand(input, this.controller))
+    }
+      controller.undoManager.doStep(new AddCardsCommand(controller))
+      controller.gameManager = controller.gameManager.addCard(input)
       controller.publish(new UpdateInfoBarEvent)
       controller.publish(new UpdateGuiEvent)
-    }
+
   }
 
   override def getCurrentStateAsString: String = "AddCardState"
@@ -103,12 +102,13 @@ case class SetupState(controller: Controller) extends ControllerState {
 
     if (input.isEmpty) return
 
-    controller.undoManager.doStep(new AddPlayersCommand(input, controller))
+    controller.undoManager.doStep(new AddPlayersCommand(controller))
+    controller.gameManager = controller.gameManager.addPlayer(input)
     controller.publish(new UpdateGuiEvent)
     controller.publish(new UpdateTuiEvent)
 
     //controller.gameManager = controller.gameManager.addPlayer(input)
-    if (controller.gameManager.playerG().length == controller.gameManager.numberOfPlayer()) {
+    if (controller.gameManager.allPlayerG().length == controller.gameManager.numberOfPlayer()) {
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
       controller.nextState()
@@ -126,22 +126,22 @@ case class AnswerState(controller: Controller) extends ControllerState {
 
   override def evaluate(input: String): Unit = {
 
-    if(input== "" || controller.gameManager.roundAnswerCardG().size == controller.gameManager.playerG().length) {
+    if(input== "" || controller.gameManager.roundAnswerCardG().size == controller.gameManager.allPlayerG().length) {
       controller.gameManager = controller.gameManager.clearRoundAnswers()
       controller.gameManager = controller.gameManager.placeQuestionCard()
       controller.publish(new UpdateInfoBarEvent)
       controller.publish(new UpdateGuiEvent)
       controller.publish(new UpdateTuiEvent)
     } else {
-      if (controller.gameManager.roundAnswerCardG().size == controller.gameManager.playerG().size) {
+      if (controller.gameManager.roundAnswerCardG().size == controller.gameManager.allPlayerG().size) {
         controller.gameManager = controller.gameManager.drawCard()
         controller.publish(new UpdateGuiEvent)
         controller.publish(new UpdateTuiEvent)
         controller.nextState()
       }
       val activePlayer = controller.gameManager.getActivePlayer()
-      if (input.toInt >= 0 && input.toInt < controller.gameManager.playerG()(activePlayer).playerCards.length) {
-        controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.playerG()(activePlayer).playerCards(input.toInt))
+      if (input.toInt >= 0 && input.toInt < controller.gameManager.playerG(activePlayer).playerCards.length) {
+        controller.gameManager = controller.gameManager.placeCard(activePlayer, controller.gameManager.playerG(activePlayer).playerCards(input.toInt))
         controller.gameManager = controller.gameManager.pickNextPlayer()
         controller.publish(new UpdateGuiEvent)
         controller.publish(new UpdateTuiEvent)

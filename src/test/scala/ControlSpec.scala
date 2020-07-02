@@ -9,7 +9,7 @@ import utils.Observer
 
 class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
   "A Controller " when {
-    val gameManager = BaseImpl.GameManager()
+    val gameManager = GameManager()
     val controller = new Controller(gameManager)
     val observer = new Observer {
       var updated: Boolean = false
@@ -59,12 +59,12 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
 
       controller.state = SetupState(controller)
       controller.nextState()
-      controller.gameManager = controller.gameManager.copy(numberOfRounds = 3)
+      controller.gameManager = controller.gameManager.asInstanceOf[GameManager].copy(numberOfRounds = 3)
       controller.state shouldBe (AnswerState(controller))
 
       controller.state = SetupState(controller)
       controller.nextState()
-      controller.gameManager = controller.gameManager.copy(numberOfRounds = 9)
+      controller.gameManager = controller.gameManager.asInstanceOf[GameManager].copy(numberOfRounds = 9)
       controller.state shouldBe (AnswerState(controller))
       controller.nextState()
       controller.state shouldBe FinishState(controller)
@@ -88,18 +88,18 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
     "handout cards correctly "in{
       controller.state = SetupState(controller)
       controller.eval("Hans")
-      controller.gameManager.playerG()(0).name shouldBe "Hans"
+      controller.gameManager.allPlayerG()(0).name shouldBe "Hans"
       controller.eval("Dirk")
-      controller.gameManager.playerG()(1).name shouldBe "Dirk"
-      controller.gameManager.playerG.length shouldBe 2
+      controller.gameManager.allPlayerG()(1).name shouldBe "Dirk"
+      controller.gameManager.allPlayerG().length shouldBe 2
 
-      controller.gameManager.playerG()(0).getCards.length shouldBe(7)
-      controller.gameManager.playerG()(1).getCards.length shouldBe(7)
+      controller.gameManager.allPlayerG()(0).getCards.length shouldBe(7)
+      controller.gameManager.allPlayerG()(1).getCards.length shouldBe(7)
 
     }
 
     "place a question card "in {
-      controller.gameManager = controller.gameManager.copy(numberOfRounds = 0)
+      controller.gameManager = controller.gameManager.asInstanceOf[GameManager].copy(numberOfRounds = 0)
       controller.eval("2")
       controller.gameManager.roundQuestionG shouldBe a [String]
       controller.state shouldBe(AnswerState)(controller)
@@ -112,7 +112,7 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.eval("2")
       controller.gameManager.roundAnswerCardG.size shouldBe(2)
       controller.gameManager.activePlayerG shouldBe(0)
-      controller.gameManager = controller.gameManager.copy(numberOfRounds = 10)
+      controller.gameManager = controller.gameManager.asInstanceOf[GameManager].copy(numberOfRounds = 10)
       controller.nextState()
       controller.state shouldBe FinishState(controller)
     }
@@ -120,10 +120,10 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
     "Should change State to finish" in {
       controller.state = AnswerState(controller)
       controller.eval("")
-      controller.gameManager.roundAnswerCards shouldBe empty
-      controller.gameManager.roundQuestion shouldNot be (null)
-      controller.gameManager = controller.gameManager.copy(numberOfPlayableRounds = 6)
-      controller.gameManager = controller.gameManager.copy(numberOfRounds = 7)
+      //controller.gameManager.roundAnswerCardsG shouldBe empty
+      controller.gameManager.roundQuestionG shouldNot be (null)
+      controller.gameManager = controller.gameManager.asInstanceOf[GameManager].copy(numberOfPlayableRounds = 6)
+      controller.gameManager = controller.gameManager.asInstanceOf[GameManager].copy(numberOfRounds = 7)
 
     }
   }

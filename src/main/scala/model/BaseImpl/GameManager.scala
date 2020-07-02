@@ -21,7 +21,8 @@ case class GameManager(numberOfPlayers: Int = 0,
   override def numberOfRound() : Int = numberOfRounds
   override def activePlayerG() : Int = activePlayer
   override def kompositumCardG() : KompositumCard = kompositumCard
-  override def playerG() : Vector[Player] = player
+  override def playerG(currentPlayer: Int) : Player = player(currentPlayer)
+  def allPlayerG() : Vector[Player] = player
   override def answerListG(): List[AnswerCard] = answerList
   override def questionListG(): List[QuestionCard] = questionList
   override def roundAnswerCardG(): Map[Player,String] = roundAnswerCards
@@ -31,10 +32,21 @@ case class GameManager(numberOfPlayers: Int = 0,
   override def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
 
   override def addPlayer(name: String): GameManager = {
-    var playerTmp = Vector[Player]()
-    if (player != null) playerTmp = player
+    var playerTmp = player
     playerTmp = playerTmp :+ Player(name, true, List[AnswerCard]())
     copy(player = playerTmp)
+  }
+
+  override def addCard(card: String): GameManager = {
+    if(card.contains("_")){
+      var tmpQuestionList = questionList
+      tmpQuestionList = tmpQuestionList :+ QuestionCard(card)
+      copy(questionList = tmpQuestionList)
+    } else {
+      var tmpAnswerList = answerList
+      tmpAnswerList = tmpAnswerList :+ AnswerCard(card)
+      copy(answerList = tmpAnswerList)
+    }
   }
 
   override def createCardDeck(): GameManager = {
