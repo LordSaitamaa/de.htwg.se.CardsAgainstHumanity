@@ -1,5 +1,6 @@
 package control
 import model.BaseImpl.GameManager
+import model.ModelInterface
 
 import scala.swing.Publisher
 

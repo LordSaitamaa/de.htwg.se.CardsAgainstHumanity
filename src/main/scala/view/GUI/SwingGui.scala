@@ -11,7 +11,7 @@ import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
 
 import scala.swing.event.Key
 
-class SwingGui(controller: Controller) extends Frame {
+class SwingGui(controller: ControllerInterface) extends Frame {
 
   val infoBar = new InfoBar()
   val startPage = new StartPage(controller, infoBar)

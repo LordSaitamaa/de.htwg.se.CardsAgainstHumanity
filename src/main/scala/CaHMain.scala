@@ -1,4 +1,6 @@
+import com.google.inject.Guice
 import control.BaseImpl.Controller
+import control.ControllerInterface
 import model.BaseImpl
 import model.BaseImpl.GameManager
 import view.GUI.SwingGui
@@ -7,7 +9,8 @@ import view.Tui
 import scala.io.StdIn.readLine
 
 object CaHMain {
-  val controller = new Controller(BaseImpl.GameManager())
+  val injector = Guice.createInjector(new CardsAgainstHumanityModule)
+  val controller = injector.getInstance(classOf[Controller])
   val gui = new SwingGui(controller)
   val tui = new Tui(controller)
 

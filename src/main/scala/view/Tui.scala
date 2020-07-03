@@ -1,13 +1,13 @@
 package view
 import control.BaseImpl.Controller
 import utils.Observer
-import control.{SecondPageEvent, StartPageEvent, ThirdPageEvent, UpdateTuiEvent}
+import control.{ControllerInterface, SecondPageEvent, StartPageEvent, ThirdPageEvent, UpdateTuiEvent}
 import model.BaseImpl.Player
 
 import scala.swing.Publisher
 
 
-class Tui(controller:Controller) extends Publisher{
+class Tui(controller:ControllerInterface) extends Publisher{
 
   def processInputLine(input:String):Unit = {
     input match{
@@ -20,7 +20,7 @@ class Tui(controller:Controller) extends Publisher{
 
   def update(): Unit = {
     println(controller.getCurrentStateAsString)
-    println(controller.gameManager.toString)
+    println(controller.getGameManager.toString)
   }
 
   listenTo(controller)

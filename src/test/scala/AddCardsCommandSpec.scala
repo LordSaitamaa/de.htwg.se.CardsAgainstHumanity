@@ -15,18 +15,18 @@ class AddCardsCommandSpec extends AnyWordSpec with Matchers {
 
     "do step works if" in {
 
-      ctr.gameManager.questionList.length shouldBe 0
+      ctr.getGameManager.questionList.length shouldBe 0
       x.doStep
-      ctr.gameManager.questionList.length shouldBe 1
+      ctr.getGameManager.questionList.length shouldBe 1
     }
     "undo step works if" in {
       x.undoStep
-      ctr.gameManager.questionList.length shouldBe 0
+      ctr.getGameManager.questionList.length shouldBe 0
     }
     "redo step works if" in {
       x.redoStep
 
-      ctr.gameManager.questionList.length shouldBe 1
+      ctr.getGameManager.questionList.length shouldBe 1
     }
 
   }
