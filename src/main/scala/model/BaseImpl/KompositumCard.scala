@@ -4,6 +4,7 @@ trait  Card {
   def printCard
   def addNewCard(card:Card) : KompositumCard
   def removeCard(card:Card) : KompositumCard
+  def toXML()
 }
 
 case class KompositumCard(cardList:List[Card]) extends Card {
@@ -22,5 +23,6 @@ case class KompositumCard(cardList:List[Card]) extends Card {
 
   override def removeCard(card:Card): KompositumCard = {copy(cardList.filterNot(_ == card))}
 
+  override def toXML(): Unit = {}
 }
 
