@@ -1,6 +1,6 @@
 package model
 
-import model.BaseImpl.{AnswerCard, GameManager, Player,  RoundStrategy}
+import model.BaseImpl.{AnswerCard, GameManager, KompositumCard, Player, RoundStrategy}
 
 trait ModelInterface {
 
@@ -9,6 +9,10 @@ trait ModelInterface {
   def addPlayer(name: String): ModelInterface
 
   def createCardDeck(): ModelInterface
+
+  def setKompositum(komp: KompositumCard) : ModelInterface
+
+  def getKompositum(): KompositumCard
 
   def handOutCards(): ModelInterface
 

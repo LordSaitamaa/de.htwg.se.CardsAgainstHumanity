@@ -18,5 +18,4 @@ object CardStack {
     kompositumCard = kompositumCard.addNewCard(AnswerCard("i bin so geil"))
     kompositumCard
   }
-
 }

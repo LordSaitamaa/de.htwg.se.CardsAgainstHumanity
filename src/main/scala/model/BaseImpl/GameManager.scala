@@ -9,7 +9,7 @@ case class GameManager(numberOfPlayers: Int = 0,
                        numberOfPlayableRounds: Int = 0,
                        numberOfRounds: Int = 0,
                        activePlayer: Int = 0,
-                       kompositumCard: KompositumCard = CardStack.initialize,
+                       var kompositumCard: KompositumCard = CardStack.initialize,
                        var player: Vector[Player] = Vector[Player](),
                        var answerList: List[AnswerCard] = List[AnswerCard](),
                        var questionList: List[QuestionCard] = List[QuestionCard](),
@@ -33,10 +33,14 @@ case class GameManager(numberOfPlayers: Int = 0,
         case _: QuestionCard => tmpQuestionList = tmpQuestionList :+ (x.asInstanceOf[QuestionCard])
         case _: AnswerCard => tmpAnswerList = tmpAnswerList :+ (x.asInstanceOf[AnswerCard])
       }
-
     }
     copy(answerList = tmpAnswerList, questionList = tmpQuestionList)
   }
+
+  override def setKompositum(komp : KompositumCard): GameManager = {
+    copy(kompositumCard = komp)
+  }
+  override def getKompositum(): KompositumCard = { kompositumCard}
 
   def handOutCards(): GameManager = {
     val playerCard = choosePlayerStartCards(numberOfPlayers)
