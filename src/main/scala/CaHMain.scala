@@ -10,7 +10,7 @@ import scala.io.StdIn.readLine
 
 object CaHMain {
   val injector = Guice.createInjector(new CardsAgainstHumanityModule)
-  val controller = injector.getInstance(classOf[Controller])
+  val controller: Controller = injector.getInstance(classOf[Controller])
   val gui = new SwingGui(controller)
   val tui = new Tui(controller)
 
