@@ -1,5 +1,9 @@
 package model.fileIoComponent
 
-class FileIOInterface {
+import model.ModelInterface
 
+trait FileIOInterface {
+  def load: ModelInterface
+
+  def save(game: ModelInterface): Unit
 }
