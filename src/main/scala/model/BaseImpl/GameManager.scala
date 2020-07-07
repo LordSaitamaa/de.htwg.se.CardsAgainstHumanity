@@ -35,6 +35,8 @@ case class GameManager(numberOfPlayers: Int = 0,
     copy(answerList = tmpAnswerList, questionList = tmpQuestionList)
   }
 
+  def addCards(list: List[String]) = this.kompositumCard.addNewCards(list)
+
   override def setKompositum(komp : KompositumCard): GameManager = {
     copy(kompositumCard = komp)
   }

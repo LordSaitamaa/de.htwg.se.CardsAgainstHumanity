@@ -11,16 +11,16 @@ import scala.xml._
 class FileIO extends FileIOInterface {
 
   override def load(gameManager: ModelInterface): ModelInterface = {
-    val file = XML.loadFile("cards.xml")
-    val nodeSeq = file \ "text"
+    val file = XML.loadFile("CardStack.xml")
+    val nodeSeq = file \\ "text"
     var list = List[Card]()
 
     for(x <- nodeSeq){
-
-      if(x.isInstanceOf[AnswerCard]) {
-        list = list :+ AnswerCard(x.text)
-      } else if (x.isInstanceOf[QuestionCard]) {
+      println(x.text)
+      if(x.text.contains("_")) {
         list = list :+ QuestionCard(x.text)
+      } else {
+        list = list :+ AnswerCard(x.text)
       }
     }
 
@@ -30,9 +30,9 @@ class FileIO extends FileIOInterface {
   }
 
   override def save(gameMan: ModelInterface): Unit = {
-    val pw = new PrintWriter(new File("CardStack"))
+    val pw = new PrintWriter(new File("CardStack.xml"))
     val cards = <CardStack>{gameMan.getKompositum().cardList.map(p => p.toXML())}</CardStack>
     pw.write(cards.toString())
-
+    pw.close()
   }
 }
