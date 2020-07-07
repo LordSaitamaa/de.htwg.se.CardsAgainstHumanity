@@ -1,6 +1,5 @@
 package model.fileIoComponent
 
-import control.ControllerInterface
 import model.ModelInterface
 
 trait FileIOInterface {

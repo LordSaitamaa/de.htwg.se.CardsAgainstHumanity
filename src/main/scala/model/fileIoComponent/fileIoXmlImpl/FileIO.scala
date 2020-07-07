@@ -1,20 +1,17 @@
 package model.fileIoComponent.fileIoXmlImpl
 
-package de.htwg.se.CardsAgainstHumanity.model.fileIoComponent.fileIoJsonImpl
-
 import java.io.{File, PrintWriter}
 
-import model.BaseImpl.{AnswerCard, Card, GameManager, KompositumCard, QuestionCard}
+import model.BaseImpl.{AnswerCard, Card, KompositumCard, QuestionCard}
 import model.ModelInterface
 import model.fileIoComponent.FileIOInterface
-
-import scala.io.Source
-import scala.xml.{Elem, Node}
+import scala.io._
+import scala.xml._
 
 class FileIO extends FileIOInterface {
 
   override def load(gameManager: ModelInterface): ModelInterface = {
-    val file = scala.xml.XML.loadFile("cards.xml")
+    val file = XML.loadFile("cards.xml")
     val nodeSeq = file \ "text"
     var list = List[Card]()
 

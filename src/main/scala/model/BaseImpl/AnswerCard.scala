@@ -1,7 +1,5 @@
 package model.BaseImpl
 
-import model.BaseImpl.Card
-
 case class AnswerCard(antwort:String) extends Card {
 
   override def printCard = {println("Meine Antwort ist: " + antwort)}

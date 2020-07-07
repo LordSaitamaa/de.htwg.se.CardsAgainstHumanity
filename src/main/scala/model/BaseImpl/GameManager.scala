@@ -1,8 +1,6 @@
 package model.BaseImpl
 
-import javax.inject.Inject
 import model.{BaseImpl, ModelInterface}
-
 import scala.util.Random
 
 case class GameManager(numberOfPlayers: Int = 0,

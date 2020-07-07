@@ -1,6 +1,6 @@
 package view.GUI
 
-import scala.swing.{Alignment, Dimension, FlowPanel, Orientation, TextField}
+import scala.swing.{Alignment, Dimension, TextField}
 
 class InfoBar extends TextField{
 
