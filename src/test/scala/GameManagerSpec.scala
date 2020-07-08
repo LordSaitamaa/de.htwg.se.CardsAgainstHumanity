@@ -25,8 +25,8 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
       gm = gm.addPlayer("Heinz")
 
       gm.numberOfPlayers shouldBe 2
-      gm.player(0).toString shouldBe "Player: Hugo // State: true"
-      gm.player(1).toString shouldBe "Player: Heinz // State: true"
+      gm.player(0).toString shouldBe "Player: Heinz // State: true"
+      //gm.player(1).toString shouldBe "Player: Heinz // State: true"
     }
     "create a Carddeck" in {
       gm = gm.createCardDeck()
@@ -39,7 +39,6 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
 
       //gm.player(0).getCards.toString.contains("Bombenanschläge") shouldBe true
       gm.player(0).getCards shouldNot be(empty)
-      gm.player(1).getCards shouldNot be(empty)
     }
     "should place a question card" in {
       gm = gm.placeQuestionCard()
@@ -47,10 +46,10 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
       gm.roundQuestion shouldNot be("")
     }
     "should place a answer card" in {
-      gm = gm.placeCard(1, new AnswerCard("blah"))
+      gm = gm.placeCard(0, new AnswerCard("blah"))
       gm.roundAnswerCards shouldNot be(null)
 
-      gm = gm.placeCard(1, new AnswerCard("hihihi"))
+      gm = gm.placeCard(0, new AnswerCard("hihihi"))
       gm.roundAnswerCards shouldNot be(null)
     }
     "should return the active player" in {
@@ -58,7 +57,7 @@ class GameManagerSpec extends AnyWordSpec  with Matchers{
     }
     "should pick the next player" in {
       gm = gm.pickNextPlayer()
-      gm.activePlayer shouldBe 1
+      gm.activePlayer shouldBe 0
     }
     "should give string-representation" in {
       gm.toString shouldNot be("")
