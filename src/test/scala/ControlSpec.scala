@@ -20,7 +20,7 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       "test Strategy"in{
         controller.gameManager = controller.gameManager.setPlayersAndRounds(2)
         controller.getGameManager.numberOfPlayers.shouldBe(2)
-        controller.getGameManager.numberOfPlayableRounds.shouldBe(8)
+        controller.getGameManager.numberOfPlayableRounds.shouldBe(2)
       }
 
     "notify the observer after evaluation" in {
@@ -42,10 +42,10 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
       controller.getCurrentStateAsString() shouldBe "AddCardState"
 
       controller.state = AnswerState(controller)
-      controller.getCurrentStateAsString() shouldBe  "AnswerState"
+      controller.getCurrentStateAsString() shouldBe  ""
 
       controller.state = FinishState(controller)
-      controller.getCurrentStateAsString() shouldBe "Please write quit to exit the game"
+      controller.getCurrentStateAsString() shouldBe "Please write q to exit the game"
     }
 
     "switches the states correctly" in {
