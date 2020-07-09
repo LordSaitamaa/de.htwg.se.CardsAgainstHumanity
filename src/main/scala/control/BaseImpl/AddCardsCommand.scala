@@ -31,7 +31,6 @@ class AddCardsCommand(cardText: String, controller: ControllerInterface) extends
       }
     }
 
-
     var kompCard = KompositumCard(tempList)
     println("TempList: " + tempList)
 
