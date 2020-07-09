@@ -1,3 +1,4 @@
+import module.CardsAgainstHumanityModule
 import com.google.inject.Guice
 import control.BaseImpl.Controller
 import control.ControllerInterface

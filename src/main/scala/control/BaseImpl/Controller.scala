@@ -1,10 +1,11 @@
 package control.BaseImpl
 
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject}
 import control._
 import model.BaseImpl.GameManager
 import model.ModelInterface
-import model.fileIoComponent.fileIoXmlImpl.FileIO
+import model.fileIoComponent.fileIoJsonImpl.FileIO
+import module.CardsAgainstHumanityModule
 import utils.UndoManager
 
 import scala.swing.Publisher
@@ -13,7 +14,8 @@ class Controller @Inject()(var gameManager: ModelInterface) extends ControllerIn
 
   var state: ControllerState = PreSetupState(this)
   val undoManager = new UndoManager
-  val fileMan = new FileIO
+  val injector = Guice.createInjector(new CardsAgainstHumanityModule)
+  val fileMan = injector.getInstance(classOf[FileIO])
 
   def nextState(): Unit = state = state.nextState
 
@@ -192,4 +194,6 @@ case class FinishState(controller: Controller) extends ControllerState {
 
   override def nextState: ControllerState = this
 }
+
+
 

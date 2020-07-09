@@ -16,14 +16,15 @@ class FileIO extends FileIOInterface {
     val source: String = Source.fromFile("CardStack.json").getLines().mkString
     val json: JsValue = Json.parse(source)
     val cards = (json \ "cardList").get.productIterator
-    var kompCard = List[Card]()
+    var tempList = List[Card]()
     for(x <- cards){
       if(x.toString.contains("_"))
-        kompCard = kompCard :+ QuestionCard(x.toString)
+        tempList = tempList :+ QuestionCard(x.toString)
       else
-        kompCard = kompCard :+ AnswerCard(x.toString)
+        tempList = tempList :+ AnswerCard(x.toString)
     }
-    gameMan.gameManagerG().setKompositum(KompositumCard(kompCard))
+    var kompCards = KompositumCard(tempList)
+    gameMan.setKompositum(KompositumCard(tempList))
   }
 
   override def save(game: ModelInterface): Unit = {
