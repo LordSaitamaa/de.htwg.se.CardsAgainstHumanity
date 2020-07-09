@@ -73,12 +73,15 @@ trait ControllerState {
 }
 
 case class PreSetupState(controller: Controller) extends ControllerState {
+
+  println("PreSetupState")
+
   override def evaluate(input: String): Unit = {
     if (input.toInt > 4 || input.toInt < 2) getCurrentStateAsString
     else {
       controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
-      controller.fileMan.load(controller.gameManager)
       controller.changePage(2)
+      controller.gameManager = controller.fileMan.load(controller.gameManager)
       controller.publish(new UpdateGuiEvent)
       controller.publish(new UpdateTuiEvent)
       controller.nextState()
@@ -92,18 +95,17 @@ case class PreSetupState(controller: Controller) extends ControllerState {
 
 case class AddCardsQuest(controller: Controller) extends ControllerState {
 
-  var list = List[String]()
+  println("AddCardsQuest")
+  println(controller.gameManager.getKompositum().cardList)
+
   controller.publish(new UpdateTuiEvent)
+  controller.publish(new UpdateGuiEvent)
   override def evaluate(input: String): Unit = {
     if (input.equals("Weiter") || input.equals("weiter")) {
-      controller.gameManager.addCards(list)
-      println("Komp: " + controller.gameManager.getKompositum().cardList)  // todo: Funktioniert nicht
-      controller.save()
       controller.nextState()
       controller.publish(new ThirdPageEvent)
     } else {
       controller.undoManager.doStep(new AddCardsCommand(input, this.controller))
-      list = list :+ input
       controller.publish(new UpdateInfoBarEvent)
       controller.publish(new UpdateGuiEvent)
     }
@@ -115,6 +117,10 @@ case class AddCardsQuest(controller: Controller) extends ControllerState {
 }
 
 case class SetupState(controller: Controller) extends ControllerState {
+
+  println("SetupState")
+  println(controller.gameManager.getKompositum().cardList)
+
   override def evaluate(input: String): Unit = {
 
     if (input.isEmpty) return
@@ -124,7 +130,8 @@ case class SetupState(controller: Controller) extends ControllerState {
     controller.publish(new UpdateTuiEvent)
 
     //controller.gameManager = controller.gameManager.addPlayer(input)
-    if (controller.getGameManager.player.length == controller.getGameManager.numberOfPlayers) {
+    if (controller.getGameManager.player.length == controller.getGameManager().numberOfPlayers) {
+      println("Aus: " + controller.gameManager.getKompositum().cardList)
       controller.gameManager = controller.gameManager.createCardDeck()
       controller.gameManager = controller.gameManager.handOutCards()
       controller.nextState()

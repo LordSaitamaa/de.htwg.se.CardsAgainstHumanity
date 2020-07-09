@@ -14,8 +14,6 @@ trait ModelInterface {
 
   def getKompositum(): KompositumCard
 
-  def addCards(list: List[String])
-
   def handOutCards(): ModelInterface
 
   def givePlayerCards(listOfPlayerCards: List[AnswerCard]): Vector[Player]

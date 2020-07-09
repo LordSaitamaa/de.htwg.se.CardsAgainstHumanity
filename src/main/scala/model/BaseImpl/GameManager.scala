@@ -1,16 +1,13 @@
 package model.BaseImpl
 
-import javax.inject.Inject
 import model.{BaseImpl, ModelInterface}
-import play.api.libs.json.{JsValue, Json}
-
 import scala.util.Random
 
 case class GameManager(numberOfPlayers: Int = 0,
                        numberOfPlayableRounds: Int = 0,
                        numberOfRounds: Int = 0,
                        activePlayer: Int = 0,
-                       kompositumCard: KompositumCard = CardStack.initialize,
+                       var kompositumCard: KompositumCard = KompositumCard(List[Card]()),
                        var player: Vector[Player] = Vector[Player](),
                        var answerList: List[AnswerCard] = List[AnswerCard](),
                        var questionList: List[QuestionCard] = List[QuestionCard](),
@@ -34,15 +31,13 @@ case class GameManager(numberOfPlayers: Int = 0,
         case _: QuestionCard => tmpQuestionList = tmpQuestionList :+ (x.asInstanceOf[QuestionCard])
         case _: AnswerCard => tmpAnswerList = tmpAnswerList :+ (x.asInstanceOf[AnswerCard])
       }
-
     }
     copy(answerList = tmpAnswerList, questionList = tmpQuestionList)
   }
+   override def setKompositum(komp : KompositumCard): GameManager = {
 
-  def addCards(list: List[String]) = this.kompositumCard.addNewCards(list)
-
-  override def setKompositum(komp : KompositumCard): GameManager = {
-    copy(kompositumCard = komp)
+     this.kompositumCard = komp
+     this
   }
   override def getKompositum(): KompositumCard = { kompositumCard}
 
@@ -143,7 +138,6 @@ case class GameManager(numberOfPlayers: Int = 0,
 
     sb.toString()
   }
-
 }
 
 object GameManager{
@@ -166,5 +160,4 @@ object GameManager{
       BaseImpl.GameManager(numberOfPlayer,numberOfPlayableRounds)
     }
   }
-
 }

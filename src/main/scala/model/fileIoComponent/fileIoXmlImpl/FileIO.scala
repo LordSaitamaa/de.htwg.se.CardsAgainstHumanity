@@ -16,7 +16,7 @@ class FileIO extends FileIOInterface {
     var list = List[Card]()
 
     for(x <- nodeSeq){
-      println(x.text)
+      println("Test: " + x.text)
       if(x.text.contains("_")) {
         list = list :+ QuestionCard(x.text)
       } else {
@@ -24,9 +24,8 @@ class FileIO extends FileIOInterface {
       }
     }
 
-    var gameMan: ModelInterface = gameManager;
     var kompCards = KompositumCard(list)
-    gameMan.setKompositum(kompCards)
+    gameManager.setKompositum(kompCards)
   }
 
   override def save(gameMan: ModelInterface): Unit = {
