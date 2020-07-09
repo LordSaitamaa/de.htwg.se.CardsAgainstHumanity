@@ -7,7 +7,7 @@ case class GameManager(numberOfPlayers: Int = 0,
                        numberOfPlayableRounds: Int = 0,
                        numberOfRounds: Int = 0,
                        activePlayer: Int = 0,
-                       var kompositumCard: KompositumCard = CardStack.initialize,
+                       var kompositumCard: KompositumCard = KompositumCard(List[Card]()),
                        var player: Vector[Player] = Vector[Player](),
                        var answerList: List[AnswerCard] = List[AnswerCard](),
                        var questionList: List[QuestionCard] = List[QuestionCard](),
@@ -34,11 +34,10 @@ case class GameManager(numberOfPlayers: Int = 0,
     }
     copy(answerList = tmpAnswerList, questionList = tmpQuestionList)
   }
+   override def setKompositum(komp : KompositumCard): GameManager = {
 
-  def addCards(list: List[String]) = this.kompositumCard.addNewCards(list)
-
-  override def setKompositum(komp : KompositumCard): GameManager = {
-    copy(kompositumCard = komp)
+     this.kompositumCard = komp
+     this
   }
   override def getKompositum(): KompositumCard = { kompositumCard}
 
@@ -146,6 +145,7 @@ object GameManager{
   case class Builder(){
     var numberOfPlayer: Int = 0
     var numberOfPlayableRounds: Int = 0
+    var kompositumCard: KompositumCard = KompositumCard(List[Card]())
 
     def withNumberOfPlayer(players: Int): Builder = {
       numberOfPlayer = players

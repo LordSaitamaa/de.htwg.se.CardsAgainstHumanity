@@ -1,5 +1,6 @@
 import com.google.inject.Guice
 import control.BaseImpl.Controller
+import control.ControllerInterface
 import view.GUI.SwingGui
 import view.Tui
 

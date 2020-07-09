@@ -43,7 +43,7 @@ class cardsDialog(controller: ControllerInterface, infobar: InfoBar) extends Dia
       } else {
         controller.eval(kartenNameTf.text)
         kartenNameTf.text = ""
-        addedCardsTf.text = controller.getGameManager.answerList.toString()
+        addedCardsTf.text = controller.getGameManager.kompositumCard.toString()
 
       }
     }
@@ -51,7 +51,7 @@ class cardsDialog(controller: ControllerInterface, infobar: InfoBar) extends Dia
       controller.eval("weiter")
       this.close()
     }
-    case event: UndoEvent => addedCardsTf.text= controller.getGameManager.answerList.toString()
+    case event: UndoEvent => addedCardsTf.text= controller.getGameManager.kompositumCard.toString()
     case event: UpdateGuiEvent => {
       this.validate()
       addedCardsTf.text = controller.getGameManager.answerList.toString()
