@@ -1,6 +1,7 @@
 package model
 
-import model.BaseImpl.{AnswerCard, GameManager, Player,  RoundStrategy}
+import model.BaseImpl.{AnswerCard, GameManager, KompositumCard, Player, QuestionCard, RoundStrategy}
+import play.api.libs.json.JsValue
 
 trait ModelInterface {
 
@@ -31,6 +32,8 @@ trait ModelInterface {
   def clearRoundAnswers(): ModelInterface
 
   def gameManagerG() : GameManager
+
+  def getKomp(): KompositumCard
 
   def toString: String
 }

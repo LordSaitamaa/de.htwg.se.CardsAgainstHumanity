@@ -2,6 +2,7 @@ package model.BaseImpl
 
 import javax.inject.Inject
 import model.{BaseImpl, ModelInterface}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.util.Random
 
@@ -23,6 +24,7 @@ case class GameManager(numberOfPlayers: Int = 0,
     playerTmp = playerTmp :+ Player(name, true, List[AnswerCard]())
     copy(player = playerTmp)
   }
+
   def gameManagerG() : GameManager = this
 
   def createCardDeck(): GameManager = {
@@ -123,6 +125,7 @@ case class GameManager(numberOfPlayers: Int = 0,
 
   def clearRoundAnswers(): GameManager = copy(roundAnswerCards = Map[Player,String]())
 
+
   override def toString: String = {
     var sb = new StringBuilder
       sb ++= "Aktive Antwort Karten: " + answerList.toString() + "\n"
@@ -135,6 +138,8 @@ case class GameManager(numberOfPlayers: Int = 0,
 
     sb.toString()
   }
+
+  override def getKomp(): KompositumCard = kompositumCard
 }
 
 object GameManager{
@@ -157,4 +162,8 @@ object GameManager{
       BaseImpl.GameManager(numberOfPlayer,numberOfPlayableRounds)
     }
   }
+
+  import play.api.libs.json._
+  implicit val roundManagerWrites: OWrites[GameManager] = Json.writes[GameManager]
+  implicit val roundManagerReads: Reads[GameManager] = Json.reads[GameManager]
 }
