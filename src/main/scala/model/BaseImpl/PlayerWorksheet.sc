@@ -1,4 +1,3 @@
-import jdk.internal.joptsimple.internal.Strings
 
 case class Player(cards:List[String],isActive:Boolean, throwNum:Int){
   def numberToThrow = throwNum

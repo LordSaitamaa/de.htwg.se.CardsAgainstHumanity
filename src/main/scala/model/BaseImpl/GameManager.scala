@@ -24,7 +24,6 @@ case class GameManager(numberOfPlayers: Int = 0,
     playerTmp = playerTmp :+ Player(name, true, List[AnswerCard]())
     copy(player = playerTmp)
   }
-
   def gameManagerG() : GameManager = this
 
   def createCardDeck(): GameManager = {
@@ -39,6 +38,13 @@ case class GameManager(numberOfPlayers: Int = 0,
     }
     copy(answerList = tmpAnswerList, questionList = tmpQuestionList)
   }
+
+  def addCards(list: List[String]) = this.kompositumCard.addNewCards(list)
+
+  override def setKompositum(komp : KompositumCard): GameManager = {
+    copy(kompositumCard = komp)
+  }
+  override def getKompositum(): KompositumCard = { kompositumCard}
 
   def handOutCards(): GameManager = {
     val playerCard = choosePlayerStartCards(numberOfPlayers)
@@ -124,7 +130,6 @@ case class GameManager(numberOfPlayers: Int = 0,
   }
 
   def clearRoundAnswers(): GameManager = copy(roundAnswerCards = Map[Player,String]())
-
 
   override def toString: String = {
     var sb = new StringBuilder

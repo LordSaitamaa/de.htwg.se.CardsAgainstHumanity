@@ -1,6 +1,7 @@
 package model.BaseImpl
 
-import model.BaseImpl.Card
+import scala.xml.Node
+
 
 case class AnswerCard(antwort:String) extends Card {
 
@@ -8,4 +9,6 @@ case class AnswerCard(antwort:String) extends Card {
   override def toString: String = antwort
   override def addNewCard(card: Card): KompositumCard = {null}
   override def removeCard(card: Card): KompositumCard = {null}
+
+  override def toXML(): Node = <card><text>{antwort}</text></card>
 }

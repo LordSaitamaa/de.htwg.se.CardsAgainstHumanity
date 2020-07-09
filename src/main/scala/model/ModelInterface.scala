@@ -1,8 +1,7 @@
 package model
 
-import model.BaseImpl.{AnswerCard, GameManager, KompositumCard, Player, QuestionCard, RoundStrategy}
+import model.BaseImpl.{AnswerCard, GameManager, KompositumCard, Player, RoundStrategy}
 import play.api.libs.json.JsValue
-
 trait ModelInterface {
 
   def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
@@ -10,6 +9,12 @@ trait ModelInterface {
   def addPlayer(name: String): ModelInterface
 
   def createCardDeck(): ModelInterface
+
+  def setKompositum(komp: KompositumCard) : ModelInterface
+
+  def getKompositum(): KompositumCard
+
+  def addCards(list: List[String])
 
   def handOutCards(): ModelInterface
 
@@ -32,8 +37,6 @@ trait ModelInterface {
   def clearRoundAnswers(): ModelInterface
 
   def gameManagerG() : GameManager
-
-  def getKomp(): KompositumCard
 
   def toString: String
 }

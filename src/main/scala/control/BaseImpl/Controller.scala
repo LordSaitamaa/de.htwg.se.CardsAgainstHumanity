@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import control._
 import model.BaseImpl.GameManager
 import model.ModelInterface
+import model.fileIoComponent.fileIoXmlImpl.FileIO
 import utils.UndoManager
 
 import scala.swing.Publisher
@@ -12,8 +13,17 @@ class Controller @Inject()(var gameManager: ModelInterface) extends ControllerIn
 
   var state: ControllerState = PreSetupState(this)
   val undoManager = new UndoManager
+  val fileMan = new FileIO
 
   def nextState(): Unit = state = state.nextState
+
+  def load(): Unit = {
+    gameManager = fileMan.load(gameManager)
+  }
+
+  def save(): Unit = {
+    fileMan.save(gameManager)
+  }
 
   def changePage(page: Int): Unit = {
     page match{
@@ -67,6 +77,7 @@ case class PreSetupState(controller: Controller) extends ControllerState {
     if (input.toInt > 4 || input.toInt < 2) getCurrentStateAsString
     else {
       controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
+      controller.fileMan.load(controller.gameManager)
       controller.changePage(2)
       controller.publish(new UpdateGuiEvent)
       controller.publish(new UpdateTuiEvent)
@@ -80,13 +91,19 @@ case class PreSetupState(controller: Controller) extends ControllerState {
 }
 
 case class AddCardsQuest(controller: Controller) extends ControllerState {
+
+  var list = List[String]()
   controller.publish(new UpdateTuiEvent)
   override def evaluate(input: String): Unit = {
     if (input.equals("Weiter") || input.equals("weiter")) {
+      controller.gameManager.addCards(list)
+      println("Komp: " + controller.gameManager.getKompositum().cardList)  // todo: Funktioniert nicht
+      controller.save()
       controller.nextState()
       controller.publish(new ThirdPageEvent)
     } else {
       controller.undoManager.doStep(new AddCardsCommand(input, this.controller))
+      list = list :+ input
       controller.publish(new UpdateInfoBarEvent)
       controller.publish(new UpdateGuiEvent)
     }

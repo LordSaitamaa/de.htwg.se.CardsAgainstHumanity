@@ -1,12 +1,9 @@
 package view.GUI.Pages
 
 import java.awt.Color
-
-import control.BaseImpl.Controller
 import control._
 import model.BaseImpl.AnswerCard
 import view.GUI.InfoBar
-
 import scala.swing.event.{ButtonClicked, MouseClicked, SelectionChanged}
 import scala.swing.{BorderPanel, BoxPanel, Button, Dimension, Label, ListView, Orientation, TextField}
 
