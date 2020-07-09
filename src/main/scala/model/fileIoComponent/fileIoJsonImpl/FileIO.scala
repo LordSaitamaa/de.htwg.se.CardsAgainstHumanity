@@ -13,9 +13,9 @@ import scala.io.Source
 class FileIO extends FileIOInterface {
 
   def load(gameMan: ModelInterface): ModelInterface  = {
-    val source: String = Source.fromFile("CardStack.json").getLines().mkString
+    val source: String = Source.fromFile("CardStack.json").getLines.mkString
     val json: JsValue = Json.parse(source)
-    val cards = (json \ "cardList").get.productIterator
+    val cards = (json \\ "card")
     var tempList = List[Card]()
     for(x <- cards){
       if(x.toString.contains("_"))
@@ -25,11 +25,12 @@ class FileIO extends FileIOInterface {
     }
     var kompCards = KompositumCard(tempList)
     gameMan.setKompositum(KompositumCard(tempList))
+
   }
 
   override def save(game: ModelInterface): Unit = {
     import java.io._
-    val pw = new PrintWriter(new File("cards.json"))
+    val pw = new PrintWriter(new File("CardStack.json"))
     pw.write(Json.prettyPrint(cardsStackToJson(game)))
     pw.close()
   }

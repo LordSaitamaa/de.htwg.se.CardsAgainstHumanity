@@ -53,7 +53,7 @@ class cardsDialog(controller: ControllerInterface, infobar: InfoBar) extends Dia
     }
     case event: UndoEvent => addedCardsTf.text= controller.getGameManager.kompositumCard.toString()
     case event: UpdateGuiEvent => {
-      this.validate()
+      //this.validate()
       addedCardsTf.text = controller.getGameManager.answerList.toString()
     }
     case event: ThirdPageEvent => this.close()

@@ -41,7 +41,6 @@ class StartPage(controller: ControllerInterface, infobar: InfoBar) extends Borde
           infobar.foreground = Color.WHITE;
           infobar.text = "Spielerzahl darf nicht 0 sein!"
         } else {
-
           infobar.background = Color.WHITE;
           infobar.foreground = Color.BLACK;
           controller.eval(anzahlSpielerCb.item.toString)

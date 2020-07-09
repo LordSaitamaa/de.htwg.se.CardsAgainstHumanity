@@ -12,7 +12,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
 
   val infoBar = new InfoBar()
   val startPage = new StartPage(controller, infoBar)
-  val secondPage = new cardsDialog(controller, infoBar)
+ // val secondPage = new cardsDialog(controller, infoBar)
 
   val cardsDialog = new cardsDialog(controller, infoBar)
   val playerDialog = new playerDialog(controller, infoBar)
@@ -38,9 +38,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
           this.validate()
         }
         case 2 => {
-
           cardsDialog.open()
-
         }
         case 3 => {
 

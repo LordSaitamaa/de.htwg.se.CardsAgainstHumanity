@@ -1,6 +1,5 @@
 package control
 import model.BaseImpl.GameManager
-import model.ModelInterface
 
 import scala.swing.Publisher
 
@@ -11,8 +10,10 @@ trait ControllerInterface extends Publisher{
   def eval(input: String)
   def stateAsString(): String
   def getCurrentStateAsString() : String
-  def undo
-  def redo
+  def undo(): Unit
+  def redo(): Unit
+  def load(): Unit
+  def save(): Unit
   def getGameManager() : GameManager
 }
 

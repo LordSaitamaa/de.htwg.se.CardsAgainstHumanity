@@ -1,7 +1,6 @@
 import module.CardsAgainstHumanityModule
 import com.google.inject.Guice
 import control.BaseImpl.Controller
-import control.ControllerInterface
 import view.GUI.SwingGui
 import view.Tui
 
@@ -14,10 +13,10 @@ object CaHMain {
   val tui = new Tui(controller)
 
   def main(args: Array[String]): Unit = {
-    var input: String = "1"
+    var input: String = "0"
 
     gui.open()
-    tui.processInputLine(input)
+    //tui.processInputLine(input)
 
     if (args.length>0) input=args(0)
     else do{

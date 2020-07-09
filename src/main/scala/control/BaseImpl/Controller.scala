@@ -79,15 +79,13 @@ case class PreSetupState(controller: Controller) extends ControllerState {
   println("PreSetupState")
 
   override def evaluate(input: String): Unit = {
-    if (input.toInt > 4 || input.toInt < 2) getCurrentStateAsString
-    else {
       controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
-      controller.changePage(2)
       controller.gameManager = controller.fileMan.load(controller.gameManager)
+      controller.changePage(2)
       controller.publish(new UpdateGuiEvent)
       controller.publish(new UpdateTuiEvent)
       controller.nextState()
-    }
+
   }
 
   override def getCurrentStateAsString: String = "Willkommen bei Cards Against Humanity \n"
