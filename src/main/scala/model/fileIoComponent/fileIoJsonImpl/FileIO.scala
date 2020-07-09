@@ -3,37 +3,41 @@ package model.fileIoComponent.fileIoJsonImpl
 import com.google.inject.Guice
 import control.BaseImpl.AnswerState
 import control.ControllerInterface
-import model.BaseImpl.{AnswerCard, Card, KompositumCard}
+import model.BaseImpl.{AnswerCard, Card, KompositumCard, QuestionCard}
 import model.ModelInterface
 import model.fileIoComponent.FileIOInterface
-import play.api.libs.json.{JsArray, JsNumber, JsObject, JsValue, Json, Writes}
+import play.api.libs.json._
 
 import scala.io.Source
 
 class FileIO extends FileIOInterface {
-  override def load: ModelInterface = {
-  null
+
+  def load(gameMan: ModelInterface): ModelInterface  = {
+    val source: String = Source.fromFile("CardStack.json").getLines().mkString
+    val json: JsValue = Json.parse(source)
+    val cards = (json \ "cardList").get.productIterator
+    var kompCard = List[Card]()
+    for(x <- cards){
+      if(x.toString.contains("_"))
+        kompCard = kompCard :+ QuestionCard(x.toString)
+      else
+        kompCard = kompCard :+ AnswerCard(x.toString)
+    }
+    gameMan.gameManagerG().setKompositum(KompositumCard(kompCard))
   }
 
   override def save(game: ModelInterface): Unit = {
     import java.io._
     val pw = new PrintWriter(new File("cards.json"))
-    pw.write(Json.prettyPrint(modelToJson(game)))
+    pw.write(Json.prettyPrint(cardsStackToJson(game)))
     pw.close()
   }
 
-  def modelToJson(game: ModelInterface): JsObject = {
+  def cardsStackToJson(game: ModelInterface): JsObject = {
     Json.obj(
-      "cards" -> cardsToJson(game.getKomp().cardList)
+      "cardList" -> Json.toJson(for{x <- game.getKompositum().cardList} yield {
+        Json.obj("card" -> JsString(x.toString))})
     )
   }
 
-  def cardsToJson(card: List[Card]): JsArray = {
-    var jSonArray = Json.arr()
-    for(x <- card){
-      jSonArray = jSonArray :+ Json.obj("card" -> Json.toJson(cardToJson(x)))
-    }
-    jSonArray
-  }
-  def  cardToJson(card: Card): JsObject = Json.obj("text" -> card.toString)
 }

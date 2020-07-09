@@ -144,7 +144,6 @@ case class GameManager(numberOfPlayers: Int = 0,
     sb.toString()
   }
 
-  override def getKomp(): KompositumCard = kompositumCard
 }
 
 object GameManager{
@@ -168,7 +167,4 @@ object GameManager{
     }
   }
 
-  import play.api.libs.json._
-  implicit val roundManagerWrites: OWrites[GameManager] = Json.writes[GameManager]
-  implicit val roundManagerReads: Reads[GameManager] = Json.reads[GameManager]
 }
