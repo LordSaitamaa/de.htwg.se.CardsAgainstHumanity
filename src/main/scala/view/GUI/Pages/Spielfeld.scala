@@ -1,9 +1,11 @@
 package view.GUI.Pages
 
-import java.awt.Color
+import java.awt.{Color, Font}
+
 import control._
 import model.BaseImpl.AnswerCard
 import view.GUI.InfoBar
+
 import scala.swing.event.{ButtonClicked, MouseClicked, SelectionChanged}
 import scala.swing.{BorderPanel, BoxPanel, Button, Dimension, Label, ListView, Orientation, TextField}
 
@@ -24,11 +26,16 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
   var beantwortete = new ListView[String]()
 
   val panelRundenInfo = new BoxPanel(Orientation.Vertical){
-    background = Color.LIGHT_GRAY
+    background = Color.BLACK
+    foreground = Color.WHITE
+    font = new Font("System", Font.BOLD, 18)
+
     contents += playerInfoLbl
   }
   val panelControllers = new BoxPanel(Orientation.Vertical){
-    background = Color.LIGHT_GRAY
+    background = Color.BLACK
+    foreground = Color.WHITE
+    font = new Font("System", Font.BOLD, 18)
 
     contents += submitBtn
   }
@@ -58,6 +65,9 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
   reactions += {
     case event: UpdateInfoBarEvent => {
       infoBar.text = controller.getCurrentStateAsString()
+      infoBar.background = Color.BLACK
+      infoBar.foreground = Color.WHITE
+      infoBar.font = new Font("System", Font.BOLD, 18)
       print("InfoBarEvent")
     }
 

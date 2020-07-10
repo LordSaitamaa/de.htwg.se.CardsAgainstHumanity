@@ -1,20 +1,31 @@
 package view.GUI
 
-import java.awt.Color
+import java.awt.{Color, Toolkit}
+
 import view.GUI.Pages._
+
 import scala.swing._
 import control._
 import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
+import javax.swing.plaf.ColorUIResource
+import javax.swing.plaf.metal.DefaultMetalTheme
 
+import scala.swing.Swing.EmptyBorder
 import scala.swing.event.Key
 
 class SwingGui(controller: ControllerInterface) extends Frame {
 
-  val infoBar = new InfoBar()
+  val infoBar = new InfoBar() {
+    background = Color.BLACK
+    foreground = Color.WHITE
+    font = Font("System", Font.Bold, 18)
+  }
   val startPage = new StartPage(controller, infoBar)
  // val secondPage = new cardsDialog(controller, infoBar)
 
+  val cardsDialog = new cardsDialog(controller, infoBar)
   val playerDialog = new playerDialog(controller, infoBar)
+  val screenSize = Toolkit.getDefaultToolkit.getScreenSize
 
   val mainPanel = new BoxPanel(Orientation.Vertical) {
     contents += startPage
@@ -22,9 +33,11 @@ class SwingGui(controller: ControllerInterface) extends Frame {
   }
 
   title = "HTWG - Cards against Humanity"
-  preferredSize = new Dimension(1500, 600)
+  preferredSize = new Dimension( screenSize.width, screenSize.height)
   resizable = false
   background = Color.BLACK
+  peer.setUndecorated(true)
+
   peer.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE)
 
   this.contents = mainPanel
@@ -37,7 +50,6 @@ class SwingGui(controller: ControllerInterface) extends Frame {
           this.validate()
         }
         case 2 => {
-          val cardsDialog = new cardsDialog(controller, infoBar)
           cardsDialog.open()
         }
         case 3 => {
@@ -60,9 +72,13 @@ class SwingGui(controller: ControllerInterface) extends Frame {
   }
 
   menuBar = new MenuBar {
+    background = Color.BLACK
+    border = EmptyBorder
     contents += new Menu("Spiel") {
       mnemonic = Key.S
+
       contents += new MenuItem(Action("Quit") {System.exit(0)})
     }
   }
 }
+
