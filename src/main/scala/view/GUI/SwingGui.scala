@@ -23,7 +23,6 @@ class SwingGui(controller: ControllerInterface) extends Frame {
   val startPage = new StartPage(controller, infoBar)
  // val secondPage = new cardsDialog(controller, infoBar)
 
-  val cardsDialog = new cardsDialog(controller, infoBar)
   val playerDialog = new playerDialog(controller, infoBar)
   val screenSize = Toolkit.getDefaultToolkit.getScreenSize
 
@@ -50,6 +49,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
           this.validate()
         }
         case 2 => {
+          val cardsDialog = new cardsDialog(controller, infoBar)
           cardsDialog.open()
         }
         case 3 => {
