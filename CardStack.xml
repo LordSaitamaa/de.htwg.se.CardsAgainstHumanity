@@ -1,70 +1,188 @@
 <CardStack>
-    <card><text>Der Penis von Putin ist _.</text></card>
-    <card><text>Elton John ist _.</text></card>
-    <card><text>Harry Potter ist _.</text></card>
-    <card><text>_ war der Bürgermeister von Konstanz noch nie.</text></card>
-    <card><text>Hansi Hintersehers Musik ist _.</text></card>
-    <card><text>Die Haut von Spieler2 ist _.</text></card>
-    <card><text>Die Haut von Spieler1 ist _.</text></card>
-    <card><text>Spieler2 ist _.</text></card>
-    <card><text>Spieler1 ist _.</text></card>
-    <card><text>empfindlich</text></card>
-    <card><text>fest</text></card>
-    <card><text>locker</text></card>
-    <card><text>flach</text></card>
-    <card><text>hügelig</text></card>
-    <card><text>glatt</text></card>
-    <card><text>rau</text></card>
-    <card><text>riesig</text></card>
-    <card><text>winzig</text></card>
-    <card><text>stumpf</text></card>
-    <card><text>scharf</text></card>
-    <card><text>waagerecht</text></card>
-    <card><text>senkrecht</text></card>
-    <card><text>wild</text></card>
-    <card><text>zahm</text></card>
-    <card><text>hässlich</text></card>
-    <card><text>kaputt</text></card>
-    <card><text>grün</text></card>
-    <card><text>blau</text></card>
-    <card><text>rot</text></card>
-    <card><text>unsichtbar</text></card>
-    <card><text>lila</text></card>
-    <card><text>unebschreiblich</text></card>
-    <card><text>zerknittert</text></card>
-    <card><text>fürchterlich</text></card>
-    <card><text>zum fürchten</text></card>
-    <card><text>magisch</text></card>
-    <card><text>dämlich</text></card>
-    <card><text>depressiv</text></card>
-    <card><text>dünn</text></card>
-    <card><text>christlich</text></card>
-    <card><text>eckig</text></card>
-    <card><text>edel</text></card>
-    <card><text>effizient</text></card>
-    <card><text>egoistisch</text></card>
-    <card><text>ehebrecherisch</text></card>
-    <card><text>ehrerbietig</text></card>
-    <card><text>ehrfürchtig</text></card>
-    <card><text>ehrgeizig</text></card>
-    <card><text>ehrlos</text></card>
-    <card><text>eigenständig</text></card>
-    <card><text>einladend</text></card>
-    <card><text>elektrisch</text></card>
-    <card><text>evangelisch</text></card>
-    <card><text>kahl</text></card>
-    <card><text>kalorisch</text></card>
-    <card><text>kämpferisch</text></card>
-    <card><text>katholisch</text></card>
-    <card><text>käuflich</text></card>
-    <card><text>keusch</text></card>
-    <card><text>kirchlich</text></card>
-    <card><text>klangvoll</text></card>
-    <card><text>knackig</text></card>
-    <card><text>kokett</text></card>
-    <card><text>kontrovers</text></card>
-    <card><text>korrekt</text></card>
-    <card><text>krank</text></card>
-    <card><text>krumm</text></card>
-    <card><text>kurz</text></card>
+    <card><text>Siskel and Ebert have panned _ as "poorly conceived" and "sloppily executed."</text></card>
+    <card><text>Up next on Nickelodeon: "Clarissa Explains _."</text></card>
+    <card><text>Believe it or not, Jim Carrey can do a dead-on impression of _.</text></card>
+    <card><text>It's Morphin' Time! Mastadon! Pterodactyl! Triceratops! Sabertooth Tiger! _!</text></card>
+    <card><text>I'm a bitch, I'm a lover, I'm a child, I'm _.</text></card>
+    <card><text>How did Stella get her groove back?</text></card>
+    <card><text>Trump's great!  Trump's got _.  I love that.</text></card>
+    <card><text>According to Arizona's stand-your-ground law, you're allowed to shoot someone if they're _.</text></card>
+    <card><text>It's 3AM.  The red phone rings.  It's _.  Who do you want answering?</text></card>
+    <card><text>Donald Trump has nominated _ for his VP.</text></card>
+    <card><text>In 2019, Donald Trump eliminated our national parks to make room for _.</text></card>
+    <card><text>Donald Trump's first act as president was to outlaw _.</text></card>
+    <card><text>You can't wait forever. It's time to talk to your doctor about _.</text></card>
+    <card><text>The Westboro Baptist Church is now picketing soldiers' funerals with signs that read 'GOD HATES _.'</text></card>
+    <card><text>What are two cards in your hand that you want to get rid of?</text></card>
+    <card><text>The elders of the Ibo tribe of Nigeria recommend _ as a cure for impotence.</text></card>
+    <card><text>My name is Inigo Montoya. You killed my father. Prepare for _.</text></card>
+    <card><text>From WBEZ Chicago, it's This American Life. Today on our program, _. Stay with us.</text></card>
+    <card><text>Sir, we found you passed out naked on the side of the road. What's the last thing you remember?</text></card>
+    <card><text>Astronomers have discovered that the universe consists of 5% ordinary matter, 25% dark matter, and 70% _.</text></card>
+    <card><text>BowWOW! is the first pet hotel in LA that offers _ for dogs.</text></card>
+    <card><text>Hey, whatever happened to Renee Zellweger?</text></card>
+    <card><text>Housekeeping! You want _?</text></card>
+    <card><text>In bourgeois society, capital is independent and has individuality, while the living person is _.</text></card>
+    <card><text>Some men aren't looking for anything logical, like money. They can't be bought, bullied, reasoned or negotiated with. Some men just want _.</text></card>
+    <card><text>What's wrong with these gorillas?</text></card>
+    <card><text>Why did the chicken cross the road?</text></card>
+    <card><text>You say tomato, I say _.</text></card>
+    <card><text>America is hungry. America needs _.</text></card>
+    <card><text>The Ada Initiative is now attacking _.</text></card>
+    <card><text>Not another _ in the hotel elevator!</text></card>
+    <card><text>The Maker Faire was unexpectedly interrupted by _.</text></card>
+    <card><text>Do you even _?</text></card>
+    <card><text>Come to the dark side, we have _.</text></card>
+    <card><text>While alone in the server room I _.</text></card>
+    <card><text>When I get drunk I am an expert on _</text></card>
+    <card><text>Well, guess what? I've got a fever, and the only prescription is more _.</text></card>
+    <card><text>We should take _ and push it _.</text></card>
+    <card><text>We decided to _ to raise money for the EFF.</text></card>
+    <card><text>TSA wouldn't allow me through because of my _.</text></card>
+    <card><text>Tonight's Final Hacker Jeopardy category will be _!</text></card>
+    <card><text>Today's PaulDotCom podcast featured _.</text></card>
+    <card><text>These are not the _ you are looking for.</text></card>
+    <card><text>The snozberries taste like _.</text></card>
+    <card><text>The only winning move is to _.</text></card>
+    <card><text>The next cyber war will feature _.</text></card>
+    <card><text>The best part of Alexis Park was all the _.</text></card>
+    <card><text>So long and thanks for all the _.</text></card>
+    <card><text>Security through obscurity is better than _.</text></card>
+    <card><text>Rock, Paper, Scissors, Lizard, _.</text></card>
+    <card><text>Our most powerful weapon for the Zombie Apocalypse will be _.</text></card>
+    <card><text>Only half of programming is coding. The other 90% is _.</text></card>
+    <card><text>One does not simply _.</text></card>
+    <card><text>On the Internet, no one can tell you're _.</text></card>
+    <card><text>Next time we meet we should _.</text></card>
+    <card><text>My extremely large _ is what makes me better than you.</text></card>
+    <card><text>My _ brings all the _ to the yard.</text></card>
+    <card><text>Most hackers smell like _.</text></card>
+    <card><text>Las Vegas is best known for _.</text></card>
+    <card><text>Keep calm and _.</text></card>
+    <card><text>It's dangerous to go alone. Take _.</text></card>
+    <card><text>It smells like _ in this room.</text></card>
+    <card><text>In a shocking move Archive.org decided to NOT back up _.</text></card>
+    <card><text>I'm fucking tired of hearing about _.</text></card>
+    <card><text>I would be doing more with my life, except for this _ in the way.</text></card>
+    <card><text>I work 80 hours a week and still can't afford a _.</text></card>
+    <card><text>I used to be a hacker like you, until I took a(n) _ to the knee.</text></card>
+    <card><text>I use _ to secure all of my personal data.</text></card>
+    <card><text>I spotted the fed and all I got was _.</text></card>
+    <card><text>I look like a geeky hacker, but I don't know anything about _.</text></card>
+    <card><text>I have the biggest _, ever!</text></card>
+    <card><text>I find your lack of _ disturbing.</text></card>
+    <card><text>I can't believe they rejected my talk on _.</text></card>
+    <card><text>HOLY _ BATMAN!!</text></card>
+    <card><text>Go home _, you're drunk.</text></card>
+    <card><text>Def Con Kids will now focus on teaching young hackers _.</text></card>
+    <card><text>Confession Bear Says: _.</text></card>
+    <card><text>But does _ run NetBSD?</text></card>
+    <card><text>Am I the only one around here who _.</text></card>
+    <card><text>All I did was _ but someone gave me a red card.</text></card>
+    <card><text>35% of all hackers have to deal with _.</text></card>
+    <card><text>_. There's an app for that.</text></card>
+    <card><text>_. This is why I can't have nice things!</text></card>
+    <card><text>_: You keep using that term. I do not think it means what you think it means.</text></card>
+    <card><text>_ is now outsourced to call centers in India.</text></card>
+    <card><text>_ shot first.</text></card>
+    <card><text>_ Killed the barrel roll</text></card>
+    <card><text>_ A'int Nobody Got Time For Dat!!</text></card>
+    <card><text>_ Put a bird on it!</text></card>
+    <card><text>_ makes me puke rainbows.</text></card>
+    <card><text>_ is also monitored by Prism.</text></card>
+    <card><text>_ is what keeps us together.</text></card>
+    <card><text>_ is a better replacement for crypto.</text></card>
+    <card><text>_ riding a Segway</text></card>
+    <card><text>One day, over my fireplace, I'm going to have a massive painting of _. You know, to remind me where I came from.</text></card>
+    <card><text>A bus that will explode if it goes under 50 miles per hour.</text></card>
+    <card><text>Sucking the President's dick.</text></card>
+    <card><text>Sunny D! Alright!</text></card>
+    <card><text>A mulatto, an albino, a mosquito, and my libido.</text></card>
+    <card><text>Jerking off to a 10-second RealMedia clip.</text></card>
+    <card><text>The Y2K bug</text></card>
+    <card><text>Deregulating the mortgage market.</text></card>
+    <card><text>Stabbing the shit out of a Capri Sun.</text></card>
+    <card><text>Wearing Nicolas Cage's face.</text></card>
+    <card><text>Freeing Willy.</text></card>
+    <card><text>Kurt Cobain's death.</text></card>
+    <card><text>Liking big butts and not being able to lie about it.</text></card>
+    <card><text>Yelling "girl power!" and doing a high kick.</text></card>
+    <card><text>Pizza in the morning, pizza in the evening, pizza at supper time.</text></card>
+    <card><text>Pamela Anderson's boobs running in slow motion.</text></card>
+    <card><text>Angels interfering in an otherwise fair baseball game.</text></card>
+    <card><text>Cool 90s up-in-the-front hair.</text></card>
+    <card><text>Patti Mayonnaise.</text></card>
+    <card><text>Actually voting for Donald Trump to be President of the actual United States.</text></card>
+    <card><text>A liberal bias.</text></card>
+    <card><text>Hating Hillary Clinton.</text></card>
+    <card><text>Growing up and becoming a Republican.</text></card>
+    <card><text>Courageously going ahead with that racist comment.</text></card>
+    <card><text>Dispelling this fiction that Barack Obama doesn't know what he's doing.</text></card>
+    <card><text>The good, hardworking people of Dubuque, Iowa.</text></card>
+    <card><text>Conservative talking points.</text></card>
+    <card><text>Shouting the loudest</text></card>
+    <card><text>Sound of fiscal policy.</text></card>
+    <card><text>A legitimate reason to commit suicide.</text></card>
+    <card><text>A back-alley abortion from a Mexican cyborg doctor.</text></card>
+    <card><text>Whipping lower-class white men into a xenophobic frenzy.</text></card>
+    <card><text>Rage</text></card>
+    <card><text>Roaming through a wasteland of windblown trash and deserted highways.</text></card>
+    <card><text>Bringing millions of dangerous low-paying manufacturing jobs back to America.</text></card>
+    <card><text>Drinking urine to survive.</text></card>
+    <card><text>Nuclear winter.</text></card>
+    <card><text>President Donald Trump.</text></card>
+    <card><text>Casual dismissiveness</text></card>
+    <card><text>Extra rations for my little girl.</text></card>
+    <card><text>World Wars 3 through 5.</text></card>
+    <card><text>Finding out that democracy might not be such a great idea.</text></card>
+    <card><text>Mild amusement.</text></card>
+    <card><text>Burying my only son.</text></card>
+    <card><text>The purging of the disloyal.</text></card>
+    <card><text>Trying to wake up from this nightmare.</text></card>
+    <card><text>A father and son fighting each other over the last scrap of bread.</text></card>
+    <card><text>Making Islam illegal.</text></card>
+    <card><text>Desperately hurling insults at Donald Trump as he absorbs them into his rapidly expanding body.</text></card>
+    <card><text>My dick in your mouth.</text></card>
+    <card><text>Carribbean Jesus.</text></card>
+    <card><text>Ejaculating a pound of tinsel.</text></card>
+    <card><text>A heart that is two sizes too small and that therefore cannot pump an adequate amount of blood.</text></card>
+    <card><text>Dividing by zero.</text></card>
+    <card><text>Playing an ocarina to summon Ultra-Congress from the sea.</text></card>
+    <card><text>Asshole pomegranates that are hard to eat.</text></card>
+    <card><text>Becoming so rich that you shed your body and turn to vapor.</text></card>
+    <card><text>Faking a jellyfish sting so someone will pee on you.</text></card>
+    <card><text>A sexy naked interactive theater thing.</text></card>
+    <card><text>A giant squid in a wedding gown.</text></card>
+    <card><text>Crawling into a vagina.</text></card>
+    <card><text>A dick so big and so black that not even light can escape its pull.</text></card>
+    <card><text>A double murder suicide barbeque.</text></card>
+    <card><text>A primordial soup and salad bar.</text></card>
+    <card><text>A stack of bunnies in a trenchcoat.</text></card>
+    <card><text>At least three ducks.</text></card>
+    <card><text>Disco Mussolini.</text></card>
+    <card><text>Greg Kinnear's terrible lightning breath.</text></card>
+    <card><text>Mr. and Mrs. Tambourine Man's jingle-jangle morning sex.</text></card>
+    <card><text>Sweating it out on the streets of a runaway American Dream.</text></card>
+    <card><text>That thing politicians do with their thumbs when they talk.</text></card>
+    <card><text>The spooky skeleton under my skin.</text></card>
+    <card><text>The token lesbian.</text></card>
+    <card><text>These dolphins.</text></card>
+    <card><text>Three hairs from the silver-golden head of Galadriel.</text></card>
+    <card><text>Water so cold it turned into a rock.</text></card>
+    <card><text>Windows update</text></card>
+    <card><text>Using 4Chan for parenting advice</text></card>
+    <card><text>User Error</text></card>
+    <card><text>Undercover NBC DateLine Reporter</text></card>
+    <card><text>Two Girls One Cup</text></card>
+    <card><text>Tongue punch that fart box, boy</text></card>
+    <card><text>Tentacle Porn</text></card>
+    <card><text>Spacedicks</text></card>
+    <card><text>Ninjas, Pirates, Robots, and Zombies!</text></card>
+    <card><text>Getting hammered in the ass so much you die of getting hammered in the ass</text></card>
+    <card><text>Having sex on top of a pizza.</text></card>
+    <card><text>A vagina that leads to another dimension.</text></card>
+
+
+
+
 </CardStack>

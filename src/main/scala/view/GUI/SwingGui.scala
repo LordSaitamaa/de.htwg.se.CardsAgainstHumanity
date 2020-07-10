@@ -14,7 +14,6 @@ class SwingGui(controller: ControllerInterface) extends Frame {
   val startPage = new StartPage(controller, infoBar)
  // val secondPage = new cardsDialog(controller, infoBar)
 
-  val cardsDialog = new cardsDialog(controller, infoBar)
   val playerDialog = new playerDialog(controller, infoBar)
 
   val mainPanel = new BoxPanel(Orientation.Vertical) {
@@ -23,7 +22,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
   }
 
   title = "HTWG - Cards against Humanity"
-  preferredSize = new Dimension(800, 600)
+  preferredSize = new Dimension(1500, 600)
   resizable = false
   background = Color.BLACK
   peer.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE)
@@ -38,6 +37,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
           this.validate()
         }
         case 2 => {
+          val cardsDialog = new cardsDialog(controller, infoBar)
           cardsDialog.open()
         }
         case 3 => {

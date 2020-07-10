@@ -25,7 +25,6 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
 
   val panelRundenInfo = new BoxPanel(Orientation.Vertical){
     background = Color.LIGHT_GRAY
-
     contents += playerInfoLbl
   }
   val panelControllers = new BoxPanel(Orientation.Vertical){
