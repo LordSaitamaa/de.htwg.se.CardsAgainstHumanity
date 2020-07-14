@@ -23,7 +23,8 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
   endString.visible = false
 
   var antworten = new ListView[AnswerCard]()
-  var beantwortete = new ListView[String]()
+  var beantwortete = new ListView[String]() {
+  }
 
   val panelRundenInfo = new BoxPanel(Orientation.Vertical){
     background = Color.BLACK
@@ -40,7 +41,7 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
     contents += submitBtn
   }
   val panelLinks = new BoxPanel(Orientation.Vertical){
-    background = Color.LIGHT_GRAY
+    background = Color.BLACK;
     contents += antworten
   }
   val panelRechts = new BoxPanel(Orientation.Vertical){
