@@ -18,10 +18,13 @@ class FileIO extends FileIOInterface {
     val cards = (json \\ "card")
     var tempList = List[Card]()
     for(x <- cards){
-      if(x.toString.contains("_"))
-        tempList = tempList :+ QuestionCard(x.toString)
-      else
-        tempList = tempList :+ AnswerCard(x.toString)
+      if(x.toString.contains("_")) {
+        var tmpText = x.toString().replace("\"","")
+        tempList = tempList :+ QuestionCard(tmpText)
+      } else{
+        var tmpText = x.toString().replace("\"","")
+        tempList = tempList :+ AnswerCard(tmpText)
+      }
     }
     var kompCards = KompositumCard(tempList)
     gameMan.setKompositum(KompositumCard(tempList))

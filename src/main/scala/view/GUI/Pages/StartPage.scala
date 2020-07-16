@@ -24,7 +24,6 @@ class StartPage(controller: ControllerInterface, infobar: InfoBar) extends Borde
   /*val titleLbl = new Label("CARDS AGAINST THE HUMANITY") {
     font = new Font("Arial-Black", 3, 30)
   }
-
    */
   val anzahlSpielerCb = new ComboBox(List(2, 3, 4))
   listenTo(controller)
@@ -67,17 +66,17 @@ class StartPage(controller: ControllerInterface, infobar: InfoBar) extends Borde
   reactions += {
     case ButtonClicked(startBtn) => {
 
-        if(anzahlSpielerCb.item == 0) {
-          infobar.background = Color.RED;
-          infobar.foreground = Color.WHITE;
-          infobar.text = "Spielerzahl darf nicht 0 sein!"
-        } else {
-          infobar.background = Color.BLACK;
-          infobar.foreground = Color.WHITE;
-          infobar.font = Font("System", Font.Bold, 18)
-          controller.eval(anzahlSpielerCb.item.toString)
-          infobar.text = controller.getCurrentStateAsString()
-        }
+      if(anzahlSpielerCb.item == 0) {
+        infobar.background = Color.RED;
+        infobar.foreground = Color.WHITE;
+        infobar.text = "Spielerzahl darf nicht 0 sein!"
+      } else {
+        infobar.background = Color.BLACK;
+        infobar.foreground = Color.WHITE;
+        infobar.font = Font("System", Font.Bold, 18)
+        controller.eval(anzahlSpielerCb.item.toString)
+        infobar.text = controller.getCurrentStateAsString()
+      }
     }
   }
 }

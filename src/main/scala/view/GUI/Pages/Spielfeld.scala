@@ -49,7 +49,7 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
     contents += beantwortete
   }
   val panelKartenauswahl = new BoxPanel(Orientation.Vertical){
-      contents += endString
+    contents += endString
     background = Color.BLACK
   }
 
@@ -78,10 +78,14 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
       var tmpList = List[String]()
       controller.getGameManager().roundAnswerCards.foreach(x => tmpList = tmpList :+ "Spieler " + x._1.name + " hat " + x._2)
       beantwortete = new ListView[String](tmpList)
+      beantwortete.background = Color.BLACK
+      beantwortete.foreground = Color.WHITE
       panelRechts.revalidate()
       panelRechts.repaint()
 
       antworten = new ListView(controller.getGameManager.player(controller.getGameManager.activePlayer).playerCards.toSeq)
+      antworten.background = Color.BLACK
+      antworten.foreground = Color.WHITE
       panelLinks.contents.update(0, antworten)
       panelLinks.revalidate()
       panelLinks.repaint()
@@ -95,8 +99,8 @@ class Spielfeld(controller: ControllerInterface, infoBar: InfoBar) extends Borde
       if(controller.getGameManager.numberOfRounds > controller.getGameManager.numberOfPlayableRounds)
         endString.visible = true
 
-        val index = antworten.selection.anchorIndex
-        controller.eval(index.toString)
+      val index = antworten.selection.anchorIndex
+      controller.eval(index.toString)
 
     }
     case ButtonClicked(b) if b == nextQuestBtn => {
