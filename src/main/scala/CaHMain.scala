@@ -16,7 +16,6 @@ object CaHMain {
     var input: String = "0"
 
     gui.open()
-    //tui.processInputLine(input)
 
     if (args.length>0) input=args(0)
     else do{
