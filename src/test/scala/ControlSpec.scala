@@ -64,7 +64,7 @@ class ControlSpec extends AnyWordSpec with Matchers with GivenWhenThen {
 
       controller.state = SetupState(controller)
       controller.nextState()
-      controller.gameManager = controller.getGameManager.copy(numberOfRounds = 9)
+      controller.gameManager = controller.getGameManager.copy(numberOfRounds = 6)
       controller.state shouldBe (AnswerState(controller))
       controller.nextState()
       controller.state shouldBe FinishState(controller)
