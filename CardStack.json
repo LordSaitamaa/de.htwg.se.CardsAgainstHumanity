@@ -1,5 +1,5 @@
 {
-  "cardLists" : [ {
+  "cardList" : [ {
     "card" : "Siskel and Ebert have panned _ as 'poorly conceived', and 'sloppily executed.'"
   }, {
     "card" : "Up next on Nickelodeon: 'Clarissa Explains _.'"
@@ -127,7 +127,7 @@
     "card" : "It smells like _ in this room."
   }, {
     "card" : "In a shocking move Archive.org decided to NOT back up _."
-  },  {
+  }, {
     "card" : "I'm fucking tired of hearing about _."
   }, {
     "card" : "I would be doing more with my life, except for this _ in the way."
@@ -150,9 +150,7 @@
   }, {
     "card" : "HOLY _ BATMAN!!"
   }, {
-  }, {
     "card" : "Go home _, you're drunk."
-  }, {
   }, {
     "card" : "Def Con Kids will now focus on teaching young hackers _."
   }, {
@@ -218,7 +216,7 @@
   }, {
     "card" : "Liking big butts and not being able to lie about it."
   }, {
-    "card" : "Yelling \"girl power!\" and doing a high kick."
+    "card" : "Yelling \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\girl power!\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ and doing a high kick."
   }, {
     "card" : "Pizza in the morning, pizza in the evening, pizza at supper time."
   }, {
@@ -387,5 +385,7 @@
     "card" : "What gives me uncontrollable gas? _"
   }, {
     "card" : "Auschwitz"
-  }]
+  }, {
+    "card" : "Kartenname231321"
+  } ]
 }

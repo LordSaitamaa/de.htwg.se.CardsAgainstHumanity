@@ -32,11 +32,9 @@ class AddCardsCommand(cardText: String, controller: ControllerInterface) extends
     }
 
     var kompCard = KompositumCard(tempList)
-    println("TempList: " + tempList)
-
     controller.getGameManager().setKompositum(kompCard)
+    println("bahas hinzugefügt" + controller.getGameManager().getKompositum().cardList.toString())
 
-    println("Fehelerhaft ? " + controller.getGameManager().getKompositum().cardList)
   }
 
   override def undoStep: Unit = {

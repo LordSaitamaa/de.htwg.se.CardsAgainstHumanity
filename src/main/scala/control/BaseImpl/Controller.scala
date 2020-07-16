@@ -79,12 +79,12 @@ case class PreSetupState(controller: Controller) extends ControllerState {
   println("PreSetupState")
 
   override def evaluate(input: String): Unit = {
-    controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
-    controller.gameManager = controller.fileMan.load(controller.gameManager)
-    controller.changePage(2)
-    controller.publish(new UpdateGuiEvent)
-    controller.publish(new UpdateTuiEvent)
-    controller.nextState()
+      controller.gameManager = controller.gameManager.setPlayersAndRounds(input.toInt)
+      controller.gameManager = controller.fileMan.load(controller.gameManager)
+      controller.changePage(2)
+      controller.publish(new UpdateGuiEvent)
+      controller.publish(new UpdateTuiEvent)
+      controller.nextState()
 
   }
 

@@ -53,19 +53,15 @@ class cardsDialog(controller: ControllerInterface, infobar: InfoBar) extends Dia
         kartenNameTf.text = ""
         var tmpList = List[String]()
         controller.getGameManager.kompositumCard.cardList.foreach(x => tmpList = tmpList :+ x.toString)
-        println("Test 2: ", tmpList)
-
-        //karten = new ScrollPane(new ListView[String](tmpList))
-        //addedCardsTf.text = controller.getGameManager.kompositumCard.toString()
         karten.revalidate()
         karten.repaint
       }
     }
     case ButtonClicked(b) if b==weiterBtn=> {
+      controller.save()
       controller.eval("weiter")
       this.close()
     }
-    //case event: UndoEvent => addedCardsTf.text= controller.getGameManager.kompositumCard.toString()
     case event: UpdateGuiEvent => {
       var tmpList = List[String]()
       controller.getGameManager().kompositumCard.cardList.foreach(x => tmpList = tmpList :+ x.toString)

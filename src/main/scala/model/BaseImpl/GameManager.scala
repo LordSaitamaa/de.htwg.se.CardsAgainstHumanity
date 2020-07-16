@@ -17,7 +17,7 @@ case class GameManager(numberOfPlayers: Int = 0,
   override def setPlayersAndRounds(numberPlayer: Int): GameManager = RoundStrategy.execute(numberPlayer)
 
   def addPlayer(name: String): GameManager = {
-    var playerTmp = Vector[Player]()
+    var playerTmp = player
     playerTmp = playerTmp :+ Player(name, true, List[AnswerCard]())
     copy(player = playerTmp)
   }
@@ -36,16 +36,19 @@ case class GameManager(numberOfPlayers: Int = 0,
   }
    override def setKompositum(komp : KompositumCard): GameManager = {
 
-     this.kompositumCard = komp
+     kompositumCard = komp
      this
   }
-  override def getKompositum(): KompositumCard = { kompositumCard}
+  override def getKompositum(): KompositumCard =  kompositumCard
 
   def handOutCards(): GameManager = {
     val playerCard = choosePlayerStartCards(numberOfPlayers)
     var remainingCards = answerList
     playerCard.foreach(remove => remainingCards = remainingCards.filterNot(_ == remove))
     val tmpPlayerVecList = givePlayerCards(playerCard)
+    println("Vector length : " + player.length)
+
+    println("Vector length : " + tmpPlayerVecList.length)
     copy(player = tmpPlayerVecList, answerList = remainingCards)
   }
 
