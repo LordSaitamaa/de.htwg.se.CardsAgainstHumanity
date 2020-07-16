@@ -9,8 +9,8 @@ case class GameManager(numberOfPlayers: Int = 0,
                        activePlayer: Int = 0,
                        var kompositumCard: KompositumCard = KompositumCard(List[Card]()),
                        var player: Vector[Player] = Vector[Player](),
-                       var answerList: List[AnswerCard] = List[AnswerCard](),
-                       var questionList: List[QuestionCard] = List[QuestionCard](),
+                       answerList: List[AnswerCard] = List[AnswerCard](),
+                       questionList: List[QuestionCard] = List[QuestionCard](),
                        roundAnswerCards: Map[Player, String] = Map[Player,String](),
                        roundQuestion: String = "") extends ModelInterface{
 

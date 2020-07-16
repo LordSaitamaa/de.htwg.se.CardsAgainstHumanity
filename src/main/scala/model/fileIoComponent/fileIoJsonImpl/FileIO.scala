@@ -19,15 +19,15 @@ class FileIO extends FileIOInterface {
     var tempList = List[Card]()
     for(x <- cards){
       if(x.toString.contains("_")) {
-        var tmpText = x.toString().replace("\"","")
+        val tmpText = x.toString().replace("\"","")
         tempList = tempList :+ QuestionCard(tmpText)
       } else{
-        var tmpText = x.toString().replace("\"","")
+        val tmpText = x.toString().replace("\"","")
         tempList = tempList :+ AnswerCard(tmpText)
       }
     }
-    var kompCards = KompositumCard(tempList)
-    gameMan.setKompositum(KompositumCard(tempList))
+    val kompCards = KompositumCard(tempList)
+    gameMan.setKompositum(kompCards)
 
   }
 
